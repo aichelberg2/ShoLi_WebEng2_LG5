@@ -1,0 +1,9 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+html, main, body,head {
+  background: #007bff no-repeat center center fixed;
+  background: linear-gradient(to right, #0062E6, #33AEFF);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
