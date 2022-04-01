@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -10,10 +12,12 @@ export class HomeComponent implements OnInit {
 
   isPopUpDisplayed: boolean = true;
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
+    // this.route.queryParams.subscribe(params => {
+    //   this.name = params['name'];
+    // });
     let listTable = document.getElementById("listTable");
     for (let i = 1; i <= 20; i++) {
       let x = document.createElement("pre");

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthenticationGuard } from "./services/auth/auth-guard-service.guard";
 
 import { HomeComponent } from './home/home.component';
 import { LogInComponent } from './log-in/log-in.component';
@@ -11,14 +12,15 @@ import { NotfoundComponent } from './notfound/notfound.component';
 
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home', component: HomeComponent },
+
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
   { path: 'login', component: LogInComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'user-settings', component: UserSettingsComponent },
   { path: '404', component: NotfoundComponent },
-  { path: '**', redirectTo: '/404' }
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({
