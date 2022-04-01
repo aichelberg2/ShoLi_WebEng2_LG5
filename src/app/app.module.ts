@@ -11,6 +11,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { ApplicationInformationComponent } from './application-information/application-information.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import {NgxPopperModule} from 'ngx-popper';
+import { AppRoutingModule } from './app-routing.module';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
@@ -28,13 +30,15 @@ const routes: Routes = [
     SettingsComponent,
     ApplicationInformationComponent,
     UserSettingsComponent,
+    NotfoundComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxPopperModule
+    NgxPopperModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
