@@ -1,0 +1,28 @@
+#nav_home, #nav_questions, #nav_settings, #nav_user {
+  font-size: 45px;
+  color: black;
+  padding-left: 30px;
+}
+
+#nav_home:hover, #nav_questions:hover, #nav_settings:hover, #nav_user:hover {
+  color: white;
+  cursor: pointer;
+}
+
+nav {
+  margin-right: 50px;
+  justify-content: right;
+}
+
+#plus_createNewList{
+  font-size: 35px;
+  color: white;
+}
+
+#plus_createNewList:hover{
+  cursor: pointer;
+}
+
+#toggleButton{
+  margin-left: 25px;
+}

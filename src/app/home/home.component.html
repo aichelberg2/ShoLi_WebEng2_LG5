@@ -1,0 +1,85 @@
+<head>
+  <title>Home | Sholi</title>
+</head>
+
+<!--<div class="dropdown">-->
+<!--  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"-->
+<!--          aria-haspopup="true" aria-expanded="false">-->
+<!--    Dropdown-->
+<!--  </button>-->
+<!--</div>-->
+
+<div>
+  <nav class="navbar">
+    <a href="#">
+      <i id="nav_home" class="bi bi-house-door-fill bi-"></i>
+    </a>
+    <a href="#">
+      <i id="nav_settings" class="bi bi-gear-fill"></i>
+    </a>
+    <a href="#">
+      <i id="nav_questions" class="bi bi-question-circle-fill"></i>
+    </a>
+    <a href="#">
+      <i id="nav_user" class="bi bi-person-circle"></i>
+    </a>
+  </nav>
+</div>
+
+<div class="container">
+  <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    <div>
+      <button id="button_createNewList" type="button" class="btn btn-dark" data-bs-toggle="modal"
+              data-bs-target="#show_modal"><i
+        id="plus_createNewList" class="bi bi-plus"></i>New List
+      </button>
+    </div>
+    <div class="card border-0 shadow rounded-3 my-5">
+      <table id="listTable">
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="show_modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Create new list?</h5>
+        <button type="button" class="btn close" data-bs-dismiss="modal"
+                aria-label="Close">X
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-floating">
+            <input class="form-control" type="text" name="newList_name" id="newListName" placeholder="name">
+            <label class="form-check-label" for="newListName">Name for the new list</label>
+          </div>
+          <br>
+          <div class="form-check form-switch" id="toggleButton">
+            <input (click)="closePopUpForListName()" class="form-check-input" type="checkbox" name="isShared" id="isShared">
+            <label for="isShared">Want to share the list?</label>
+          </div>
+          <br>
+          <div *ngIf="isPopUpDisplayed" class="form-floating">
+            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled>
+            <label for="sharedUSers">Usernames for sharing</label>
+          </div>
+          <div *ngIf="!isPopUpDisplayed" class="form-floating">
+            <input class="form-control" type="text" name="sharedUSers1" id="sharedUSers1" placeholder="user">
+            <label for="sharedUSers1">Usernames for sharing</label>
+          </div>
+          <br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                aria-label="Close">Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
