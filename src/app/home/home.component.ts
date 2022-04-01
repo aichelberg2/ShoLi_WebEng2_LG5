@@ -8,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  isPopUpDisplayed: boolean = false;
+  isPopUpDisplayed: boolean = true;
 
   constructor() {
   }
@@ -28,6 +28,10 @@ export class HomeComponent implements OnInit {
 
   openPopUpForListName() {
     this.isPopUpDisplayed = true;
+
+  }
+  closePopUpForListName() {
+    this.isPopUpDisplayed = !this.isPopUpDisplayed;
   }
 
   createNewList() {

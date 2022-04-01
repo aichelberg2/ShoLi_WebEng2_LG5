@@ -23,7 +23,6 @@ nav {
   cursor: pointer;
 }
 
-/*#listTable{*/
-/*  margin-bottom: 220px;*/
-/*}*/
-
+#toggleButton{
+  margin-left: 25px;
+}
