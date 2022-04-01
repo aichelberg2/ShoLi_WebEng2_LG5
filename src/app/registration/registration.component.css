@@ -26,3 +26,8 @@
   display: table-cell;
   background: #0d6efd2e
 }
+
+#logo_register{
+  width: 80px;
+  margin-bottom: 20px;
+}
