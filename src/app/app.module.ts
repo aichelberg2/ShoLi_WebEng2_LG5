@@ -14,7 +14,7 @@ import {NgxPopperModule} from 'ngx-popper';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
-  {path: 'logIn', component: LogInComponent},
+  {path: 'login', component: LogInComponent},
   {path: 'home', component: HomeComponent, canActivate:[AuthenticationGuard]},
   {path: '', component: LogInComponent}
 ];
