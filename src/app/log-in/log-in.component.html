@@ -1,43 +1,37 @@
 <head>
   <title>SignIn | Sholi</title>
 </head>
-
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card border-0 shadow rounded-3 my-5">
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item text-center"><a class="nav-link active btl" id="pills-home-tab" routerLink="/login"
-                role="tab" aria-controls="pills-home" aria-selected="true">Login</a></li>
-            <li class="nav-item text-center"><a class="nav-link btr" id="pills-profile-tab" routerLink="/registration"
-                role="tab" aria-controls="pills-profile" aria-selected="false">Signup</a></li>
-          </ul>
-          <div class="card-body p-4 p-sm-5">
-            <img id="logo_login" src="assets/Pictures/logo.svg" class="rounded mx-auto d-block">
-            <h5 class="card-title text-center mb-5 fw-light fs-5">Welcome to Sholi!</h5>
-            <form #signinForm="ngForm" (ngSubmit)="goForLogIn(signinForm)">
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" name="login_username" id="login_username"
-                  placeholder="name@example.com" ngModel required>
-                <label for="login_username">Username</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="password" class="form-control" name="login_password" id="login_password"
-                  placeholder="Password" ngModel required>
-                <label for="login_password">Password</label>
-              </div>
-              <div class="d-grid">
-                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
-                  in
-                </button>
-              </div>
-            </form>
-          </div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item text-center"><a class="nav-link active btl" id="pills-home-tab" routerLink="/login" role="tab" aria-controls="pills-home" aria-selected="true">Login</a></li>
+          <li class="nav-item text-center"><a class="nav-link btr" id="pills-profile-tab" routerLink="/registration" role="tab" aria-controls="pills-profile" aria-selected="false">Signup</a></li>
+        </ul>
+        <div class="card-body p-4 p-sm-5">
+          <img id="logo_login" src="assets/Pictures/logo.svg" class="rounded mx-auto d-block">
+          <h5 class="card-title text-center mb-5 fw-light fs-5">Welcome to Sholi!</h5>
+          <form #signinForm="ngForm" (ngSubmit)="goForLogIn(signinForm)">
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" name="login_username" id="login_username" placeholder="name@example.com" ngModel required>
+              <label for="login_username">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" name="login_password" id="login_password" placeholder="Password" ngModel required>
+              <label for="login_password">Password</label>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
+                in
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <button routerLink="/home">home</button>
-  <!--wrgvwrg-->
+</div>
+<button routerLink="/home">home</button>
 </body>
