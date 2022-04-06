@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
+import {AuthService} from "../services/auth/auth.service";
+import {Router} from "@angular/router";
+import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
+import {User} from "../User";
 
 
 @Component({
@@ -9,12 +13,29 @@ import {NgForm} from "@angular/forms";
 })
 export class LogInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthService, private router: Router, private managaUserData: ManageUserDataService) {
+  }
 
   ngOnInit(): void {
   }
 
-    goForLogIn(form: NgForm) {
-
+  goForLogIn(form: NgForm) {
+    let data={
+      'username':form.value.login_username,
+      'pw':form.value.login_password
     }
+    this.managaUserData.performPostEx(data).subscribe(value => {
+      console.log(value);
+    });
+   }
+    // goForLogIn(form: NgForm) {
+  //   this.managaUserData.performGetEx().subscribe(value => {
+  //     let user = new User(value.username, value.firstname, value.birthday, value.eMail, value.password)
+  //
+  //     if (user.getUserPassword() == form.value.login_password && user.getUserUsername() == form.value.login_username) {
+  //       this.auth.setIsLoggedIn(true);
+  //       this.router.navigate(['/home'])
+  //     }
+  //   });
+  // }
 }

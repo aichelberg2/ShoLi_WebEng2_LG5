@@ -11,11 +11,17 @@ import { SettingsComponent } from './settings/settings.component';
 import { ApplicationInformationComponent } from './application-information/application-information.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import {NgxPopperModule} from 'ngx-popper';
+import { LogOutComponent } from './log-out/log-out.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LogInComponent},
   {path: 'home', component: HomeComponent, canActivate:[AuthenticationGuard]},
+  {path: 'home/settings', component: SettingsComponent, canActivate:[AuthenticationGuard]},
+  {path: 'home/profile', component: UserSettingsComponent, canActivate:[AuthenticationGuard]},
+  {path: 'home/faq', component: ApplicationInformationComponent, canActivate:[AuthenticationGuard]},
+  {path: 'home/logout', component: LogOutComponent, canActivate:[AuthenticationGuard]},
   {path: '', component: LogInComponent}
 ];
 
@@ -28,13 +34,15 @@ const routes: Routes = [
     SettingsComponent,
     ApplicationInformationComponent,
     UserSettingsComponent,
+    LogOutComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxPopperModule
+    NgxPopperModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

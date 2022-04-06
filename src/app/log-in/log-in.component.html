@@ -15,11 +15,11 @@
           <h5 class="card-title text-center mb-5 fw-light fs-5">Welcome to Sholi!</h5>
           <form #signinForm="ngForm" (ngSubmit)="goForLogIn(signinForm)">
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" name="login_username" id="login_username" placeholder="name@example.com" ngModel required>
+              <input autocomplete="off" type="name" class="form-control" name="login_username" id="login_username" placeholder="name" ngModel required>
               <label for="login_username">Username</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" name="login_password" id="login_password" placeholder="Password" ngModel required>
+              <input autocomplete="off" type="password" class="form-control" name="login_password" id="login_password" placeholder="Password" ngModel required>
               <label for="login_password">Password</label>
             </div>
             <div class="d-grid">

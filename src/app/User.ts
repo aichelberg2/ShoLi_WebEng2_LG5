@@ -1,13 +1,12 @@
 export class User {
-  private readonly userProfilePicture: any;
+  // private readonly userProfilePicture: any;
   private readonly userUsername: string = '';
   private readonly userFirstname: string = '';
   private readonly userBirthday: string = '';
   private readonly userEMail: string = '';
   private readonly userPassword: string = '';
 
-  constructor(profilePicture: any, username: string, firstname: string, birthday: string, eMail: string, password: string) {
-    this.userProfilePicture=profilePicture;
+  constructor(username: string, firstname: string, birthday: string, eMail: string, password: string) {
     this.userUsername=username;
     this.userFirstname=firstname;
     this.userBirthday=birthday;
@@ -15,10 +14,10 @@ export class User {
     this.userPassword=password;
   }
 
-  getUserProfilePicture(): any {
-    return this.userProfilePicture
-  }
-
+  // getUserProfilePicture(): any {
+  //   return this.userProfilePicture
+  // }
+  //
   getUserUsername(): string {
     return this.userUsername
   }
