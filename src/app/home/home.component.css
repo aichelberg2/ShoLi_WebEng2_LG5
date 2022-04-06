@@ -1,28 +1,46 @@
-#nav_home, #nav_questions, #nav_settings, #nav_user {
+#nav_user {
   font-size: 45px;
   color: black;
   padding-left: 30px;
 }
 
-#nav_home:hover, #nav_questions:hover, #nav_settings:hover, #nav_user:hover {
-  color: white;
+#nav_questions, #nav_settings, #nav_usersettings, #nav_logout {
+  font-size: 20px;
+  color: black;
   cursor: pointer;
 }
 
+#nav_questions:hover, #nav_settings:hover, #nav_usersettings:hover, #nav_logout:hover {
+  cursor: pointer;
+}
+
+#nav_user:hover {
+  cursor: pointer;
+  color: white;
+}
+
 nav {
-  margin-right: 50px;
+  margin-right: 100px;
   justify-content: right;
 }
 
-#plus_createNewList{
+#plus_createNewList {
   font-size: 35px;
   color: white;
 }
 
-#plus_createNewList:hover{
+#plus_createNewList:hover {
   cursor: pointer;
 }
 
-#toggleButton{
+#toggleButton {
   margin-left: 25px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.dropdown-item:hover {
+  background-color: lightgray;
 }

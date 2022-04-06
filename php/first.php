@@ -1,0 +1,20 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-
+Requested-With");
+
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$test = $request->username;
+$data = array('username' => 'lucas123', 'firstname' => 'Lucas', 'birthday' => '20.04.2001', 'eMail' => 'lucas@lucas.de', 'password' => 'test123');
+
+if($test==$data['username']){
+  echo 1;
+}else{
+  echo 0;
+}
+//echo json_encode($data);
+?>
+

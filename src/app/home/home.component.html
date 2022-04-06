@@ -1,28 +1,30 @@
 <head>
   <title>Home | Sholi</title>
 </head>
-
-<!--<div class="dropdown">-->
-<!--  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"-->
-<!--          aria-haspopup="true" aria-expanded="false">-->
-<!--    Dropdown-->
-<!--  </button>-->
-<!--</div>-->
-
 <div>
   <nav class="navbar">
-    <a href="#">
-      <i id="nav_home" class="bi bi-house-door-fill bi-"></i>
-    </a>
-    <a href="#">
-      <i id="nav_settings" class="bi bi-gear-fill"></i>
-    </a>
-    <a href="#">
-      <i id="nav_questions" class="bi bi-question-circle-fill"></i>
-    </a>
-    <a href="#">
-      <i id="nav_user" class="bi bi-person-circle"></i>
-    </a>
+    <div class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i id="nav_user" class="bi bi-person-circle"></i>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="nav_user">
+        <a routerLink="profile" class="dropdown-item">
+          <i id="nav_usersettings" class="bi bi-person-square"> Profile</i>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="settings" class="dropdown-item">
+          <i id="nav_settings" class="bi bi-gear-fill"> Settings</i>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="faq" class="dropdown-item">
+          <i id="nav_questions" class="bi bi-question-circle-fill"> Help</i>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="logout" class="dropdown-item">
+          <i id="nav_logout" class="bi bi-door-open-fill"> Sign-Out</i>
+        </a>
+      </div>
+    </div>
   </nav>
 </div>
 
@@ -42,23 +44,25 @@
 </div>
 
 <div class="modal fade" id="show_modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal-title">Create new list?</h5>
-        <button type="button" class="btn close" data-bs-dismiss="modal"
-                aria-label="Close">X
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
+  <form #listInfoForm="ngForm" (ngSubmit)="createNewList(listInfoForm)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">Create new list?</h5>
+          <button type="button" class="btn close" data-bs-dismiss="modal"
+                  aria-label="Close">X
+          </button>
+        </div>
+        <div class="modal-body">
           <div class="form-floating">
-            <input class="form-control" type="text" name="newList_name" id="newListName" placeholder="name">
+            <input class="form-control" type="text" name="newList_name" id="newListName" placeholder="name" ngModel
+                   required>
             <label class="form-check-label" for="newListName">Name for the new list</label>
           </div>
           <br>
           <div class="form-check form-switch" id="toggleButton">
-            <input (click)="closePopUpForListName()" class="form-check-input" type="checkbox" name="isShared" id="isShared">
+            <input (click)="closePopUpForListName()" class="form-check-input" type="checkbox" name="isShared"
+                   id="isShared">
             <label for="isShared">Want to share the list?</label>
           </div>
           <br>
@@ -67,19 +71,37 @@
             <label for="sharedUSers">Usernames for sharing</label>
           </div>
           <div *ngIf="!isPopUpDisplayed" class="form-floating">
-            <input class="form-control" type="text" name="sharedUSers1" id="sharedUSers1" placeholder="user">
+            <input autocomplete="off" (keyup)="keyUp($event)" class="form-control" type="text" name="sharedUSers1"
+                   id="sharedUSers1" placeholder="user" ngModel required>
             <label for="sharedUSers1">Usernames for sharing</label>
           </div>
           <br>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                aria-label="Close">Create
-        </button>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                  aria-label="Close">Create
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
+
+<footer class="bg-primary text-white text-center">
+  <div class="container p-4 text-center">
+    <div class="row">
+      <h5 class="text-uppercase">ShoLi - Ihre mobile Shoppinglist!</h5>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+        voluptatem veniam, est atque cumque eum delectus sint!
+      </p>
+    </div>
+  </div>
+  <div class="text-center p-3 " style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+    <a class="text-white" href="https://sholi.server-welt.com/">sholi.server-welt.com</a>
+  </div>
+</footer>
 
 
