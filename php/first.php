@@ -7,14 +7,16 @@ Requested-With");
 
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
-$test = $request->username;
+$username = $request->username;
+$pw = $request->pw;
 $data = array('username' => 'lucas123', 'firstname' => 'Lucas', 'birthday' => '20.04.2001', 'eMail' => 'lucas@lucas.de', 'password' => 'test123');
 
-if($test==$data['username']){
+if ($username == $data['username'] && $username == $data['pw']) {
   echo 1;
-}else{
+} else {
   echo 0;
 }
 //echo json_encode($data);
 ?>
+
 
