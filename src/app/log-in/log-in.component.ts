@@ -20,18 +20,19 @@ export class LogInComponent implements OnInit {
   }
 
   goForLogIn(form: NgForm) {
-    let data={
-      'username':form.value.login_username,
-      'pw':form.value.login_password
+    let data = {
+      'username': form.value.login_username,
+      'pw': form.value.login_password
     }
     this.managaUserData.performPostEx(data).subscribe(value => {
       console.log(value);
-      if(value==1){
-        this.router.navigate(['/home'])
+      if (value.toString() == "1") {
+        this.router.navigate(['/home']);
       }
     });
-   }
-    // goForLogIn(form: NgForm) {
+  }
+
+  // goForLogIn(form: NgForm) {
   //   this.managaUserData.performGetEx().subscribe(value => {
   //     let user = new User(value.username, value.firstname, value.birthday, value.eMail, value.password)
   //
