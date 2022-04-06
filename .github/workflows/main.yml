@@ -15,5 +15,5 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        password: asd
+        password: ${{ secrets.PASSWORD }}
         script: bash /scripts/refresh_sholi
