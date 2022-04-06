@@ -25,6 +25,7 @@ export class LogInComponent implements OnInit {
       'pw':form.value.login_password
     }
     this.managaUserData.performPostEx(data).subscribe(value => {
+      console.log(value);
       if(value==1){
         this.router.navigate(['/home'])
       }
