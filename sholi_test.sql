@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `groups` (
-  `username` varchar(30) NOT NULL,
-  `groupname` varchar(30) NOT NULL,
-  `gr_id` int(10) NOT NULL
+                          `username` varchar(30) NOT NULL,
+                          `groupname` varchar(30) NOT NULL,
+                          `gr_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -40,11 +40,11 @@ CREATE TABLE `groups` (
 --
 
 CREATE TABLE `list` (
-  `list_id` int(10) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `product_id` int(20) NOT NULL,
-  `shared` tinyint(1) NOT NULL DEFAULT 0,
-  `group_id` int(11) NOT NULL
+                        `list_id` int(10) NOT NULL,
+                        `name` varchar(30) NOT NULL,
+                        `product_id` int(20) NOT NULL,
+                        `shared` tinyint(1) NOT NULL DEFAULT 0,
+                        `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -54,11 +54,11 @@ CREATE TABLE `list` (
 --
 
 CREATE TABLE `user` (
-  `username` varchar(30) NOT NULL,
-  `firstname` varchar(30) NOT NULL,
-  `lastname` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(30) NOT NULL
+                        `username` varchar(30) NOT NULL,
+                        `firstname` varchar(30) NOT NULL,
+                        `lastname` varchar(30) NOT NULL,
+                        `email` varchar(50) NOT NULL,
+                        `password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -68,8 +68,8 @@ CREATE TABLE `user` (
 --
 
 CREATE TABLE `userlist` (
-  `user` varchar(30) NOT NULL,
-  `list_id` int(10) NOT NULL
+                            `user` varchar(30) NOT NULL,
+                            `list_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -80,28 +80,28 @@ CREATE TABLE `userlist` (
 -- Indizes für die Tabelle `groups`
 --
 ALTER TABLE `groups`
-  ADD PRIMARY KEY (`gr_id`),
-  ADD KEY `username` (`username`);
+    ADD PRIMARY KEY (`gr_id`),
+    ADD KEY `username` (`username`);
 
 --
 -- Indizes für die Tabelle `list`
 --
 ALTER TABLE `list`
-  ADD PRIMARY KEY (`list_id`),
-  ADD KEY `group_id` (`group_id`);
+    ADD PRIMARY KEY (`list_id`),
+    ADD KEY `group_id` (`group_id`);
 
 --
 -- Indizes für die Tabelle `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`username`);
+    ADD PRIMARY KEY (`username`);
 
 --
 -- Indizes für die Tabelle `userlist`
 --
 ALTER TABLE `userlist`
-  ADD KEY `list_id` (`list_id`),
-  ADD KEY `user` (`user`);
+    ADD KEY `list_id` (`list_id`),
+    ADD KEY `user` (`user`);
 
 --
 -- Constraints der exportierten Tabellen
@@ -111,20 +111,20 @@ ALTER TABLE `userlist`
 -- Constraints der Tabelle `groups`
 --
 ALTER TABLE `groups`
-  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
+    ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
 
 --
 -- Constraints der Tabelle `list`
 --
 ALTER TABLE `list`
-  ADD CONSTRAINT `list_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`gr_id`);
+    ADD CONSTRAINT `list_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`gr_id`);
 
 --
 -- Constraints der Tabelle `userlist`
 --
 ALTER TABLE `userlist`
-  ADD CONSTRAINT `userlist_ibfk_1` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`),
-  ADD CONSTRAINT `userlist_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`username`);
+    ADD CONSTRAINT `userlist_ibfk_1` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`),
+    ADD CONSTRAINT `userlist_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
