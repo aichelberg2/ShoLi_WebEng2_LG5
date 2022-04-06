@@ -11,7 +11,7 @@ $username = $request->username;
 $pw = $request->pw;
 $data = array('username' => 'lucas123', 'firstname' => 'Lucas', 'birthday' => '20.04.2001', 'eMail' => 'lucas@lucas.de', 'password' => 'test123');
 
-if ($username == $data['username'] && $username == $data['pw']) {
+if ($username == $data['username'] && $pw == $data['pw']) {
   echo 1;
 } else {
   echo 0;
