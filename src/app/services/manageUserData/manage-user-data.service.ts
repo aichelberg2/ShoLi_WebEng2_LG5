@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class ManageUserDataService {
 
-  url: any = "https://sholi.server-welt.com/php/first.php"
+  url: any = "https://sholi.server-welt.com/php/user_functions/first.php"
 
   httpOptions = {
     headers: new HttpHeaders({
