@@ -8,13 +8,7 @@ import {Observable} from "rxjs";
 })
 export class ManageUserDataService {
 
-  url: any = "https://sholi.server-welt.com/php/first.php"
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
-    })
-  }
+  url: any = "https://sholi.server-welt.com/php/user_functions/first.php";
 
   constructor(private http: HttpClient) {
   }
@@ -24,6 +18,6 @@ export class ManageUserDataService {
   // }
 
   performPostEx(x: any): Observable<any> {
-    return this.http.post(this.url, x, this.httpOptions);
+    return this.http.post(this.url, x);
   }
 }

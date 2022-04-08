@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   getIsLoggedIn() {
-    return of(this.isloggedIn).pipe(delay(500));
-    //return of(true).pipe(delay(500));
+    //return of(this.isloggedIn).pipe(delay(500));
+    return of(true).pipe(delay(500));
   }
 }
