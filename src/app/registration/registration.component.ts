@@ -1,8 +1,8 @@
-import {Component, NgModule, OnInit} from '@angular/core';
-import {ManageUserDataService} from '../services/manageUserData/manage-user-data.service';
-import {User} from "../User";
-import {NgForm} from "@angular/forms";
-import {newUser} from "../services/manageUserData/user";
+import { Component, NgModule, OnInit } from '@angular/core';
+import { ManageUserDataService } from '../services/manageUserData/manage-user-data.service';
+import { User } from "../User";
+import { NgForm } from "@angular/forms";
+import { newUser } from "../services/manageUserData/user";
 
 @Component({
   selector: 'app-registration',
@@ -12,17 +12,18 @@ import {newUser} from "../services/manageUserData/user";
 })
 
 export class RegistrationComponent implements OnInit {
-  constructor(private manageUserData: ManageUserDataService) {
-  }
+  constructor(
+    private manageUserData: ManageUserDataService,
+  ) { }
 
   //url: string | ArrayBuffer | null = "assets/Pictures/standardProfilePic.png";
 
   ngOnInit(): void {
   }
-  goForRegister(form:NgForm){
+  goForRegister(form: NgForm) {
     let newRegisteredUser = new newUser(form.value.register_username, form.value.register_email, form.value.register_password);
 
-    if(newRegisteredUser.getUsername()==form.value.verify_password){
+    if (newRegisteredUser.getUsername() == form.value.verify_password) {
       //call an service
       //nach injections checken
     }
