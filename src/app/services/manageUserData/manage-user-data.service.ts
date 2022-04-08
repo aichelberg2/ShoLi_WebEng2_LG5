@@ -24,6 +24,7 @@ export class ManageUserDataService {
   // }
 
   performPostEx(x: any): Observable<any> {
+    console.log(this.http.post(this.url, x, this.httpOptions))
     return this.http.post(this.url, x, this.httpOptions);
   }
 }

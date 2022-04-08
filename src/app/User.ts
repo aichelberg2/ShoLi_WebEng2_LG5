@@ -6,10 +6,9 @@ export class User {
   private readonly userEMail: string = '';
   private readonly userPassword: string = '';
 
-  constructor(username: string, firstname: string, birthday: string, eMail: string, password: string) {
+  constructor(username: string, firstname: string, eMail: string, password: string) {
     this.userUsername=username;
     this.userFirstname=firstname;
-    this.userBirthday=birthday;
     this.userEMail=eMail;
     this.userPassword=password;
   }
