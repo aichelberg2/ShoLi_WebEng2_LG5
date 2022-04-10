@@ -1,8 +1,11 @@
 import {Component, NgModule, OnInit} from '@angular/core';
-import {FormsModule, NgForm} from "@angular/forms";
+import {FormControl, FormsModule, NgForm} from "@angular/forms";
 //import {PollingService} from "../services/polling/polling.service";
 import {startWith, interval, Subscription, switchMap, Observable, Observer} from "rxjs";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
+import {map} from "rxjs/operators";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -11,27 +14,29 @@ import {ManageUserDataService} from "../services/manageUserData/manage-user-data
 })
 
 export class HomeComponent implements OnInit {
-
-  testnames: string[] = [
-    "Hans",
-    "Peter",
-    "Sascha",
-    "Lucas",
-    "Sabi",
-    "Myriam"
-  ];
+  myControl = new FormControl();
+  options: string[] = [];
+  selectedNames: string[] = [];
+  filteredOptions: Observable<string[]> | undefined;
   isPopUpDisplayed: boolean = true;
- // currencyInfo$: Observable<string[]>;
 
-  // constructor(private pollingService: PollingService) {
-    //this.currencyInfo$ = pollingService.getAllCurrencies();
-  // }
 
-  constructor() {
-    //this.currencyInfo$ = pollingService.getAllCurrencies();
+  constructor(private manageUserData: ManageUserDataService, private router: Router) {
   }
 
   ngOnInit(): void {
+
+    this.manageUserData.getUser().subscribe(value => {
+      for (let i = 0; i < value.length; i++) {
+        this.options.push(value[i].username);
+      }
+    });
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
+
     let listTable = document.getElementById("listTable");
     for (let i = 1; i <= 20; i++) {
       let x = document.createElement("pre");
@@ -44,11 +49,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
   closePopUpForListName() {
     this.isPopUpDisplayed = !this.isPopUpDisplayed;
   }
 
   createNewList(form: NgForm) {
+    let router1 = this.router;
     let listTable = document.getElementById("listTable");
     let x = document.createElement("tr");
     if (listTable != null) {
@@ -58,6 +69,9 @@ export class HomeComponent implements OnInit {
           x.id = `${i}`;
           x.style.fontSize = "16.459px";
           x.innerText = form.value.newList_name;
+          x.onclick = function () {
+            router1.navigate(["/home/list"], {queryParams: {name: form.value.newList_name}});
+          };
           // @ts-ignore
           document.getElementById(i.toString()).replaceWith(x);
           break;
@@ -67,9 +81,20 @@ export class HomeComponent implements OnInit {
     //wenn geaddet wurde form wieder leer machen und flags setzen
   }
 
-  keyUp(event: KeyboardEvent) {
-    // $("#sharedUSers1").autocomplete({
-    //   source: testnames
-    // });
+  addValue(option: string) {
+    let element = document.getElementById("addedUsersTextArea");
+    if (element != null) {
+      if (this.selectedNames.length == 0) {
+        this.selectedNames.push(option);
+        element.append(option);
+      } else {
+        for (let i = 0; i < this.selectedNames.length; i++) {
+          if (!(this.selectedNames.includes(option))) {
+            this.selectedNames.push(option);
+            element.append(", " + option);
+          }
+        }
+      }
+    }
   }
 }

@@ -13,11 +13,17 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import {NgxPopperModule} from 'ngx-popper';
 import { LogOutComponent } from './log-out/log-out.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LogInComponent},
   {path: 'home', component: HomeComponent, canActivate:[AuthenticationGuard]},
+  {path: 'home/list', component: ListComponent, canActivate:[AuthenticationGuard]},
   {path: 'home/settings', component: SettingsComponent, canActivate:[AuthenticationGuard]},
   {path: 'home/profile', component: UserSettingsComponent, canActivate:[AuthenticationGuard]},
   {path: 'home/faq', component: ApplicationInformationComponent, canActivate:[AuthenticationGuard]},
@@ -35,6 +41,7 @@ const routes: Routes = [
     ApplicationInformationComponent,
     UserSettingsComponent,
     LogOutComponent,
+    ListComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -42,7 +49,11 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     NgxPopperModule,
-    HttpClientModule
+    HttpClientModule,
+    MatAutocompleteModule,
+    NoopAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

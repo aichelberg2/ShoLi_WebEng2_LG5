@@ -24,10 +24,8 @@ export class LogInComponent implements OnInit {
       'username': form.value.login_username,
       'pw': form.value.login_password
     }
-    this.managaUserData.performPostEx(data).subscribe(value => {
-      value = value.toString();
-      console.log(value);
-      if (value == "1") {
+    this.managaUserData.checkUserDataInput_Login(data).subscribe(value => {
+      if (value == 1) {
         this.auth.setIsLoggedIn(true);
         this.router.navigate(['/home']);
       }
