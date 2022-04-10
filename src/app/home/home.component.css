@@ -8,6 +8,8 @@
   font-size: 20px;
   color: black;
   cursor: pointer;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-style: normal;
 }
 
 #nav_questions:hover, #nav_settings:hover, #nav_usersettings:hover, #nav_logout:hover {
@@ -25,8 +27,10 @@ nav {
 }
 
 #plus_createNewList {
-  font-size: 35px;
+  font-size: 25px;
   color: white;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-style: normal;
 }
 
 #plus_createNewList:hover {
@@ -43,4 +47,8 @@ a {
 
 .dropdown-item:hover {
   background-color: lightgray;
+}
+
+/deep/ .cdk-overlay-container {
+  z-index: 9999;
 }

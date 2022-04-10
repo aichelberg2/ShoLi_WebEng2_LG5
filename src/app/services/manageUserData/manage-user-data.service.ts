@@ -8,16 +8,18 @@ import {Observable} from "rxjs";
 })
 export class ManageUserDataService {
 
-  url: any = "https://sholi.server-welt.com/php/user_functions/first.php";
+  urlCheckUserDataInput_Login: any = "https://sholi.server-welt.com/php/user_functions/first.php";
+  //urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/first.php";
+  urlGetUser: any = "http://localhost/test.php";
 
   constructor(private http: HttpClient) {
   }
 
-  // performGetEx():Observable<any>{
-  //   return this.http.get(this.url);
-  // }
+  getUser(): Observable<any>{
+    return this.http.get(this.urlGetUser);
+  }
 
-  performPostEx(x: any): Observable<any> {
-    return this.http.post(this.url, x);
+  checkUserDataInput_Login(dataInput: any): Observable<any> {
+    return this.http.post(this.urlCheckUserDataInput_Login, dataInput);
   }
 }
