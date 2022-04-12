@@ -22,6 +22,15 @@ $password = mysqli_real_escape_string($conn, $input->password);
 $query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
 $result = mysqli_query($conn,$query) or die(mysqli_error());
 if (mysqli_num_rows($result) == 1) {
+  $row = $result->fetch_row();
+  $firstname = $row[1];
+  $lastname = $row[2];
+  $email = $row[3];
+  session_start();
+  $_SESSION['username']=$username;
+  $_SESSION['firstname']=$firstname;
+  $_SESSION['lastname']=$lastname;
+  $_SESSION['email']=$email;
   echo 1;
 } else {
   echo 0;
