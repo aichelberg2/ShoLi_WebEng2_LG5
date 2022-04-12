@@ -10,7 +10,7 @@ export class ManageUserDataService {
 
   urlCheckUserDataInput_Login: any = "https://sholi.server-welt.com/php/user_functions/first.php";
   //urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/first.php";
-  urlGetUser: any = "http://localhost/test.php";
+  urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/login.php";
 
   constructor(private http: HttpClient) {
   }
