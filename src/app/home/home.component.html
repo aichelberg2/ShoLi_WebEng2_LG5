@@ -62,15 +62,15 @@
           <br>
           <div class="form-check form-switch" id="toggleButton">
             <input (click)="closePopUpForListName()" class="form-check-input" type="checkbox" name="isShared"
-                   id="isShared">
+                   id="isShared" ngModel required>
             <label for="isShared">Want to share the list?</label>
           </div>
           <br>
-          <div *ngIf="isPopUpDisplayed" class="form-floating">
-            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled>
+          <div *ngIf="!isPopUpDisplayed" class="form-floating">
+            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled ngModel required>
             <label for="sharedUSers">Usernames for sharing</label>
           </div>
-          <div *ngIf="!isPopUpDisplayed" class="form-floating">
+          <div *ngIf="isPopUpDisplayed" class="form-floating">
             <input matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off" class="form-control"
                    type="text" name="sharedUSers1"
                    id="sharedUSers1" placeholder="user" ngModel required multiple>
@@ -82,7 +82,7 @@
             </mat-autocomplete>
           </div>
           <br>
-          <div *ngIf="!isPopUpDisplayed" class="form-group">
+          <div *ngIf="isPopUpDisplayed" class="form-group">
             <label for="addedUsersTextArea">Added Users:</label>
             <textarea class="form-control" id="addedUsersTextArea" rows="3" readonly></textarea>
           </div>

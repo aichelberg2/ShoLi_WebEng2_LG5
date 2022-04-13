@@ -1,11 +1,11 @@
-import {Component, NgModule, OnInit} from '@angular/core';
-import {FormControl, FormsModule, NgForm} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, NgForm} from "@angular/forms";
 //import {PollingService} from "../services/polling/polling.service";
-import {startWith, interval, Subscription, switchMap, Observable, Observer} from "rxjs";
+import {Observable, startWith} from "rxjs";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
 import {map} from "rxjs/operators";
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {Router} from "@angular/router";
+import {ManageListDataService} from "../services/manageListData/manage-list-data.service";
 
 @Component({
   selector: 'app-home',
@@ -14,14 +14,15 @@ import {Router} from "@angular/router";
 })
 
 export class HomeComponent implements OnInit {
+
   myControl = new FormControl();
   options: string[] = [];
   selectedNames: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
-  isPopUpDisplayed: boolean = true;
+  isPopUpDisplayed: boolean = false;
 
 
-  constructor(private manageUserData: ManageUserDataService, private router: Router) {
+  constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService) {
   }
 
   ngOnInit(): void {
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   createNewList(form: NgForm) {
-    let router1 = this.router;
+    let router = this.router;
     let listTable = document.getElementById("listTable");
     let x = document.createElement("tr");
     if (listTable != null) {
@@ -70,15 +71,30 @@ export class HomeComponent implements OnInit {
           x.style.fontSize = "16.459px";
           x.innerText = form.value.newList_name;
           x.onclick = function () {
-            router1.navigate(["/home/list"], {queryParams: {name: form.value.newList_name}});
+            router.navigate(["home/list"], {queryParams: {name: form.value.newList_name}});
           };
+
+          let data = {
+            'listName': form.value.newList_name,
+            'isListShared': this.isPopUpDisplayed,
+            'usernames': this.selectedNames
+          }
+          console.log(data);
+          // this.manageListData.createList(data).subscribe(value => {
+          //   if (value == 1) {
+
           // @ts-ignore
           document.getElementById(i.toString()).replaceWith(x);
+          //   }
+          // });
           break;
         }
       }
     }
     //wenn geaddet wurde form wieder leer machen und flags setzen
+    form.resetForm();
+    this.isPopUpDisplayed = false;
+    this.selectedNames.length = 0;
   }
 
   addValue(option: string) {
