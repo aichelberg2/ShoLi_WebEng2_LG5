@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
-require '..\db_connection.php';
+require '../db_connection.php';
 $inputRaw = file_get_contents("php://input");
 //$inputRaw = '{"username":"lucas123","password":"test123"}';
 $input = json_decode($inputRaw);
