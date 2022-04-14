@@ -63,35 +63,38 @@ export class HomeComponent implements OnInit {
     let router = this.router;
     let listTable = document.getElementById("listTable");
     let x = document.createElement("tr");
-    if (listTable != null) {
-      for (let i = 1; i <= 20; i++) {
-        // @ts-ignore
-        if (document.getElementById(i.toString()).tagName == "PRE") {
-          x.id = `${i}`;
-          x.style.fontSize = "16.459px";
-          x.innerText = form.value.newList_name;
-          x.onclick = function () {
-            router.navigate(["home/list"], {queryParams: {name: form.value.newList_name}});
-          };
-
-          let data = {
-            'listName': form.value.newList_name,
-            'isListShared': this.isPopUpDisplayed,
-            'usernames': this.selectedNames
-          }
-          console.log(data);
-          // this.manageListData.createList(data).subscribe(value => {
-          //   if (value == 1) {
-
+    if (!form.value.newList_name.includes(" ") && form.value.newList_name != "") {
+      if (listTable != null) {
+        for (let i = 1; i <= 20; i++) {
           // @ts-ignore
-          document.getElementById(i.toString()).replaceWith(x);
-          //   }
-          // });
-          break;
+          if (document.getElementById(i.toString()).tagName == "PRE") {
+            x.id = `${i}`;
+            x.style.fontSize = "16.459px";
+            x.innerText = form.value.newList_name;
+            x.onclick = function () {
+              router.navigate(["home/list"], {queryParams: {name: x.innerText}});
+            };
+
+            let data = {
+              'listName': form.value.newList_name,
+              'isListShared': this.isPopUpDisplayed,
+              'usernames': this.selectedNames
+            }
+            console.log(data);
+            // this.manageListData.createList(data).subscribe(value => {
+            //   if (value == 1) {
+
+            // @ts-ignore
+            document.getElementById(i.toString()).replaceWith(x);
+            //   }
+            // });
+            break;
+          }
         }
       }
+    } else {
+      console.log("STOP");
     }
-    //wenn geaddet wurde form wieder leer machen und flags setzen
     form.resetForm();
     this.isPopUpDisplayed = false;
     this.selectedNames.length = 0;
