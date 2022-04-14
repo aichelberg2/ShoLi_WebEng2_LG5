@@ -13,13 +13,10 @@ $data = array(
                 array('username' => 'alex123', 'firstname' => 'Alex', 'eMail' => 'alex@alex.de', 'password' => 'test123'),
                 array('username' => 'jonas123', 'firstname' => 'Jonas', 'eMail' => 'jonas@jonas.de', 'password' => 'test123'),
                 array('username' => 'thomas123', 'firstname' => 'Thomas', 'eMail' => 'thomas@thomas.de', 'password' => 'test123'),
-                array('username' => 'freddy123', 'firstname' => 'Freddy', 'eMail' => 'freddy@freddy.de', 'password' => 'test123')
+                array('username' => 'sascha123', 'firstname' => 'Sascha', 'eMail' => 'freddy@freddy.de', 'password' => 'test123'),
+                array('username' => 'jefi123', 'firstname' => 'Jefi', 'eMail' => 'sascha@sascha.de', 'password' => 'test123'),
+                array('username' => 'elli123', 'firstname' => 'Elli', 'eMail' => 'elli@elli.de', 'password' => 'test123'),
+                array('username' => 'chris123', 'firstname' => 'Chris', 'eMail' => 'chris@chris.de', 'password' => 'test123'),
 );
-
-//if ($username == $data['username'] && $pw == $data['password']) {
-//    echo 1;
-//} else {
-//    echo 0;
-//}
 echo json_encode($data);
 ?>
