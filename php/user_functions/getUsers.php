@@ -16,7 +16,7 @@ $data = array(
                 array('username' => 'sascha123', 'firstname' => 'Sascha', 'eMail' => 'freddy@freddy.de', 'password' => 'test123'),
                 array('username' => 'jefi123', 'firstname' => 'Jefi', 'eMail' => 'sascha@sascha.de', 'password' => 'test123'),
                 array('username' => 'elli123', 'firstname' => 'Elli', 'eMail' => 'elli@elli.de', 'password' => 'test123'),
-                array('username' => 'chris123', 'firstname' => 'Chris', 'eMail' => 'chris@chris.de', 'password' => 'test123'),
+                array('username' => 'chris123', 'firstname' => 'Chris', 'eMail' => 'chris@chris.de', 'password' => 'test123')
 );
 echo json_encode($data);
 ?>
