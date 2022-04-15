@@ -6,6 +6,7 @@ import {ManageUserDataService} from "../services/manageUserData/manage-user-data
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {ManageListDataService} from "../services/manageListData/manage-list-data.service";
+import {AuthService} from "../services/auth/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -22,11 +23,11 @@ export class HomeComponent implements OnInit {
   isPopUpDisplayed: boolean = false;
 
 
-  constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService) {
+  constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService:AuthService) {
   }
 
   ngOnInit(): void {
-
+    this.authService.getIsLoggedIn().subscribe(value => console.log(value));
     this.manageUserData.getUser().subscribe(value => {
       for (let i = 0; i < value.length; i++) {
         this.options.push(value[i].username);
