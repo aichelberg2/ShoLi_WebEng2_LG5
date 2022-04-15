@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'home/settings', component: SettingsComponent, canActivate:[AuthenticationGuard]},
   {path: 'home/profile', component: UserSettingsComponent, canActivate:[AuthenticationGuard]},
   {path: 'home/faq', component: ApplicationInformationComponent, canActivate:[AuthenticationGuard]},
-  {path: 'home/logout', component: LogOutComponent, canActivate:[AuthenticationGuard]},
+  {path: 'home/logout', component: LogOutComponent},
   {path: '', component: LogInComponent}
 ];
 

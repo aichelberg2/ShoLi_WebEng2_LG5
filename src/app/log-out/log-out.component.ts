@@ -9,10 +9,11 @@ import {AuthService} from "../services/auth/auth.service";
 })
 export class LogOutComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.router.navigate(['/login'])
+    this.authService.setIsLoggedIn(false);
+    this.router.navigate(['login'])
   }
 }

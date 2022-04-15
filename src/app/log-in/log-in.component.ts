@@ -13,33 +13,27 @@ import {User} from "../User";
 })
 export class LogInComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router, private managaUserData: ManageUserDataService) {
+  constructor(private authService: AuthService, private router: Router, private manageUserData: ManageUserDataService) {
   }
 
   ngOnInit(): void {
   }
 
   goForLogIn(form: NgForm) {
-    let data = {
-      'username': form.value.login_username,
-      'pw': form.value.login_password
-    }
-    this.managaUserData.checkUserDataInput_Login(data).subscribe(value => {
-      if (value == 1) {
-        this.auth.setIsLoggedIn(true);
-        this.router.navigate(['/home']);
+    if (form.value.login_username != '' || form.value.login_password != '') {
+      if (!form.value.login_username.includes(" ") || !form.value.login_password.includes(" ")) {
+        let data = {
+          'username': form.value.login_username,
+          'pw': form.value.login_password
+        }
+        this.manageUserData.checkUserDataInput_Login(data).subscribe(value => {
+          console.log(value)
+          if (value == 1) {
+            this.authService.setIsLoggedIn(true);
+            this.router.navigate(['/home']);
+          }
+        });
       }
-    });
+    }
   }
-
-  // goForLogIn(form: NgForm) {
-  //   this.managaUserData.performGetEx().subscribe(value => {
-  //     let user = new User(value.username, value.firstname, value.birthday, value.eMail, value.password)
-  //
-  //     if (user.getUserPassword() == form.value.login_password && user.getUserUsername() == form.value.login_username) {
-  //       this.auth.setIsLoggedIn(true);
-  //       this.router.navigate(['/home'])
-  //     }
-  //   });
-  // }
 }
