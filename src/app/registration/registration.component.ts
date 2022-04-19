@@ -22,7 +22,7 @@ export class RegistrationComponent implements OnInit {
 
   goForRegister(form: NgForm) {
     if (form.value.login_username != '' && form.value.login_password != '' && form.value.register_firstname != '' && form.value.register_lastname != '' && form.value.register_email != '') {
-      if (!form.value.login_username.includes(" ") && !form.value.login_password.includes(" ") && !form.value.register_firstname.includes(" ") && !form.value.register_lastname.includes(" ") && !form.value.register_email.includes(" ")) {
+      //if (!form.value.login_username.includes(" ") && !form.value.login_password.includes(" ") && !form.value.register_firstname.includes(" ") && !form.value.register_lastname.includes(" ") && !form.value.register_email.includes(" ")) {
         if (form.value.register_password == form.value.verify_password) {
 
           let data = {
@@ -44,8 +44,8 @@ export class RegistrationComponent implements OnInit {
       } else {
         alert("Leerzeichen sind nicht erlaubt");
       }
-    } else {
-      alert("Bitte alle Felder ausfüllen!");
-    }
+    //} else {
+    //  alert("Bitte alle Felder ausfüllen!");
+    //}
   }
 }
