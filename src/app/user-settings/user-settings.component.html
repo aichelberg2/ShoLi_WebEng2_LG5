@@ -1,15 +1,41 @@
-<form #signinForm="ngForm" (ngSubmit)="updateUser(signinForm)">
-  <div class="form-floating mb-3">
-    <input autocomplete="off" type="name" class="form-control" name="login_username" id="login_username" placeholder="name" ngModel required>
-    <label for="login_username">Username</label>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <form #signinForm="ngForm" (ngSubmit)="updateUser(signinForm)">
+            <div class="form-floating mb-3">
+              <input type="text" readonly class="form-control-plaintext" value="name">
+              <input autocomplete="off" type="name" class="form-control" name="username" id="username"
+                     placeholder="username" ngModel required>
+              <label for="username">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" readonly class="form-control-plaintext" value="name">
+              <input autocomplete="off" type="password" class="form-control" name="firstname" id="firstname"
+                     placeholder="name" ngModel required>
+              <label for="firstname">Firstname</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" readonly class="form-control-plaintext" value="name">
+              <input autocomplete="off" type="password" class="form-control" name="lastname" id="lastname"
+                     placeholder="name" ngModel required>
+              <label for="lastname">Lastname</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="mail" readonly class="form-control-plaintext" value="email@email.com">
+              <input autocomplete="off" type="password" class="form-control" name="mail" id="mail"
+                     placeholder="name" ngModel required>
+              <label for="mail">EMail</label>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Save Changes
+                in
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-floating mb-3">
-    <input autocomplete="off" type="password" class="form-control" name="login_password" id="login_password" placeholder="Password" ngModel required>
-    <label for="login_password">Password</label>
-  </div>
-  <div class="d-grid">
-    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
-      in
-    </button>
-  </div>
-</form>
+</div>
