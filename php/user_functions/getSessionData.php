@@ -5,6 +5,6 @@ header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 session_start();
-$name = $_SESSION['username'];
-echo $name;
+$data = array('username' => $_SESSION['username']);
+echo json_encode($data);
 ?>
