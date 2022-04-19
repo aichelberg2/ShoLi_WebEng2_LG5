@@ -6,8 +6,8 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 session_start();
 $data = array(
-  'username' => $_SESSION['username'], 'firstname' => $_SESSION['firstname'],'lastname' => $_SESSION['lastname'], 'eMail' => $_SESSION['lastname'],
+  'username' => $_SESSION['username'], 'firstname' => $_SESSION['firstname'],'lastname' => $_SESSION['lastname'], 'eMail' => $_SESSION['email'],
 );
-
+echo $data;
 echo json_encode($data);
 ?>
