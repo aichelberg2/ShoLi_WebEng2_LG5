@@ -20,7 +20,7 @@ $result = mysqli_query($conn,$query);
 if (mysqli_num_rows($result) == 1) {
   $row = mysqli_fetch_assoc($result);
   session_start();
-  $_SESSION['username']=$row['username'];;
+  $_SESSION['username']=$row['username'];
   $_SESSION['firstname']=$row['firstname'];
   $_SESSION['lastname']=$row['lastname'];
   $_SESSION['email']=$row['email'];
