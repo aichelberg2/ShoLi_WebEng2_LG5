@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from "@angular/forms";
+import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
 
 @Component({
   selector: 'app-user-settings',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserSettingsComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private manageUserData: ManageUserDataService) {
   }
 
+  ngOnInit(): void {
+    this.manageUserData.getThisUser(this.manageUserData.getUsername_loggedIn()).subscribe(value => {
+      console.log(value);
+    });
+  }
+
+  updateUser(signinForm: NgForm) {
+
+  }
 }

@@ -55,7 +55,8 @@
         </div>
         <div class="modal-body">
           <div class="form-floating">
-            <input autocomplete="off" class="form-control" type="text" name="newList_name" id="newListName" placeholder="name" ngModel
+            <input autocomplete="off" class="form-control" type="text" name="newList_name" id="newListName"
+                   placeholder="name" ngModel
                    required>
             <label class="form-check-label" for="newListName">Name for the new list</label>
           </div>
@@ -67,7 +68,8 @@
           </div>
           <br>
           <div *ngIf="!isPopUpDisplayed" class="form-floating">
-            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled ngModel required>
+            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled
+                   ngModel required>
             <label for="sharedUSers">Usernames for sharing</label>
           </div>
           <div *ngIf="isPopUpDisplayed" class="form-floating">
@@ -75,12 +77,13 @@
                    type="text" name="sharedUSers1"
                    id="sharedUSers1" placeholder="user" ngModel required multiple>
             <label for="sharedUSers1">Usernames for sharing</label>
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='addValue($event.option.value)'>
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" >
-<!--                  <div class="overflow-auto">-->
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                              (optionSelected)='addValue($event.option.value)'>
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                <div class="overflow-auto">
                   {{option}} <i class="float-right bi bi-person-plus"></i>
-<!--                  </div>-->
-                </mat-option>
+                </div>
+              </mat-option>
             </mat-autocomplete>
           </div>
           <br>
