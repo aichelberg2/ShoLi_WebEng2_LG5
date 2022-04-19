@@ -13,6 +13,5 @@ while($row = mysqli_fetch_assoc($result))
 {
   $usernames[] = $row;
 }
-echo $usernames;
+echo json_encode($usernames);
 ?>
-
