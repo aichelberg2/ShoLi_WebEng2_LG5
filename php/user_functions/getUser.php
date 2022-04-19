@@ -6,8 +6,8 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-$input = json_decode($inputRaw);
-$username = mysqli_real_escape_string($conn, $input->username);
+//$input = json_decode($inputRaw);
+$username = mysqli_real_escape_string($conn, $inputRaw);
 
 
 $query = "SELECT * FROM user WHERE username='$username'";
