@@ -13,6 +13,7 @@ export class ManageListDataService {
   }
 
   createList(data: any): Observable<any> {
+    console.log(data);
     return this.http.post(this.urlCheckUserDataInput_Login,data);
   }
 }

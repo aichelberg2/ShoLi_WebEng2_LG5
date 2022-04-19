@@ -15,27 +15,27 @@
           <h5 class="card-title text-center mb-5 fw-light fs-5">Register to Sholi!</h5>
           <form #signinForm="ngForm" (ngSubmit)="goForRegister(signinForm)">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" name="register_username" id="register_username" placeholder="username" ngModel required>
+              <input autocomplete="off" type="text" class="form-control" name="register_username" id="register_username" placeholder="username" ngModel required>
               <label for="register_username">Username</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" name="register_firstname" id="register_firstname" placeholder="firstname" ngModel required>
+              <input autocomplete="off" type="text" class="form-control" name="register_firstname" id="register_firstname" placeholder="firstname" ngModel required>
               <label for="register_firstname">Firstname</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" name="register_lastname" id="register_lastname" placeholder="lastname" ngModel required>
-              <label for="register_firstname">Lastname</label>
+              <input autocomplete="off" type="text" class="form-control" name="register_lastname" id="register_lastname" placeholder="lastname" ngModel required>
+              <label for="register_lastname">Lastname</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" name="register_email" id="register_email" placeholder="example@example.de" ngModel required>
-              <label for="register_email">Lastname</label>
+              <input autocomplete="off" type="email" class="form-control" name="register_email" id="register_email" placeholder="example@example.de" ngModel required>
+              <label for="register_email">E-Mail</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" name="register_password" id="register_password" placeholder="Password" ngModel required>
+              <input autocomplete="off" type="password" class="form-control" name="register_password" id="register_password" placeholder="Password" ngModel required>
               <label for="register_password">Password</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" name="verify_password" id="verify_password" placeholder="Password" ngModel required>
+              <input autocomplete="off" type="password" class="form-control" name="verify_password" id="verify_password" placeholder="Password" ngModel required>
               <label for="verify_password">Verify Password</label>
             </div>
             <div class="d-grid">
