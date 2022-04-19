@@ -6,19 +6,19 @@
           <form #updateForm="ngForm" (ngSubmit)="updateUser(updateForm)">
             <input type="text" readonly class="form-control-plaintext" value="Your Firstname: {{data.firstname}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="password" class="form-control" name="firstname" id="firstname"
+              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="firstname" id="firstname"
                      placeholder="name" ngModel required>
               <label for="firstname">Firstname <i class="bi bi-pencil-square float-right"></i></label>
             </div>
             <input type="text" readonly class="form-control-plaintext" value="Your Lastname: {{data.lastname}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="password" class="form-control" name="lastname" id="lastname"
+              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="lastname" id="lastname"
                      placeholder="name" ngModel required>
               <label for="lastname">Lastname <i class="bi bi-pencil-square float-right"></i></label>
             </div>
             <input type="mail" readonly class="form-control-plaintext" value="Your Email-Adress: {{data.email}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="password" class="form-control" name="mail" id="mail"
+              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="mail" id="mail"
                      placeholder="name" ngModel required>
               <label for="mail">EMail <i class="bi bi-pencil-square float-right"></i></label>
             </div>
