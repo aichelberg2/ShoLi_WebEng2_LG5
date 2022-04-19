@@ -21,14 +21,21 @@ export class HomeComponent implements OnInit {
   selectedNames: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
   isPopUpDisplayed: boolean = false;
+  thisUser: string | undefined;
 
 
   constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService:AuthService) {
   }
 
   ngOnInit(): void {
-    this.authService.getIsLoggedIn().subscribe(value => console.log(value));
-    this.manageUserData.getUser().subscribe(value => {
+
+    this.manageUserData.getThisUser().subscribe(value => {
+      console.log(value)
+      // this.thisUser=value.username;
+    });
+
+
+    this.manageUserData.getAllUsers().subscribe(value => {
       for (let i = 0; i < value.length; i++) {
         this.options.push(value[i].username);
       }
@@ -81,14 +88,13 @@ export class HomeComponent implements OnInit {
               'isListShared': this.isPopUpDisplayed,
               'usernames': this.selectedNames
             }
-            console.log(data);
-            // this.manageListData.createList(data).subscribe(value => {
-            //   if (value == 1) {
+            this.manageListData.createList(data).subscribe(value => {
+              if (value == 1) {
 
             // @ts-ignore
             document.getElementById(i.toString()).replaceWith(x);
-            //   }
-            // });
+              }
+            });
             break;
           }
         }

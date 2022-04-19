@@ -11,11 +11,16 @@ export class ManageUserDataService {
   urlCheckUserDataInput_Login: any = "https://sholi.server-welt.com/php/user_functions/login.php";
   urlCheckUserDataInput_Register: any = "https://sholi.server-welt.com/php/user_functions/registration.php";
   urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/getUsers.php";
+  urlGetThisUSer: any = "https://sholi.server-welt.com/php/user_functions/getSessionData.php";
 
   constructor(private http: HttpClient) {
   }
 
-  getUser(): Observable<any> {
+  getThisUser(){
+    return this.http.get(this.urlGetThisUSer);
+  }
+
+  getAllUsers(): Observable<any> {
     return this.http.get(this.urlGetUser);
   }
 
