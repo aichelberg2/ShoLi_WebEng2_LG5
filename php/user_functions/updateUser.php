@@ -12,7 +12,7 @@ $firstname = mysqli_real_escape_string($conn, $input->firstname);
 $lastname = mysqli_real_escape_string($conn, $input->lastname);
 $mail = mysqli_real_escape_string($conn, $input->email);
 
-$stmt = $conn->prepare("UPDATE user SET firstname =? and set SET lastname =? and set email=?  WHERE username=$username");
+$stmt = $conn->prepare("UPDATE user SET firstname =? and SET lastname =? and set email=?  WHERE username=$username");
 $stmt->bind_param('sss', $firstname, $lastname, $mail);
 $stmt->execute();
 ?>
