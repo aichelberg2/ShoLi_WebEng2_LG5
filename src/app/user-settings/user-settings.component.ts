@@ -39,7 +39,7 @@ export class UserSettingsComponent implements OnInit {
     if (this.data.email != updateForm.value.email) {
       this.data.email = updateForm.value.email;
     }
-
+//test
     this.manageUserData.updateThisUser(this.data).subscribe(value => {
       if (value == 1) {
         alert("Toll!");
