@@ -14,7 +14,7 @@ export class ManageUserDataService {
   urlCheckUserDataInput_Register: any = "https://sholi.server-welt.com/php/user_functions/registration.php";
   urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/getUsers.php";
   urlGetThisUser: any = "https://sholi.server-welt.com/php/user_functions/getUser.php";
-  urlUpdateThisUser: any = "https://sholi.server-welt.com/php/user_functions/getUser.php";
+  urlUpdateThisUser: any = "https://sholi.server-welt.com/php/user_functions/updateUser.php";
 
   // urlCheckUserDataInput_Login: any = "http://localhost/php/user_functions/login.php";
   // urlCheckUserDataInput_Register: any = "http://localhost/php/user_functions/registration.php";
