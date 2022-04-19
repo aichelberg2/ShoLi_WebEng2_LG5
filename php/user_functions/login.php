@@ -32,6 +32,6 @@ if (mysqli_num_rows($result) == 1) {
 } else {
   echo 0;
 }
-//echo json_encode($data);
+
 ?>
 
