@@ -13,7 +13,7 @@ export class ManageUserDataService {
   urlCheckUserDataInput_Login: any = "https://sholi.server-welt.com/php/user_functions/login.php";
   urlCheckUserDataInput_Register: any = "https://sholi.server-welt.com/php/user_functions/registration.php";
   urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/getUsers.php";
-  urlGetThisUSer: any = "https://sholi.server-welt.com/php/user_functions/getSessionData.php";
+  urlGetThisUSer: any = "https://sholi.server-welt.com/php/user_functions/getUser.php";
 
   // urlCheckUserDataInput_Login: any = "http://localhost/php/user_functions/login.php";
   // urlCheckUserDataInput_Register: any = "http://localhost/php/user_functions/registration.php";
@@ -32,8 +32,8 @@ export class ManageUserDataService {
     return this.username_loggedIn
   }
 
-  getThisUser(): Observable<any> {
-    return this.http.get(this.urlGetThisUSer);
+  getThisUser(name: any): Observable<any> {
+    return this.http.post(this.urlGetThisUSer, name);
   }
 
   getAllUsers(): Observable<any> {
