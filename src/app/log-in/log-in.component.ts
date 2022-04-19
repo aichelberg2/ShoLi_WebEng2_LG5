@@ -29,7 +29,8 @@ export class LogInComponent implements OnInit {
         this.manageUserData.checkUserDataInput_Login(data).subscribe(value => {
           if (value == 1) {
             this.authService.setIsLoggedIn(true);
-            this.router.navigate(['/home']);
+            this.manageUserData.setUsername_loggedIn(form.value.login_username);
+            this.router.navigate(['home']);
           }
         });
       }

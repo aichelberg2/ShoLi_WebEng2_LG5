@@ -24,20 +24,16 @@ export class HomeComponent implements OnInit {
   thisUser: string | undefined;
 
 
-  constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService:AuthService) {
+  constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
 
-    this.manageUserData.getThisUser().subscribe(value => {
-      console.log(value)
-      // this.thisUser=value.username;
-    });
-
-
     this.manageUserData.getAllUsers().subscribe(value => {
       for (let i = 0; i < value.length; i++) {
-        this.options.push(value[i].username);
+        if (value[i].username != this.manageUserData.getUsername_loggedIn()){
+          this.options.push(value[i].username);
+        }
       }
     });
 
@@ -91,8 +87,8 @@ export class HomeComponent implements OnInit {
             this.manageListData.createList(data).subscribe(value => {
               if (value == 1) {
 
-            // @ts-ignore
-            document.getElementById(i.toString()).replaceWith(x);
+                // @ts-ignore
+                document.getElementById(i.toString()).replaceWith(x);
               }
             });
             break;
