@@ -55,27 +55,42 @@
         </div>
         <div class="modal-body">
           <div class="form-floating">
-            <input class="form-control" type="text" name="newList_name" id="newListName" placeholder="name" ngModel
+            <input autocomplete="off" class="form-control" type="text" name="newList_name" id="newListName"
+                   placeholder="name" ngModel
                    required>
             <label class="form-check-label" for="newListName">Name for the new list</label>
           </div>
           <br>
           <div class="form-check form-switch" id="toggleButton">
             <input (click)="closePopUpForListName()" class="form-check-input" type="checkbox" name="isShared"
-                   id="isShared">
+                   id="isShared" ngModel required>
             <label for="isShared">Want to share the list?</label>
           </div>
           <br>
-          <div *ngIf="isPopUpDisplayed" class="form-floating">
-            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled>
+          <div *ngIf="!isPopUpDisplayed" class="form-floating">
+            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled
+                   ngModel required>
             <label for="sharedUSers">Usernames for sharing</label>
           </div>
-          <div *ngIf="!isPopUpDisplayed" class="form-floating">
-            <input autocomplete="off" (keyup)="keyUp($event)" class="form-control" type="text" name="sharedUSers1"
-                   id="sharedUSers1" placeholder="user" ngModel required>
+          <div *ngIf="isPopUpDisplayed" class="form-floating">
+            <input matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off" class="form-control"
+                   type="text" name="sharedUSers1"
+                   id="sharedUSers1" placeholder="user" ngModel required multiple>
             <label for="sharedUSers1">Usernames for sharing</label>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                              (optionSelected)='addValue($event.option.value)'>
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                <div class="overflow-auto">
+                  {{option}} <i class="float-right bi bi-person-plus"></i>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
           </div>
           <br>
+          <div *ngIf="isPopUpDisplayed" class="form-group">
+            <label for="addedUsersTextArea">Added Users:</label>
+            <textarea class="form-control" id="addedUsersTextArea" rows="3" readonly></textarea>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
@@ -86,22 +101,3 @@
     </div>
   </form>
 </div>
-
-<footer class="bg-primary text-white text-center">
-  <div class="container p-4 text-center">
-    <div class="row">
-      <h5 class="text-uppercase">ShoLi - Ihre mobile Shoppinglist!</h5>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-        voluptatem veniam, est atque cumque eum delectus sint!
-      </p>
-    </div>
-  </div>
-  <div class="text-center p-3 " style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2022 Copyright:
-    <a class="text-white" href="https://sholi.server-welt.com/">sholi.server-welt.com</a>
-  </div>
-</footer>
-
-

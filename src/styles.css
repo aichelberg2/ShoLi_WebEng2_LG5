@@ -7,3 +7,6 @@ html, main, body,head {
   -o-background-size: cover;
   background-size: cover;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

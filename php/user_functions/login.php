@@ -1,40 +1,33 @@
 <?php
-//for cors
-require '..\db_connection.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: *");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-
-Requested-With");
-
+header("Access-Control-Allow-Headers: *");
+require '../db_connection.php';
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"lucas123","password":"test123"}';
+//$inputRaw = '{"username":"lucario1234","pw":"123"}';
 $input = json_decode($inputRaw);
 
 $username = mysqli_real_escape_string($conn, $input->username);
-$password = mysqli_real_escape_string($conn, $input->password);
-
+$password = mysqli_real_escape_string($conn, $input->pw);
 //for security: https://stackoverflow.com/questions/97984/how-to-secure-database-passwords-in-php
 //https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 
 //$data = array('username' => 'lucas123', 'firstname' => 'Lucas', 'eMail' => 'lucas@lucas.de', 'password' => 'test123');
 
 $query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
-$result = mysqli_query($conn,$query) or die(mysqli_error());
+$result = mysqli_query($conn,$query);
 if (mysqli_num_rows($result) == 1) {
-  $row = $result->fetch_row();
-  $firstname = $row[1];
-  $lastname = $row[2];
-  $email = $row[3];
+  $row = mysqli_fetch_assoc($result);
   session_start();
-  $_SESSION['username']=$username;
-  $_SESSION['firstname']=$firstname;
-  $_SESSION['lastname']=$lastname;
-  $_SESSION['email']=$email;
+  $_SESSION['username']=$row['username'];
+  $_SESSION['firstname']=$row['firstname'];
+  $_SESSION['lastname']=$row['lastname'];
+  $_SESSION['email']=$row['email'];
   echo 1;
 } else {
   echo 0;
 }
-//echo json_encode($data);
 ?>
+
 
