@@ -2,7 +2,7 @@
 $sname = "localhost";
 $uname = "root";
 $password = "password123";
-$db_name = "sholi";
+$db_name = getenv("DB_PASSWORD");
 
 $conn = mysqli_connect($sname, $uname, $password, $db_name);
 if (!$conn) {
