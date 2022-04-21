@@ -7,12 +7,17 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ManageListDataService {
 
-  urlCheckUserDataInput_Login: any = "";
+  urlCreateList: any = "";
+  urlGetLists: any = "";
 
   constructor(private http:HttpClient) {
   }
 
   createList(data: any): Observable<any> {
-    return this.http.post(this.urlCheckUserDataInput_Login,data);
+    return this.http.post(this.urlCreateList,data);
+  }
+
+  getLists():Observable<any> {
+    return this.http.get(this.urlGetLists);
   }
 }

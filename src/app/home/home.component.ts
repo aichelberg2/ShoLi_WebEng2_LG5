@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, NgForm} from "@angular/forms";
 //import {PollingService} from "../services/polling/polling.service";
-import {Observable, startWith} from "rxjs";
+import {Observable, retry, share, startWith, Subject, switchMap, takeUntil, timer} from "rxjs";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
@@ -19,9 +19,10 @@ export class HomeComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = [];
   selectedNames: string[] = [];
+  receivedListsObservable: Observable<any> | undefined;
+  receivedLists: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
   isPopUpDisplayed: boolean = false;
-  thisUser: string | undefined;
 
 
   constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService: AuthService) {
@@ -29,21 +30,43 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.receivedListsObservable = timer(1, 1000).pipe(
+      switchMap(() => this.manageListData.getLists()),
+      retry(),
+      share()
+    );
+
+    this.receivedListsObservable.subscribe(value => {
+      this.receivedLists = value;
+    })
+
     this.manageUserData.getAllUsers().subscribe(value => {
       for (let i = 0; i < value.length; i++) {
-        if (value[i].username != this.manageUserData.getUsername_loggedIn()){
+        if (value[i].username != this.manageUserData.getUsername_loggedIn()) {
           this.options.push(value[i].username);
         }
       }
     });
-
+    console.log(this.options)
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
     );
 
     let listTable = document.getElementById("listTable");
-    for (let i = 1; i <= 20; i++) {
+    let router = this.router;
+    for (let i = 0; i <= this.receivedLists.length; i++) {
+      let x = document.createElement("tr");
+      if (listTable != null) {
+        x.id = `${this.receivedLists[i]}`;
+        x.style.fontSize = "16.459px";
+        x.innerText = this.receivedLists[i];
+        x.onclick = function () {
+          router.navigate(["home/list"], {queryParams: {name: x.innerText}});
+        };
+      }
+    }
+    for (let i = this.receivedLists.length; i <= 20; i++) {
       let x = document.createElement("pre");
       if (listTable != null) {
         x.style.marginTop = "25px";
@@ -82,7 +105,8 @@ export class HomeComponent implements OnInit {
             let data = {
               'listName': form.value.newList_name,
               'isListShared': this.isPopUpDisplayed,
-              'usernames': this.selectedNames
+              'usernames': this.selectedNames,
+              'user_loggedIn': this.manageUserData.getUsername_loggedIn()
             }
             this.manageListData.createList(data).subscribe(value => {
               if (value == 1) {
