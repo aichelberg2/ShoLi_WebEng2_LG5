@@ -1,7 +1,7 @@
 <?php
 $sname = "localhost";
 $uname = "root";
-$password = "password123";
+$password = getenv("DB_PASSWORD");
 $db_name = "sholi";
 
 $conn = mysqli_connect($sname, $uname, $password, $db_name);
