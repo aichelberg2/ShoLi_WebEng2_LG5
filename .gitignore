@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # PHP
-db_connection.php
+php/db_connection.php
