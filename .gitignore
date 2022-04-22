@@ -43,3 +43,6 @@ Thumbs.db
 
 # PHP
 #php/db_connection.php
+
+# packages
+package-lock.json
