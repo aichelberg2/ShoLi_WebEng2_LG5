@@ -17,4 +17,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: 22
-        script: bash /scripts/refresh_sholi
+        script: bash /scripts/refresh_sholi.sh
