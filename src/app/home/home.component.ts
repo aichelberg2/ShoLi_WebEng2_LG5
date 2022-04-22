@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.receivedListsObservable = timer(1, 1000).pipe(
-      switchMap(() => this.manageListData.getLists()),
+      switchMap(() => this.manageListData.getLists(this.manageUserData.getUsername_loggedIn())),
       retry(),
       share()
     );
@@ -142,5 +142,12 @@ export class HomeComponent implements OnInit {
         }
       }
     }
+  }
+
+  removeItem(option: string) {
+    this.options.forEach((name, index) => {
+      if (name == option)
+        this.options.splice(index, 1);
+    });
   }
 }
