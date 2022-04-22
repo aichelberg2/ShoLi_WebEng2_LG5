@@ -10,14 +10,14 @@ export class ManageListDataService {
   urlCreateList: any = "";
   urlGetLists: any = "";
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   createList(data: any): Observable<any> {
-    return this.http.post(this.urlCreateList,data);
+    return this.http.post(this.urlCreateList, data);
   }
 
-  getLists():Observable<any> {
-    return this.http.get(this.urlGetLists);
+  getLists(name: any): Observable<any> {
+    return this.http.post(this.urlGetLists, name);
   }
 }
