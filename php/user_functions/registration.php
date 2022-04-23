@@ -20,8 +20,8 @@ $password = mysqli_real_escape_string($conn, $input->password);
 
 //$data = array('username' => 'lucas123', 'firstname' => 'Lucas', 'eMail' => 'lucas@lucas.de', 'password' => 'test123');
 
-$insertStatement = "INSERT INTO user(username, firstname, lastname, email, password)
-                    VALUES('$username', '$firstname', '$lastname', '$email', '$password')";
+$insertStatement = "INSERT INTO user(username, firstname, lastname, email, password, logged_in)
+                    VALUES('$username', '$firstname', '$lastname', '$email', '$password', 0)";
 $result = mysqli_query($conn, $insertStatement);
 if ($result) {
   echo 1;
