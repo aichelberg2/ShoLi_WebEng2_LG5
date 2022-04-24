@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {AuthService} from "../services/auth/auth.service";
-import {Router} from "@angular/router";
-import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
-import {User} from "../User";
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { AuthService } from "../services/auth/auth.service";
+import { Router } from "@angular/router";
+import { ManageUserDataService } from "../services/manageUserData/manage-user-data.service";
+import { User } from "../User";
 
 
 @Component({
@@ -31,6 +31,9 @@ export class LogInComponent implements OnInit {
             this.authService.setIsLoggedIn(true);
             this.manageUserData.setUsername_loggedIn(form.value.login_username);
             this.router.navigate(['home']);
+          }
+          else {
+            console.log(`${window.location.protocol}//${window.location.hostname}`);
           }
         });
       }
