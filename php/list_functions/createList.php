@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 require '../db_connection.php';
 
 //$inputRaw = file_get_contents("php://input");
-$inputRaw = '{"listname":"List1","isListShared":"true","creator":"user1","usernames":{"0":"user2","1":"user3"}}';
+$inputRaw = '{"listname":"List1","isListShared":"true","creator":"user1","usernames":{"0":"user2","1":"user4"}}';
 echo "inputRaw: $inputRaw";
 
 $input = json_decode($inputRaw);
