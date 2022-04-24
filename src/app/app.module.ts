@@ -19,6 +19,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ListComponent} from './list/list.component';
 import {ImpressumComponent} from './impressum/impressum.component';
+import { ScannertestComponent } from './scannertest/scannertest.component';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'home/faq', component: ApplicationInformationComponent, canActivate: [AuthenticationGuard]},
   {path: 'impressum', component: ImpressumComponent},
   {path: 'home/logout', component: LogOutComponent},
-  {path: '', component: LogInComponent}
+  {path: '', component: LogInComponent},
+  {path: 'login/scannertest', component:ScannertestComponent}
 ];
 
 @NgModule({
@@ -45,6 +47,7 @@ const routes: Routes = [
     LogOutComponent,
     ListComponent,
     ImpressumComponent,
+    ScannertestComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
