@@ -7,18 +7,21 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"lucas234"}';
+//$inputRaw = '{"username":"user1"}';
 
 $input = json_decode($inputRaw);
 
 $username = mysqli_real_escape_string($conn, $input->username);
 
-$query = "SELECT list_id FROM userlist WHERE user='$username'";
-$listIDs = array();
+$query = "SELECT userlist.list_id, list.name
+            FROM userlist
+            INNER JOIN list ON userlist.list_id=list.list_id
+            WHERE userlist.user = '$username'";
 $result = mysqli_query($conn,$query) or die(mysqli_error());
+$lists = array();
 while($row = mysqli_fetch_assoc($result))
 {
-  $listIDs[] = $row;
+  $lists[] = $row;
 }
-echo json_encode($listIDs);
+echo json_encode($lists);
 ?>
