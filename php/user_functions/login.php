@@ -15,15 +15,14 @@ $password = mysqli_real_escape_string($conn, $input->pw);
 
 //$data = array('username' => 'lucas123', 'firstname' => 'Lucas', 'eMail' => 'lucas@lucas.de', 'password' => 'test123');
 
-$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
-$result = mysqli_query($conn,$query);
+$loginQuery = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+$result = mysqli_query($conn,$loginQuery);
 if (mysqli_num_rows($result) == 1) {
-  $row = mysqli_fetch_assoc($result);
-  session_start();
-  $_SESSION['username']=$row['username'];
-  $_SESSION['firstname']=$row['firstname'];
-  $_SESSION['lastname']=$row['lastname'];
-  $_SESSION['email']=$row['email'];
+  $updateLoggedInStatement = "UPDATE user
+                                SET logged_in = 1
+                                WHERE username='$username'";
+  $result = mysqli_query($conn,$updateLoggedInStatement);
+
   echo 1;
 } else {
   echo 0;

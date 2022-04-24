@@ -7,21 +7,21 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"user1"}';
+//$inputRaw = '{"listID":"1"}';
 
 $input = json_decode($inputRaw);
 
-$username = mysqli_real_escape_string($conn, $input->username);
+$listID = mysqli_real_escape_string($conn, $input->listID);
 
-$query = "SELECT userlist.list_id, list.name
-            FROM userlist
-            INNER JOIN list ON userlist.list_id=list.list_id
-            WHERE userlist.user = '$username'";
+$query = "SELECT listproduct.pr_id, product.name
+            FROM listproduct
+            INNER JOIN product ON listproduct.pr_id=product.pr_id
+            WHERE listproduct.list_id = '$listID'";
 $result = mysqli_query($conn,$query) or die(mysqli_error());
-$lists = array();
+$products = array();
 while($row = mysqli_fetch_assoc($result))
 {
-  $lists[] = $row;
+  $products[] = $row;
 }
-echo json_encode($lists);
+echo json_encode($products);
 ?>
