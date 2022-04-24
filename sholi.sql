@@ -1,132 +1,226 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
+-- MariaDB dump 10.19  Distrib 10.5.15-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1
--- Erstellungszeit: 06. Apr 2022 um 13:46
--- Server-Version: 10.4.19-MariaDB
--- PHP-Version: 8.0.7
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: sholi
+-- ------------------------------------------------------
+-- Server version	10.5.15-MariaDB-0+deb11u1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Datenbank: `sholi`
+-- Table structure for table `groups`
 --
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `groups`
---
-
+DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `groups` (
-  `username` varchar(30) NOT NULL,
   `groupname` varchar(30) NOT NULL,
-  `gr_id` int(10) NOT NULL
+  `gr_id` int(10) NOT NULL,
+  PRIMARY KEY (`gr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Tabellenstruktur für Tabelle `list`
+-- Dumping data for table `groups`
 --
 
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `list`
+--
+
+DROP TABLE IF EXISTS `list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `list` (
-  `list_id` int(10) NOT NULL,
+  `list_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `product_id` int(20) NOT NULL,
   `shared` tinyint(1) NOT NULL DEFAULT 0,
-  `group_id` int(11) NOT NULL
+  `group_id` int(11) NOT NULL,
+  `creator` varchar(30) NOT NULL,
+  PRIMARY KEY (`list_id`),
+  KEY `group_id` (`group_id`),
+  KEY `creator` (`creator`),
+  CONSTRAINT `list_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`gr_id`),
+  CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Tabellenstruktur für Tabelle `user`
+-- Dumping data for table `list`
 --
 
+LOCK TABLES `list` WRITE;
+/*!40000 ALTER TABLE `list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `listproduct`
+--
+
+DROP TABLE IF EXISTS `listproduct`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `listproduct` (
+  `pr_id` int(10) NOT NULL,
+  `list_id` int(10) NOT NULL,
+  `ticked` tinyint(4) NOT NULL DEFAULT 0,
+  KEY `pr_id` (`pr_id`),
+  KEY `listproduct_ibfk_2` (`list_id`),
+  CONSTRAINT `listproduct_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `product` (`pr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `listproduct_ibfk_2` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `listproduct`
+--
+
+LOCK TABLES `listproduct` WRITE;
+/*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
+/*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product` (
+  `pr_id` int(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`pr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product`
+--
+
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `username` varchar(30) NOT NULL,
   `firstname` varchar(30) NOT NULL,
   `lastname` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `password` varchar(30) NOT NULL,
+  `logged_in` tinyint(4) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Tabellenstruktur für Tabelle `userlist`
+-- Dumping data for table `user`
 --
 
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('','','','','',0),('aSRGER','ERGEQRG','ERQG','EQRG','123',0),('chris','Chris','Markov','chris@gmail.com','asd123',0),('lucario1234','adesrb','rb','nfg','123',0);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `empty_user` AFTER INSERT ON `user` FOR EACH ROW DELETE FROM `user` WHERE `username`='' */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `usergroup`
+--
+
+DROP TABLE IF EXISTS `usergroup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usergroup` (
+  `user` varchar(30) NOT NULL,
+  `gr_id` int(10) NOT NULL,
+  KEY `usergroup_ibfk_1` (`user`),
+  KEY `gr_id` (`gr_id`),
+  CONSTRAINT `usergroup_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `usergroup_ibfk_2` FOREIGN KEY (`gr_id`) REFERENCES `groups` (`gr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usergroup`
+--
+
+LOCK TABLES `usergroup` WRITE;
+/*!40000 ALTER TABLE `usergroup` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usergroup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userlist`
+--
+
+DROP TABLE IF EXISTS `userlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userlist` (
   `user` varchar(30) NOT NULL,
-  `list_id` int(10) NOT NULL
+  `list_id` int(10) NOT NULL,
+  KEY `userlist_ibfk_1` (`list_id`),
+  KEY `userlist_ibfk_2` (`user`),
+  CONSTRAINT `userlist_ibfk_1` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `userlist_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Indizes der exportierten Tabellen
+-- Dumping data for table `userlist`
 --
 
---
--- Indizes für die Tabelle `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`gr_id`),
-  ADD KEY `username` (`username`);
+LOCK TABLES `userlist` WRITE;
+/*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indizes für die Tabelle `list`
---
-ALTER TABLE `list`
-  ADD PRIMARY KEY (`list_id`),
-  ADD KEY `group_id` (`group_id`);
-
---
--- Indizes für die Tabelle `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`username`);
-
---
--- Indizes für die Tabelle `userlist`
---
-ALTER TABLE `userlist`
-  ADD KEY `list_id` (`list_id`),
-  ADD KEY `user` (`user`);
-
---
--- Constraints der exportierten Tabellen
---
-
---
--- Constraints der Tabelle `groups`
---
-ALTER TABLE `groups`
-  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
-
---
--- Constraints der Tabelle `list`
---
-ALTER TABLE `list`
-  ADD CONSTRAINT `list_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`gr_id`);
-
---
--- Constraints der Tabelle `userlist`
---
-ALTER TABLE `userlist`
-  ADD CONSTRAINT `userlist_ibfk_1` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`),
-  ADD CONSTRAINT `userlist_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`username`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-04-24  0:00:01

@@ -54,10 +54,12 @@ export class ManageUserDataService {
   }
 
   checkUserDataInput_Login(dataInput: any): Observable<any> {
+    console.log(dataInput)
     return this.http.post(this.urlCheckUserDataInput_Login, dataInput);
   }
 
   checkUserDataInput_Register(dataInput: any): Observable<any> {
+    console.log(dataInput);
     return this.http.post(this.urlCheckUserDataInput_Register, dataInput);
   }
 }
