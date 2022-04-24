@@ -13,7 +13,7 @@ export class ManageUserDataService {
   private host: string = `${window.location.protocol}//${window.location.hostname}`;
 
   urlCheckUserDataInput_Login: any = `${this.host}/php/user_functions/login.php`;
-  urlCheckUserDataInput_Register: any = `${this.host}/https://sholi.server-welt.com/php/user_functions/registration.php`;
+  urlCheckUserDataInput_Register: any = `${this.host}/php/user_functions/registration.php`;
   urlGetUser: any = `${this.host}/php/user_functions/getUsers.php`;
   urlGetThisUser: any = `${this.host}/php/user_functions/getUser.php`;
   urlUpdateThisUser: any = `${this.host}/php/user_functions/updateUser.php`;
