@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 
 @Injectable({
@@ -10,11 +10,19 @@ export class ManageUserDataService {
 
   private username_loggedIn: string | undefined;
 
-  urlCheckUserDataInput_Login: any = "https://sholi.server-welt.com/php/user_functions/login.php";
-  urlCheckUserDataInput_Register: any = "https://sholi.server-welt.com/php/user_functions/registration.php";
-  urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/getUsers.php";
-  urlGetThisUser: any = "https://sholi.server-welt.com/php/user_functions/getUser.php";
-  urlUpdateThisUser: any = "https://sholi.server-welt.com/php/user_functions/updateUser.php";
+  private host: string = `${window.location.protocol}//${window.location.hostname}`;
+
+  urlCheckUserDataInput_Login: any = `${this.host}/php/user_functions/login.php`;
+  urlCheckUserDataInput_Register: any = `${this.host}/https://sholi.server-welt.com/php/user_functions/registration.php`;
+  urlGetUser: any = `${this.host}/php/user_functions/getUsers.php`;
+  urlGetThisUser: any = `${this.host}/php/user_functions/getUser.php`;
+  urlUpdateThisUser: any = `${this.host}/php/user_functions/updateUser.php`;
+
+  // urlCheckUserDataInput_Login: any = "https://sholi.server-welt.com/php/user_functions/login.php";
+  // urlCheckUserDataInput_Register: any = "https://sholi.server-welt.com/php/user_functions/registration.php";
+  // urlGetUser: any = "https://sholi.server-welt.com/php/user_functions/getUsers.php";
+  // urlGetThisUser: any = "https://sholi.server-welt.com/php/user_functions/getUser.php";
+  // urlUpdateThisUser: any = "https://sholi.server-welt.com/php/user_functions/updateUser.php";
 
   // urlCheckUserDataInput_Login: any = "http://localhost/php/user_functions/login.php";
   // urlCheckUserDataInput_Register: any = "http://localhost/php/user_functions/registration.php";
