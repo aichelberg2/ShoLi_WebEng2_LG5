@@ -4,8 +4,8 @@ header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
-$inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"user1","firstname":"user","lastname":"1","eMail":"user@1.de","password":"user1"}';
+//$inputRaw = file_get_contents("php://input");
+$inputRaw = '{"username":"user3","firstname":"user","lastname":"3","eMail":"user@3.de","password":"user3"}';
 $input = json_decode($inputRaw);
 
 $username = mysqli_real_escape_string($conn, $input->username);
