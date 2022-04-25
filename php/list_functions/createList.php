@@ -43,6 +43,8 @@ if ($conn->query($listInsertStatement) === TRUE) {
     $result = mysqli_query($conn, $userlistInsertStatement);
     if (!$result) {
       echo 0;
+    } else {
+      echo 1;
     }
   }
 }else {
