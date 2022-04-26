@@ -32,8 +32,7 @@
   <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
     <div>
       <button id="button_createNewList" type="button" class="btn btn-dark" data-bs-toggle="modal"
-              data-bs-target="#show_modal"><i
-        id="plus_createNewList" class="bi bi-plus">New List</i>
+        data-bs-target="#show_modal"><i id="plus_createNewList" class="bi bi-plus">New List</i>
       </button>
     </div>
     <div class="card border-0 shadow rounded-3 my-5">
@@ -49,36 +48,33 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modal-title">Create new list?</h5>
-          <button type="button" class="btn close" data-bs-dismiss="modal"
-                  aria-label="Close">X
+          <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">X
           </button>
         </div>
         <div class="modal-body">
           <div class="form-floating">
             <input autocomplete="off" class="form-control" type="text" name="newList_name" id="newListName"
-                   placeholder="name" ngModel
-                   required>
+              placeholder="name" ngModel required>
             <label class="form-check-label" for="newListName">Name for the new list</label>
           </div>
           <br>
           <div class="form-check form-switch" id="toggleButton">
             <input (click)="closePopUpForListName()" class="form-check-input" type="checkbox" name="isShared"
-                   id="isShared" ngModel required>
+              id="isShared" ngModel required>
             <label for="isShared">Want to share the list?</label>
           </div>
           <br>
           <div *ngIf="!isPopUpDisplayed" class="form-floating">
             <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled
-                   ngModel required>
+              ngModel required>
             <label for="sharedUSers">Usernames for sharing</label>
           </div>
           <div *ngIf="isPopUpDisplayed" class="form-floating">
             <input matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off" class="form-control"
-                   type="text" name="sharedUSers1"
-                   id="sharedUSers1" placeholder="user" ngModel required multiple>
+              type="text" name="sharedUSers1" id="sharedUSers1" placeholder="user" ngModel required multiple>
             <label for="sharedUSers1">Usernames for sharing</label>
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                              (optionSelected)='removeItem($event.option.value); addValue($event.option.value)'>
+              (optionSelected)='removeItem($event.option.value); addValue($event.option.value)'>
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 <div class="overflow-auto">
                   {{option}} <i class="float-right bi bi-person-plus"></i>
@@ -93,11 +89,13 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                  aria-label="Close">Create
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Create
           </button>
         </div>
       </div>
     </div>
   </form>
 </div>
+
+<button routerLink="scannertest">test
+</button>
