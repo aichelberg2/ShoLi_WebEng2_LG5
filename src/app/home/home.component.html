@@ -44,7 +44,8 @@
 </div>
 
 <div class="modal fade" id="show_modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-  <form #listInfoForm="ngForm" (ngSubmit)="createNewList(listInfoForm)">
+  <form id="formForCreateList" #listInfoForm="ngForm"
+        (ngSubmit)="createNewList(listInfoForm.value.newList_name,true); clearForm(listInfoForm)">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -78,7 +79,7 @@
                    id="sharedUSers1" placeholder="user" ngModel required multiple>
             <label for="sharedUSers1">Usernames for sharing</label>
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                              (optionSelected)='removeItem($event.option.value); addValue($event.option.value)'>
+                              (optionSelected)='addValue($event.option.value); removeItem($event.option.value)'>
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 <div class="overflow-auto">
                   {{option}} <i class="float-right bi bi-person-plus"></i>
