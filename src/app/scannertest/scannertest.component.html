@@ -4,16 +4,16 @@
       <div class="card border-0 shadow rounded-3 my-5 h-auto">
         <div class="card-body p-4 p-sm-5">
           <h3 style="text-align: center; margin: 20px">Scanner</h3>
-          <div class="select">
-            <!-- <button (click)="startScanner()">Start Scanner</button> -->
-            <!-- <button (click)="getDevice()">Get Device</button> -->
-            <label for="devices">Video source: </label>
-            <select name="devices" id="videoSource" (change)="changeDevice($event)">
-              <option value="">--- chose your device ---</option>
-            </select>
-          </div>
-          <div id="scannerContainer" class="scannerContainer"></div>
+          <!-- <button (click)="startScanner()">Start Scanner</button> -->
+          <!-- <button (click)="getDevice()">Get Device</button> -->
+          <label for="devices">Video source: </label>
+
+          <select name="devices" id="videoSource" (change)="changeDevice($event)">
+            <option value="">--- chose your device ---</option>
+          </select>
+          <div id="scannerContainer" class="card border-0 shadow rounded-3 my-5 h-auto"></div>
         </div>
       </div>
     </div>
   </div>
+</div>

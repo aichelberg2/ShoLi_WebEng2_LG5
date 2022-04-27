@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { bindCallback } from 'rxjs';
 
 @Component({
   selector: 'app-scannertest',
@@ -18,24 +17,7 @@ export class ScannertestComponent implements OnInit {
       video: true,
     });
     this._deviceSelect = document.getElementById('videoSource') as HTMLInputElement;
-    console.log(this._deviceSelect);
-
     this.getDevice();
-    // this.startScanner({
-    //   height: 400,
-    //   width: 400,
-    //   facingMode: 'environment'
-    // });
-
-    // this._deviceSelect.addEventListener("click", function () {
-    //   console.log("get device");
-    //   console.log("change device");
-    //   this.getDevice();
-    // });
-    // this._deviceSelect.addEventListener("change", function (doSomething: () => void): void {
-    //   console.log("change device");
-    //   this.changeDevice();
-    // });
   }
 
   // --- Scanner ---
@@ -43,6 +25,7 @@ export class ScannertestComponent implements OnInit {
   // private startScanner(constraintsIn: any) {
   private startScanner(constraintIn: any) {
     const Quagga = require('quagga');
+    
     try {
       Quagga.init({
         inputStream: {
@@ -77,7 +60,8 @@ export class ScannertestComponent implements OnInit {
               showBB: true
             }
           }
-        }
+        },
+        locate: "true"
       });
     }
     catch (err) {
@@ -97,24 +81,22 @@ export class ScannertestComponent implements OnInit {
         drawingCanvas = Quagga.canvas.dom.overlay;
 
       if (result) {
-        console.log(result);
+        if (result.boxes) {
+          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+          result.boxes.filter((box: any) => {
+            return box !== result.box;
+          }).forEach((box: any) => {
+            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+          });
+        }
 
-        // if (result.boxes) {
-        //   drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-        //   result.boxes.filter((box: any) => {
-        //     return box !== result.box;
-        //   }).forEach((box: any) => {
-        //     Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
-        //   });
-        // }
+        if (result.box) {
+          Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+        }
 
-        // if (result.box) {
-        //   Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
-        // }
-
-        // if (result.codeResult && result.codeResult.code) {
-        //   Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
-        // }
+        if (result.codeResult && result.codeResult.code) {
+          Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+        }
       }
     });
 
@@ -127,7 +109,6 @@ export class ScannertestComponent implements OnInit {
   // --- Video Select ---
 
   public getDevice() {
-    console.log("get device");
     this._deviceSelect.innerHTML = '';
     this._deviceSelect.appendChild(document.createElement('option'));
     let count = 1;
@@ -147,8 +128,8 @@ export class ScannertestComponent implements OnInit {
   }
 
   public changeDevice(myEvent: any) {
-    console.log("change device");
     // this.startScanner
+    Quagga.stop();
     if (this._deviceSelect.value === '') {
       this.startScanner({
         height: 400,
