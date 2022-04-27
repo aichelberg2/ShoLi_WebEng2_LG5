@@ -34,9 +34,7 @@ export class RegistrationComponent implements OnInit {
           }
 
           this.manageUserData.checkUserDataInput_Register(data).subscribe(value => {
-            console.log(value);
             if (value == 1) {
-              console.log(data);
               this.router.navigate(['login']);
             }
           });
