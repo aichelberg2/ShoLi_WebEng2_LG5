@@ -7,8 +7,10 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ManageListDataService {
 
-  urlCreateList: any = "";
-  urlGetLists: any = "";
+  private host: string = `${window.location.protocol}//${window.location.hostname}`;
+
+  urlGetLists: any = `${this.host}/php/list_functions/getLists.php`;
+  urlCreateList: any = `${this.host}/php/list_functions/createList.php`;
 
   constructor(private http: HttpClient) {
   }

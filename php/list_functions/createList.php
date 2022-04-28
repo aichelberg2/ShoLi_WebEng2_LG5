@@ -16,8 +16,7 @@ $listname = mysqli_real_escape_string($conn, $input->listname);
 $isListShared = mysqli_real_escape_string($conn, $input->isListShared);
 if ($isListShared == "true") {
   $isListSharedBool = 1;
-} else
-{
+} else {
   $isListSharedBool = 0;
 }
 $creator = mysqli_real_escape_string($conn, $input->creator);
@@ -47,7 +46,7 @@ if ($conn->query($listInsertStatement) === TRUE) {
       echo 1;
     }
   }
-}else {
-    echo 0;
+} else {
+  echo 0;
 }
 ?>
