@@ -25,7 +25,7 @@ export class ScannertestComponent implements OnInit {
   // private startScanner(constraintsIn: any) {
   private startScanner(constraintIn: any) {
     const Quagga = require('quagga');
-    
+
     try {
       Quagga.init({
         inputStream: {
@@ -129,7 +129,6 @@ export class ScannertestComponent implements OnInit {
 
   public changeDevice(myEvent: any) {
     // this.startScanner
-    Quagga.stop();
     if (this._deviceSelect.value === '') {
       this.startScanner({
         height: 400,
