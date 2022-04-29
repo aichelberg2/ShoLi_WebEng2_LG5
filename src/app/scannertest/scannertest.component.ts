@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-scannertest',
@@ -6,13 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scannertest.component.css']
 })
 
-export class ScannertestComponent implements OnInit {
+export class ScannertestComponent implements AfterViewInit {
+  Quagga = require('quagga');
   private _scannerIsRunning = false;
   private _deviceSelect: any;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     navigator.mediaDevices.getUserMedia({
       video: true,
     });
@@ -24,42 +25,26 @@ export class ScannertestComponent implements OnInit {
 
   // private startScanner(constraintsIn: any) {
   private startScanner(constraintIn: any) {
-    const Quagga = require('quagga');
-
+    const Quagga = this.Quagga;
     try {
       Quagga.init({
         inputStream: {
           name: "Live",
           type: "LiveStream",
-          target: document.querySelector('#scannerContainer'),
-          constraints: constraintIn
+          // target: document.querySelector('#scannerContainer'),
+          constraints: constraintIn,
+          aspectRatio: { min: 1, max: 2 }
+        },
+        locator: {
+          patchSize: "medium",
+          halfSample: true
         },
         decoder: {
           readers: [
             "code_128_reader",
             "ean_reader",
-            "ean_8_reader",
-            "code_39_reader",
-            "code_39_vin_reader",
-            "codabar_reader",
-            "upc_reader",
-            "upc_e_reader",
-            "i2of5_reader"
-          ],
-          debug: {
-            showCanvas: true,
-            showPatches: true,
-            showFoundPatches: true,
-            showSkeleton: true,
-            showLabels: true,
-            showPatchLabels: true,
-            showRemainingPatchLabels: true,
-            boxFromPatches: {
-              showTransformed: true,
-              showTransformedBox: true,
-              showBB: true
-            }
-          }
+            "ean_8_reader"
+          ]
         },
         locate: "true"
       });
@@ -76,7 +61,9 @@ export class ScannertestComponent implements OnInit {
       this._scannerIsRunning = true;
     }
 
+
     Quagga.onProcessed((result: any) => {
+      const Quagga = this.Quagga;
       var drawingCtx = Quagga.canvas.ctx.overlay,
         drawingCanvas = Quagga.canvas.dom.overlay;
 
