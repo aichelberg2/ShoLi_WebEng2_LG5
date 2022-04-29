@@ -24,6 +24,7 @@
     "bootstrap": "^4.1.0",
     "bootstrap-icons": "^1.8.1",
     "jquery": "^3.6.0",
+    "ngx-barcode-scanner": "^0.3.0",
     "ngx-popper": "^7.0.0",
     "popper.js": "^1.16.1",
     "quagga": "^0.12.1",
