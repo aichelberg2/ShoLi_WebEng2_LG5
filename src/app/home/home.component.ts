@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let listTable = document.getElementById("listTable");
+    let listDiv = document.getElementById("listDiv");
 
     this.receivedListsObservable = timer(1, 1000).pipe(
       switchMap(() => this.manageListData.getLists(this.userNameAsJSON)),
@@ -52,9 +52,21 @@ export class HomeComponent implements OnInit {
 
 
     this.receivedListsObservable.subscribe(value => {
+      // @ts-ignore
+      for (let i = 0; i < listDiv.children.length; i++) {
+        // @ts-ignore
+        const checkName = (obj: { name: string; }) => obj.name === listDiv.children[i].id;
+        if (!value.some(checkName)) {
+          // @ts-ignore
+          if (listDiv.querySelector(`#${listDiv.children[i].id}`) != null) {
+            // @ts-ignore
+            listDiv.children[i].remove();
+          }
+        }
+      }
       value.forEach((element: any) => {
         // @ts-ignore
-        if (listTable.querySelector(`.${element.name}`) == null) {
+        if (listDiv.querySelector(`#${element.name}`) == null) {
           this.createNewList(element.name, false)
         }
       })
@@ -64,17 +76,6 @@ export class HomeComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value)),
     );
-
-
-    for (let i = 1; i <= 20; i++) {
-      let x = document.createElement("pre");
-      if (listTable != null) {
-        x.style.marginTop = "25px";
-        x.id = `${i}`;
-        x.className = "preTags"
-        listTable.appendChild(x);
-      }
-    }
   }
 
   private _filter(value: string): string[] {
@@ -88,71 +89,41 @@ export class HomeComponent implements OnInit {
 
   createNewList(listName: any, isCreatedByPopUp: boolean) {
     let router = this.router;
-    let listTable = document.getElementById("listTable");
-    let x = document.createElement("tr");
+    let listDiv = document.getElementById("listDiv");
+    let x = document.createElement("div");
     if (listName != "") {
-      if (listTable != null) {
-        for (let i = 1; i <= 20; i++) {
-          // @ts-ignore
-          if (document.getElementById(i.toString()).tagName == "PRE") {
-            x.id = `${i}`;
-            x.className = listName;
-            x.style.fontSize = "16.459px";
-            x.innerText = listName;
-            x.onclick = function () {
-              router.navigate(["home/list"], {queryParams: {name: x.innerText}});
-            };
-            if (isCreatedByPopUp) {
-              let data = {
-                'listname': listName,
-                'isListShared': this.isPopUpDisplayed,
-                'usernames': this.selectedNames,
-                'creator': this.userNameAsJSON.username
-              }
-              this.manageListData.createList(data).subscribe(value => {
-                if (value == 1) {
-                  // @ts-ignore
-                  document.getElementById(i.toString()).replaceWith(x);
-                }
-              });
-            } else {
-              // @ts-ignore
-              document.getElementById(i.toString()).replaceWith(x);
-            }
-            break;
+      if (listDiv != null) {
+        x.id = listName;
+        x.style.fontFamily='Square Peg, cursive'
+        x.style.fontSize="30px"
+        x.className = "list-group-item list-group-item-action";
+        x.innerText = listName;
+        x.style.cursor = "pointer";
+        x.onclick = function () {
+          router.navigate(["home/list"], {queryParams: {name: x.innerText}});
+        };
+        if (isCreatedByPopUp) {
+          let data = {
+            'listname': listName,
+            'isListShared': this.isPopUpDisplayed,
+            'usernames': this.selectedNames,
+            'creator': this.userNameAsJSON.username
           }
+          this.manageListData.createList(data).subscribe(value => {
+            if (value == 1) {
+              // @ts-ignore
+              listDiv.append(x);
+            }
+          });
+        } else {
+          // @ts-ignore
+          listDiv.append(x);
         }
       }
     } else {
       console.log("STOP");
     }
   }
-
-  // createNewListFromForm(listName: string) {
-  //   let router = this.router;
-  //   let listTable = document.getElementById("listTable");
-  //   let x = document.createElement("tr");
-  //   if (!listName.includes(" ") && listName != "") {
-  //     if (listTable != null) {
-  //       for (let i = 1; i <= 20; i++) {
-  //         // @ts-ignore
-  //         if (document.getElementById(i.toString()).tagName == "PRE") {
-  //           x.id = `${i}`;
-  //           x.style.fontSize = "16.459px";
-  //           x.innerText = listName;
-  //           x.onclick = function () {
-  //             router.navigate(["home/list"], {queryParams: {name: x.innerText}});
-  //           };
-  //
-  //
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   } else {
-  //     console.log("STOP");
-  //   }
-  // }
 
   addValue(option: string) {
     let element = document.getElementById("addedUsersTextArea");

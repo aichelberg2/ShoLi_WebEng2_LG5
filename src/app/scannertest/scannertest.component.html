@@ -1,1 +1,19 @@
-<p>scannertest works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5 h-auto">
+        <div class="card-body p-4 p-sm-5">
+          <h3 style="text-align: center; margin: 20px">Scanner</h3>
+          <!-- <button (click)="startScanner()">Start Scanner</button> -->
+          <!-- <button (click)="getDevice()">Get Device</button> -->
+          <label for="devices">Video source: </label>
+
+          <select name="devices" id="videoSource" (change)="changeDevice($event)">
+            <option value="">--- chose your device ---</option>
+          </select>
+          <div id="scannerContainer" class="card border-0 shadow rounded-3 my-5 h-auto"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
