@@ -6,9 +6,8 @@ header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
-//$inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"listname":"ListLonely","isListShared":"true","creator":"user1","usernames":{}}';
-$inputRaw = '{"listname":"List2","isListShared":"true","creator":"user1","usernames":{"0":"user2","1":"user3"}}';
+$inputRaw = file_get_contents("php://input");
+//$inputRaw = '{"listname":"List2","isListShared":"true","creator":"user1","usernames":{"0":"user2","1":"user3"}}';
 //echo "inputRaw: $inputRaw";
 
 $input = json_decode($inputRaw);
