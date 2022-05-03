@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"productCategory":"kat1"}';
+//$inputRaw = '{"productCategory":"kategorie1"}';
 
 $input = json_decode($inputRaw);
 
