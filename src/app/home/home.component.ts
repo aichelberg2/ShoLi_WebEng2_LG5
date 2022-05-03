@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, NgForm} from "@angular/forms";
 //import {PollingService} from "../services/polling/polling.service";
-import {Observable, retry, share, startWith, Subject, switchMap, takeUntil, timer} from "rxjs";
+import {elementAt, Observable, retry, share, startWith, Subject, switchMap, takeUntil, timer} from "rxjs";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
@@ -14,67 +14,68 @@ import {AuthService} from "../services/auth/auth.service";
   styleUrls: ['./home.component.css']
 })
 
+
 export class HomeComponent implements OnInit {
 
   myControl = new FormControl();
   options: string[] = [];
   selectedNames: string[] = [];
   receivedListsObservable: Observable<any> | undefined;
-  receivedLists: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
   isPopUpDisplayed: boolean = false;
+  private stopPolling = new Subject();
 
+  userNameAsJSON = {
+    "username": this.manageUserData.getUsername_loggedIn()
+  }
 
   constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    let listDiv = document.getElementById("listDiv");
 
     this.receivedListsObservable = timer(1, 1000).pipe(
-      switchMap(() => this.manageListData.getLists(this.manageUserData.getUsername_loggedIn())),
+      switchMap(() => this.manageListData.getLists(this.userNameAsJSON)),
       retry(),
-      share()
+      share(),
+      takeUntil(this.stopPolling)
     );
-
-    this.receivedListsObservable.subscribe(value => {
-      this.receivedLists = value;
-    })
 
     this.manageUserData.getAllUsers().subscribe(value => {
       for (let i = 0; i < value.length; i++) {
-        if (value[i].username != this.manageUserData.getUsername_loggedIn()) {
+        if (value[i].username != this.userNameAsJSON.username) {
           this.options.push(value[i].username);
         }
       }
     });
-    console.log(this.options)
+
+
+    this.receivedListsObservable.subscribe(value => {
+      // @ts-ignore
+      for (let i = 0; i < listDiv.children.length; i++) {
+        // @ts-ignore
+        const checkName = (obj: { name: string; }) => obj.name === listDiv.children[i].id;
+        if (!value.some(checkName)) {
+          // @ts-ignore
+          if (listDiv.querySelector(`#${listDiv.children[i].id}`) != null) {
+            // @ts-ignore
+            listDiv.children[i].remove();
+          }
+        }
+      }
+      value.forEach((element: any) => {
+        // @ts-ignore
+        if (listDiv.querySelector(`#${element.name}`) == null) {
+          this.createNewList(element.name, false)
+        }
+      })
+    })
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
     );
-
-    let listTable = document.getElementById("listTable");
-    let router = this.router;
-    for (let i = 0; i <= this.receivedLists.length; i++) {
-      let x = document.createElement("tr");
-      if (listTable != null) {
-        x.id = `${this.receivedLists[i]}`;
-        x.style.fontSize = "16.459px";
-        x.innerText = this.receivedLists[i];
-        x.onclick = function () {
-          router.navigate(["home/list"], {queryParams: {name: x.innerText}});
-        };
-      }
-    }
-    for (let i = this.receivedLists.length; i <= 20; i++) {
-      let x = document.createElement("pre");
-      if (listTable != null) {
-        x.style.marginTop = "25px";
-        x.id = `${i}`;
-        x.className = "preTags"
-        listTable.appendChild(x);
-      }
-    }
   }
 
   private _filter(value: string): string[] {
@@ -86,45 +87,42 @@ export class HomeComponent implements OnInit {
     this.isPopUpDisplayed = !this.isPopUpDisplayed;
   }
 
-  createNewList(form: NgForm) {
+  createNewList(listName: any, isCreatedByPopUp: boolean) {
     let router = this.router;
-    let listTable = document.getElementById("listTable");
-    let x = document.createElement("tr");
-    if (!form.value.newList_name.includes(" ") && form.value.newList_name != "") {
-      if (listTable != null) {
-        for (let i = 1; i <= 20; i++) {
-          // @ts-ignore
-          if (document.getElementById(i.toString()).tagName == "PRE") {
-            x.id = `${i}`;
-            x.style.fontSize = "16.459px";
-            x.innerText = form.value.newList_name;
-            x.onclick = function () {
-              router.navigate(["home/list"], {queryParams: {name: x.innerText}});
-            };
-
-            let data = {
-              'listName': form.value.newList_name,
-              'isListShared': this.isPopUpDisplayed,
-              'usernames': this.selectedNames,
-              'user_loggedIn': this.manageUserData.getUsername_loggedIn()
-            }
-            this.manageListData.createList(data).subscribe(value => {
-              if (value == 1) {
-
-                // @ts-ignore
-                document.getElementById(i.toString()).replaceWith(x);
-              }
-            });
-            break;
+    let listDiv = document.getElementById("listDiv");
+    let x = document.createElement("div");
+    if (listName != "") {
+      if (listDiv != null) {
+        x.id = listName;
+        x.style.fontFamily='Square Peg, cursive'
+        x.style.fontSize="30px"
+        x.className = "list-group-item list-group-item-action";
+        x.innerText = listName;
+        x.style.cursor = "pointer";
+        x.onclick = function () {
+          router.navigate(["home/list"], {queryParams: {name: x.innerText}});
+        };
+        if (isCreatedByPopUp) {
+          let data = {
+            'listname': listName,
+            'isListShared': this.isPopUpDisplayed,
+            'usernames': this.selectedNames,
+            'creator': this.userNameAsJSON.username
           }
+          this.manageListData.createList(data).subscribe(value => {
+            if (value == 1) {
+              // @ts-ignore
+              listDiv.append(x);
+            }
+          });
+        } else {
+          // @ts-ignore
+          listDiv.append(x);
         }
       }
     } else {
       console.log("STOP");
     }
-    form.resetForm();
-    this.isPopUpDisplayed = false;
-    this.selectedNames.length = 0;
   }
 
   addValue(option: string) {
@@ -149,5 +147,15 @@ export class HomeComponent implements OnInit {
       if (name == option)
         this.options.splice(index, 1);
     });
+  }
+
+  ngOnDestroy() {
+    this.stopPolling.next("rs");
+  }
+
+  clearForm(listInfoForm: NgForm) {
+    listInfoForm.resetForm();
+    this.isPopUpDisplayed = false;
+    this.selectedNames.length = 0;
   }
 }

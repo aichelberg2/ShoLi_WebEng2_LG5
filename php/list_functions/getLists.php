@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"user1"}';
+//$inputRaw = '{"username":"lucario1234"}';
 
 $input = json_decode($inputRaw);
 

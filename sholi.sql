@@ -53,7 +53,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,6 +62,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
+INSERT INTO `list` VALUES (1,'test',0,'chris');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,6 +104,7 @@ CREATE TABLE `product` (
   `pr_id` int(10) NOT NULL,
   `name` varchar(50) NOT NULL,
   `price` decimal(10,2) NOT NULL,
+  `Category` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`pr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -140,7 +142,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('a','aa','aa','a','a',0),('aSRGER','ERGEQRG','ERQG','EQRG','123',0),('chris','Chris','Markov','chris@gmail.com','asd123',1),('lucario1234','adesrb','rb','nfg','123',0),('Phonee','Pho','Nee','phone@mail.com','asd123',1),('user3','user','3','user@3.de','user3',0);
+INSERT INTO `user` VALUES ('a','aa','aa','a','a',0),('aSRGER','ERGEQRG','ERQG','EQRG','123',0),('chris','Chris','Markov','chris@gmail.com','asd123',1),('lucario1234','adesrb','rb','nfg','123',1),('Phonee','Pho','Nee','phone@mail.com','asd123',1),('user3','user','3','user@3.de','user3',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,6 +195,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
+INSERT INTO `userlist` VALUES ('chris',1),('lucario1234',1),('aSRGER',1);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -205,4 +208,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-25  0:00:01
+-- Dump completed on 2022-05-02 15:00:01
