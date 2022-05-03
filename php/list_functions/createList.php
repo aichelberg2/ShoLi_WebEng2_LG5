@@ -43,7 +43,7 @@ if ($conn->query($listInsertStatement) === TRUE) {
     if (!$result) {
       echo 0;
     } else {
-      echo 1;
+      echo $last_id;
     }
   }
 } else {
