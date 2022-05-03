@@ -1,7 +1,96 @@
-<div class="container">
-  <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-    <div class="card border-0 shadow rounded-3 my-5">
-      <h5>Liste: {{listname}}</h5>
+<div id="mainDiv" class="container">
+  <div class="mx-auto">
+    <button id="add_product_from_DB" type="button" class="btn btn-dark float" data-bs-toggle="modal"
+            data-bs-target="#show_modal"><i class="bi bi-card-checklist">Add Product</i>
+    </button>
+    <button id="add_product" type="button" class="btn btn-dark float-right" data-bs-toggle="modal"
+            data-bs-target="#show_modal"><i
+      id="plus_addProduct" class="bi bi-plus">New Product</i>
+    </button>
+    <div class="card border-0 shadow rounded-3 my-5" style="min-height: 631px;">
+      <u><h1 class="text-center" style="font-family:'Square Peg, cursive'">Liste: {{listname}}</h1></u>
+      <div id="productList">
+        <mat-grid-list cols="4" rowHeight="50px" *ngFor="let options of haha">
+          <mat-grid-tile>
+            <!--            <input class="form-control" type="text" [value]="options.productName" readonly>-->
+            <i style="padding-bottom: 8px; padding-right: 8px" class="bi bi-dash"></i>
+            <mat-form-field floatLabel="always">
+              <input matInput [value]="options.productName" readonly>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <!--            <input class="form-control" type="text" [value]="options.productPrice+'€'">-->
+            <mat-form-field floatLabel="always">
+              <input matInput [value]="options.productPrice" readonly>
+              <span matPrefix>€</span>
+              <!--              <span matSuffix>.00</span>-->
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <input *ngIf="options.isTicked==1" class="form-check-input" type="checkbox" id="checkboxNoLabel" checked>
+            <input *ngIf="options.isTicked==0" class="form-check-input" type="checkbox" id="checkboxNoLabel1">
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <i class="bi bi-trash-fill" style="cursor: pointer" data-toggle="modal" data-target="#exampleModalCenter11"></i>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter11" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Produkt aus Liste löschen?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Wenn dieses Produkt gelöscht wird, ist es nichtmehr da!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)="deleteProductFromList()" type="button" class="btn btn-primary" data-dismiss="modal">Go!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="show_modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Choose a Categorie!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="!isProductKategorieChoosed">
+        <div class="modal-body" style="justify-content: center">
+          <mat-grid-list id="gridList" cols="2" rowHeight="100px">
+            <mat-grid-tile (click)="choosedCategorie(options)" [id]="options" class="options rounded"
+                           *ngFor="let options of productCategories">{{options}}</mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </div>
+      <div *ngIf="isProductKategorieChoosed">
+        <div class="modal-body" style="justify-content: center">
+          <!--          <mat-grid-list id="gridList" cols="2" rowHeight="100px">-->
+          <!--            <mat-grid-tile (click)="choosedCategorie(options)" [id]="options" class="options rounded" *ngFor="let options of productCategories">{{options}}</mat-grid-tile>-->
+          <!--          </mat-grid-list>-->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)="transmitProductCategorie()" type="button" class="btn btn-primary">Search!</button>
+      </div>
     </div>
   </div>
 </div>

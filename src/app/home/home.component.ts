@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
         x.id = listName;
         x.style.fontFamily='Square Peg, cursive'
         x.style.fontSize="30px"
-        x.className = "list-group-item list-group-item-action";
+        x.className = "rounded-3 list-group-item list-group-item-action";
         x.innerText = listName;
         x.style.cursor = "pointer";
         x.onclick = function () {
