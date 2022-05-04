@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `groups`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `groups` (
   `groupname` varchar(30) NOT NULL,
-  `gr_id` int(10) NOT NULL,
+  `gr_id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`gr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -77,10 +77,11 @@ CREATE TABLE `listproduct` (
   `pr_id` int(10) NOT NULL,
   `list_id` int(10) NOT NULL,
   `ticked` tinyint(4) NOT NULL DEFAULT 0,
+  `quantity` int(11) DEFAULT 1,
   KEY `pr_id` (`pr_id`),
-  KEY `listproduct_ibfk_2` (`list_id`),
-  CONSTRAINT `listproduct_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `product` (`pr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `listproduct_ibfk_2` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY ` listproduct_ibfk_2` (`list_id`),
+  CONSTRAINT ` listproduct_ibfk_2` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `listproduct_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `product` (`pr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -101,7 +102,7 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
-  `pr_id` int(10) NOT NULL,
+  `pr_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `Category` varchar(30) DEFAULT NULL,
@@ -208,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-03 15:00:01
+-- Dump completed on 2022-05-04  0:00:01
