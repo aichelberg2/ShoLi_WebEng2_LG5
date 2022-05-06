@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `groups`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `groups` (
   `groupname` varchar(30) NOT NULL,
-  `gr_id` int(10) NOT NULL AUTO_INCREMENT,
+  `gr_id` int(10) NOT NULL,
   PRIMARY KEY (`gr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -53,7 +53,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,6 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
-INSERT INTO `list` VALUES (1,'test',0,'chris');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,11 +76,10 @@ CREATE TABLE `listproduct` (
   `pr_id` int(10) NOT NULL,
   `list_id` int(10) NOT NULL,
   `ticked` tinyint(4) NOT NULL DEFAULT 0,
-  `quantity` int(11) DEFAULT 1,
   KEY `pr_id` (`pr_id`),
-  KEY ` listproduct_ibfk_2` (`list_id`),
-  CONSTRAINT ` listproduct_ibfk_2` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `listproduct_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `product` (`pr_id`)
+  KEY `listproduct_ibfk_2` (`list_id`),
+  CONSTRAINT `listproduct_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `product` (`pr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `listproduct_ibfk_2` FOREIGN KEY (`list_id`) REFERENCES `list` (`list_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -102,10 +100,9 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
-  `pr_id` int(10) NOT NULL AUTO_INCREMENT,
+  `pr_id` int(10) NOT NULL,
   `name` varchar(50) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `Category` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`pr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -196,7 +193,6 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
-INSERT INTO `userlist` VALUES ('chris',1),('lucario1234',1),('aSRGER',1);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -209,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-06  5:16:17
+-- Dump completed on 2022-05-06  7:12:07
