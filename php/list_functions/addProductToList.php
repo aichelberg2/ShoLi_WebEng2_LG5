@@ -13,9 +13,9 @@ $input = json_decode($inputRaw);
 $listID = mysqli_real_escape_string($conn, $input->listID);
 $productID = mysqli_real_escape_string($conn, $input->listID);
 
-$deleteStatement = " DELETE FROM listproduct
+$insertStatement = " DELETE FROM listproduct
                             WHERE list_id= '$listID' AND pr_id='$productID'";
-$result = mysqli_query($conn, $deleteStatement);
+$result = mysqli_query($conn, $insertStatement);
 if(mysqli_affected_rows() > 0) {
   echo 1;
 } else {
