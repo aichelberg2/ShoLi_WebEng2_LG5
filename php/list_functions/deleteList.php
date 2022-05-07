@@ -12,8 +12,9 @@ $inputRaw = file_get_contents("php://input");
 $input = json_decode($inputRaw);
 $listID = mysqli_real_escape_string($conn, $input->listID);
 
-$listInsertStatement = " DELETE FROM list
+$deleteStatement = " DELETE FROM list
                             WHERE list_id= '$listID'";
+$result = mysqli_query($conn, $deleteStatement);
 if(mysqli_affected_rows() > 0) {
   echo 1;
   } else {
