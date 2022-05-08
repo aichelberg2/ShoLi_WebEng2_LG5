@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ManageProductDataService} from "../services/manageProductData/manage-product-data.service";
+import {FormControl} from "@angular/forms";
+import {Observable, retry, share, Subject, switchMap, takeUntil, timer} from "rxjs";
 
 @Component({
   selector: 'app-list',
@@ -10,6 +12,7 @@ import {ManageProductDataService} from "../services/manageProductData/manage-pro
 export class ListComponent implements OnInit {
 
   listname: string | undefined;
+  listid: any | undefined;
   productCategories: string[] = [
     "Fruits & Vegetables",
     "Freshness and cooling",
@@ -28,41 +31,44 @@ export class ListComponent implements OnInit {
   ];
   choosedProductCategorie: string | undefined;
   isProductKategorieChoosed: boolean = false;
-  haha= [
-    {
-      productName: "Banane",
-      productPrice: 2.49,
-      isTicked: 0
-    },
-    {
-      productName: "Gurke",
-      productPrice: 0.99,
-      isTicked: 1
-    }
-  ]
+  receivedProductsOfList: any[] = [];
+  receivedProductsOfCategory: any[] = [];
+  myControl = new FormControl();
+  selectedProducts: any;
+  receivedProductsOfListOberservable: Observable<any> | undefined;
+  private stopPolling = new Subject();
 
   constructor(private route: ActivatedRoute, private manageProductData: ManageProductDataService) {
   }
 
   ngOnInit(): void {
 
-    const element=document.getElementById('productList');
-
     this.route.queryParams
       .subscribe(params => {
           this.listname = params['name'];
+          this.listid = params['id'];
         }
       );
 
-    // let data = {
-    //   'listName': this.listname
-    // }
-    // this.manageProductData.getProductsOfList(data).subscribe(value => {
-    //
-    // })
-    // for (let i = 0; i < this.haha.length; i++) {
-    //
-    // }
+    let listID = {
+      'listID': this.listid
+    }
+
+    this.receivedProductsOfListOberservable = timer(1, 3000).pipe(
+      switchMap(() => this.manageProductData.getProductsOfList(listID)),
+      retry(),
+      share(),
+      takeUntil(this.stopPolling)
+    );
+
+    this.receivedProductsOfListOberservable.subscribe(value => {
+      for (let i = 0; i < value.length; i++) {
+        if (!this.receivedProductsOfList.includes(value[i])) {
+          this.receivedProductsOfList.push(value[i]);
+
+        }
+      }
+    })
   }
 
   choosedCategorie(option: string) {
@@ -80,14 +86,28 @@ export class ListComponent implements OnInit {
   transmitProductCategorie() {
     this.isProductKategorieChoosed = true;
     let data = {
-      'productCategorie': this.choosedProductCategorie
+      'productCategory': this.choosedProductCategorie
     }
     this.manageProductData.getProductsOfCategoerie(data).subscribe(value => {
-
+      value.forEach((element: any) => {
+        this.receivedProductsOfCategory.push(element)
+      })
     })
   }
 
   deleteProductFromList() {
 
+  }
+
+  selectOption(value: any) {
+    console.log(value);
+  }
+
+  addProductsToList() {
+
+  }
+
+  ngOnDestroy() {
+    this.stopPolling.next("rs");
   }
 }
