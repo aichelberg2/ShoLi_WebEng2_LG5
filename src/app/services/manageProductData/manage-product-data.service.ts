@@ -7,17 +7,19 @@ import {Observable} from "rxjs";
 })
 export class ManageProductDataService {
 
+  private host: string = `${window.location.protocol}//${window.location.hostname}`;
+
   constructor(private http: HttpClient) {
   }
 
-  urlGetProductsOfCategorie: string = "";
-  urlGetProductsOfList: string = ""
+  urlGetProductsOfCategorie: any = `${this.host}/php/product_functions/GetProductsOfCategory.php`;
+  urlGetProductsOfList: any = `${this.host}/php/list_functions/getProductsOfList.php`;
 
   getProductsOfCategoerie(categorie: any): Observable<any> {
     return this.http.post(this.urlGetProductsOfCategorie, categorie);
   }
 
-  getProductsOfList(listName:any):Observable<any>{
-    return this.http.post(this.urlGetProductsOfList, listName);
+  getProductsOfList(listID:any):Observable<any>{
+    return this.http.post(this.urlGetProductsOfList, listID);
   }
 }
