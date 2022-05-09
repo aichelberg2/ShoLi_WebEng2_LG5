@@ -13,7 +13,7 @@ $input = json_decode($inputRaw);
 
 $productCategory = mysqli_real_escape_string($conn, $input->productCategory);
 
-$query = "SELECT pr_id, name, price
+$query = "SELECT pr_id, name, price, 0 as isTicked
             FROM product
             WHERE category = '$productCategory'";
 $result = mysqli_query($conn,$query) or die(mysqli_error());
