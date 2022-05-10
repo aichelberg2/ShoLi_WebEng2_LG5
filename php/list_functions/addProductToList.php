@@ -7,18 +7,19 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"listID":"1","productID":"1"}';
+//$inputRaw = '{"listID":"3","productIDs":{"0":"1","1":"2"}}';
 
 $input = json_decode($inputRaw);
 $listID = mysqli_real_escape_string($conn, $input->listID);
-$productID = mysqli_real_escape_string($conn, $input->listID);
+$productIDs = $input->productIDs;
 
-$insertStatement = " DELETE FROM listproduct
-                            WHERE list_id= '$listID' AND pr_id='$productID'";
-$result = mysqli_query($conn, $insertStatement);
-if(mysqli_affected_rows() > 0) {
-  echo 1;
-} else {
-  echo 0;
+foreach ($productIDs as $productID){
+  $insertStatement = " INSERT INTO listproduct(list_id, pr_id)
+                    VALUES('$listID', '$productID')";
+  $result = mysqli_query($conn, $insertStatement);
+  if (!$result) {
+    echo 0;
+  }
 }
+echo 1;
 ?>
