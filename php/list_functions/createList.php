@@ -24,26 +24,26 @@ $usernames = $input->usernames;
 $listInsertStatement = "INSERT INTO list (name, shared, creator)
                         VALUES ('$listname', '$isListSharedBool', '$creator')";
 //echo "listInsertStatement: $listInsertStatement";
-$last_id = null;
+$list_id = null;
 if ($conn->query($listInsertStatement) === TRUE) {
-  $last_id = $conn->insert_id;
-  //echo "New record created successfully. Last inserted ID is: " . $last_id;
+  $list_id = $conn->insert_id;
+  //echo "New record created successfully. Last inserted ID is: " . $list_id;
 
   $userlistInsertStatement = "INSERT INTO userlist(list_id, user)
-                    VALUES('$last_id', '$creator')";
+                    VALUES('$list_id', '$creator')";
   $result = mysqli_query($conn, $userlistInsertStatement);
   if (!$result) {
     echo 0;
   } else {
     foreach ($usernames as $username) {
       $userlistInsertStatement = "INSERT INTO userlist(list_id, user)
-                    VALUES('$last_id', '$username')";
+                    VALUES('$list_id', '$username')";
       $result = mysqli_query($conn, $userlistInsertStatement);
       if (!$result) {
         echo 0;
       }
     }
-    echo $last_id;
+    echo $list_id;
   }
 }
 ?>
