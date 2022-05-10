@@ -13,13 +13,20 @@
   margin-top: 100px;
 }
 
-.gridList{
-
-}
-
 .options{
   cursor: pointer;
   background: #6c757d;
   color: white;
   transition: background-color 0.2s;
+}
+
+/deep/ .cdk-overlay-container {
+  z-index: 9999;
+}
+
+#selectDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
