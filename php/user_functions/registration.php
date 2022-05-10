@@ -22,7 +22,7 @@ $hash = password_hash($password, PASSWORD_DEFAULT);
 if ($username != '')
 {
   $insertStatement = "INSERT INTO user(username, firstname, lastname, email, password, logged_in)
-                    VALUES('$username', '$firstname', '$lastname', '$email', '$hash ', 0)";
+                    VALUES('$username', '$firstname', '$lastname', '$email', '$hash', 0)";
   $result = mysqli_query($conn, $insertStatement);
   if ($result) {
     echo 1;
