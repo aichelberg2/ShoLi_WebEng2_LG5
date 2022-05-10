@@ -19,8 +19,9 @@ if ($productName != '')
   $insertStatement = "INSERT INTO product(name, price, category)
                     VALUES('$productName', '$productPrice', '$productCategory')";
   $result = mysqli_query($conn, $insertStatement);
+  $productId = $conn->insert_id;
   if ($result) {
-    echo 1;
+    echo $productId;
   } else {
     echo 0;
   }
