@@ -13,7 +13,7 @@ $firstname = mysqli_real_escape_string($conn, $input->firstname);
 $lastname = mysqli_real_escape_string($conn, $input->lastname);
 $email = mysqli_real_escape_string($conn, $input->eMail);
 $password = mysqli_real_escape_string($conn, $input->password);
-
+$hash = password_hash($password, PASSWORD_DEFAULT);
 
 //for security: https://stackoverflow.com/questions/97984/how-to-secure-database-passwords-in-php
 //https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
@@ -22,7 +22,7 @@ $password = mysqli_real_escape_string($conn, $input->password);
 if ($username != '')
 {
   $insertStatement = "INSERT INTO user(username, firstname, lastname, email, password, logged_in)
-                    VALUES('$username', '$firstname', '$lastname', '$email', '$password', 0)";
+                    VALUES('$username', '$firstname', '$lastname', '$email', '$hash ', 0)";
   $result = mysqli_query($conn, $insertStatement);
   if ($result) {
     echo 1;
