@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"listID":"1"}';
+//$inputRaw = '{"listID":"5"}';
 
 $input = json_decode($inputRaw);
 $listID = mysqli_real_escape_string($conn, $input->listID);
@@ -15,7 +15,7 @@ $listID = mysqli_real_escape_string($conn, $input->listID);
 $deleteStatement = " DELETE FROM list
                             WHERE list_id= '$listID'";
 $result = mysqli_query($conn, $deleteStatement);
-if(mysqli_affected_rows() > 0) {
+if(mysqli_affected_rows($conn) > 0) {
   echo 1;
   } else {
   echo 0;
