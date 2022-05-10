@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, NgForm} from "@angular/forms";
 //import {PollingService} from "../services/polling/polling.service";
-import {elementAt, Observable, retry, share, startWith, Subject, switchMap, takeUntil, timer} from "rxjs";
+import {Observable, retry, share, startWith, Subject, switchMap, takeUntil, timer} from "rxjs";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   filteredOptions: Observable<string[]> | undefined;
   isPopUpDisplayed: boolean = false;
   private stopPolling = new Subject();
+  lists: any[] = [];
+  listIDs: any[] = [];
 
   userNameAsJSON = {
     "username": this.manageUserData.getUsername_loggedIn()
@@ -52,24 +54,12 @@ export class HomeComponent implements OnInit {
 
 
     this.receivedListsObservable.subscribe(value => {
-      // @ts-ignore
-      for (let i = 0; i < listDiv.children.length; i++) {
-        // @ts-ignore
-        const checkName = (obj: { name: string; }) => obj.name === listDiv.children[i].id;
-        if (!value.some(checkName)) {
-          // @ts-ignore
-          if (listDiv.querySelector(`#${listDiv.children[i].id}`) != null) {
-            // @ts-ignore
-            listDiv.children[i].remove();
-          }
+      for (let i = 0; i < value.length; i++) {
+        if (!this.listIDs.includes(value[i].list_id)) {
+          this.listIDs.push(value[i].list_id)
+          this.lists.push(value[i])
         }
       }
-      value.forEach((element: any) => {
-        // @ts-ignore
-        if (listDiv.querySelector(`#${element.name}`) == null) {
-          this.createNewList(element.name, false)
-        }
-      })
     })
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -85,44 +75,6 @@ export class HomeComponent implements OnInit {
 
   closePopUpForListName() {
     this.isPopUpDisplayed = !this.isPopUpDisplayed;
-  }
-
-  createNewList(listName: any, isCreatedByPopUp: boolean) {
-    let router = this.router;
-    let listDiv = document.getElementById("listDiv");
-    let x = document.createElement("div");
-    if (listName != "") {
-      if (listDiv != null) {
-        x.id = listName;
-        x.style.fontFamily='Square Peg, cursive'
-        x.style.fontSize="30px"
-        x.className = "rounded-3 list-group-item list-group-item-action";
-        x.innerText = listName;
-        x.style.cursor = "pointer";
-        x.onclick = function () {
-          router.navigate(["home/list"], {queryParams: {name: x.innerText}});
-        };
-        if (isCreatedByPopUp) {
-          let data = {
-            'listname': listName,
-            'isListShared': this.isPopUpDisplayed,
-            'usernames': this.selectedNames,
-            'creator': this.userNameAsJSON.username
-          }
-          this.manageListData.createList(data).subscribe(value => {
-            if (value == 1) {
-              // @ts-ignore
-              listDiv.append(x);
-            }
-          });
-        } else {
-          // @ts-ignore
-          listDiv.append(x);
-        }
-      }
-    } else {
-      console.log("STOP");
-    }
   }
 
   addValue(option: string) {
@@ -157,5 +109,26 @@ export class HomeComponent implements OnInit {
     listInfoForm.resetForm();
     this.isPopUpDisplayed = false;
     this.selectedNames.length = 0;
+  }
+
+  clicker(list_name: any, list_id: any) {
+    this.router.navigate(["home/list"], {queryParams: {name: list_name, id: list_id}});
+  }
+
+  pushLol(newList_name: any) {
+    let data = {
+      'listname': newList_name,
+      'isListShared': this.isPopUpDisplayed,
+      'usernames': this.selectedNames,
+      'creator': this.userNameAsJSON.username
+    }
+    this.manageListData.createList(data).subscribe(value => {
+      let obj =
+        {
+          list_id: `${value}`,
+          name: `${newList_name}`
+        }
+      this.listIDs.push(value)
+    });
   }
 }

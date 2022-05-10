@@ -22,6 +22,7 @@ import { ImpressumComponent } from './impressum/impressum.component';
 import { ScannertestComponent } from './scannertest/scannertest.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSelectModule} from "@angular/material/select";
 
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -63,7 +64,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     ScrollingModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
