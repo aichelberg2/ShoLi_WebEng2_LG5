@@ -11,6 +11,8 @@ export class ManageListDataService {
 
   urlGetLists: any = `${this.host}/php/list_functions/getLists.php`;
   urlCreateList: any = `${this.host}/php/list_functions/createList.php`;
+  urlGetIsCreator: any = `${this.host}/php/list_functions/isCreator.php`;
+  urlDeleteList: any = `${this.host}/php/list_functions/deleteList.php`;
 
   constructor(private http: HttpClient) {
   }
@@ -21,5 +23,14 @@ export class ManageListDataService {
 
   getLists(name: any): Observable<any> {
     return this.http.post(this.urlGetLists, name);
+  }
+
+  getIsCreator(data: any): Observable<any> {
+    return this.http.post(this.urlGetIsCreator, data);
+  }
+
+  deleteList(data: any): Observable<any> {
+    console.log(data)
+    return this.http.post(this.urlDeleteList, data);
   }
 }
