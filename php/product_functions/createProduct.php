@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"productName":"name2","productCategory":"kat1","productPrice":"2"}';
+//$inputRaw = '{"productName":"name3","productCategory":"kat2","productPrice":"2.5"}';
 
 $input = json_decode($inputRaw);
 $productName = mysqli_real_escape_string($conn, $input->productName);
@@ -18,7 +18,7 @@ if ($productName != '')
 {
   $stmt = $conn->prepare( "INSERT INTO product(name, price, category)
                                 VALUES(?, ?, ?)");
-  $stmt->bind_param("sss", $productName,$productPrice, $productCategory);
+  $stmt->bind_param("sds", $productName,$productPrice, $productCategory);
   if ($stmt->execute()) {
     $productId = $conn->insert_id;
     echo $productId;
