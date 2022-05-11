@@ -16,11 +16,11 @@ $productPrice = mysqli_real_escape_string($conn, $input->productPrice);
 
 if ($productName != '')
 {
-  $insertStatement = "INSERT INTO product(name, price, category)
-                    VALUES('$productName', '$productPrice', '$productCategory')";
-  $result = mysqli_query($conn, $insertStatement);
-  $productId = $conn->insert_id;
-  if ($result) {
+  $stmt = $conn->prepare( "INSERT INTO product(name, price, category)
+                                VALUES(?, ?, ?)");
+  $stmt->bind_param("sss", $productName,$productPrice, $productCategory);
+  if ($stmt->execute()) {
+    $productId = $conn->insert_id;
     echo $productId;
   } else {
     echo 0;
