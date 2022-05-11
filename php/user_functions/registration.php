@@ -24,10 +24,10 @@ if ($username != '')
   if ($stmt->execute()) {
     echo 1;
   } else {
-    echo 2;
+    echo 0;
   }
 } else{
-  echo 3;
+  echo 0;
 }
 
 ?>
