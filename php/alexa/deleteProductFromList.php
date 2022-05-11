@@ -10,7 +10,8 @@ require '../db_connection.php';
 $productName = $_GET["product"];
 $listName = $_GET["list"];
 
-echo "productName: ", $productName, ", Listname: ", $listName; 
+// echo "productName: ", $productName, ", Listname: ", $listName; 
+echo json_encode(1);
 
 // $insertStatement = " DELETE FROM listproduct
 //                           WHERE list_id= '$listID' AND pr_id='$productID'";

@@ -32,6 +32,7 @@ export class ListComponent implements OnInit {
   choosedProductCategorie: string | undefined;
   isProductKategorieChoosed: boolean = false;
   receivedProductsOfList: any[] = [];
+  receivedProductIDOfList: any[] = [];
   receivedProductsOfCategory: any[] = [];
   myControl = new FormControl();
   selectedProducts: any;
@@ -63,9 +64,9 @@ export class ListComponent implements OnInit {
 
     this.receivedProductsOfListOberservable.subscribe(value => {
       for (let i = 0; i < value.length; i++) {
-        if (!this.receivedProductsOfList.includes(value[i])) {
-          this.receivedProductsOfList.push(value[i]);
-
+        if (!this.receivedProductIDOfList.includes(value[i].pr_id)) {
+          this.receivedProductIDOfList.push(value[i].pr_id)
+          this.receivedProductsOfList.push(value[i])
         }
       }
     })
@@ -90,7 +91,9 @@ export class ListComponent implements OnInit {
     }
     this.manageProductData.getProductsOfCategoerie(data).subscribe(value => {
       value.forEach((element: any) => {
-        this.receivedProductsOfCategory.push(element)
+        if (!this.receivedProductIDOfList.includes(element.pr_id)) {
+          this.receivedProductsOfCategory.push(element)
+        }
       })
     })
   }
@@ -104,7 +107,13 @@ export class ListComponent implements OnInit {
   }
 
   addProductsToList() {
-
+    for (let i = 0; i < this.selectedProducts.length; i++) {
+      this.receivedProductIDOfList.push(this.selectedProducts[i].pr_id);
+      this.receivedProductsOfList.push(this.selectedProducts[i]);
+    }
+    console.log(this.selectedProducts)
+    console.log(this.receivedProductsOfList)
+    console.log(this.receivedProductsOfList)
   }
 
   ngOnDestroy() {

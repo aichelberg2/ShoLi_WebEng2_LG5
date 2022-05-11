@@ -37,10 +37,44 @@
       </button>
     </div>
     <div id="listDiv" class="overflow-auto card border-0 shadow rounded-3 my-5" style="height: 631px">
-      <div (click)="clicker(list.name, list.list_id)" style="font-family: Square Peg, cursive;font-size: 30px;cursor: pointer"
-           class="rounded-3 list-group-item list-group-item-action" *ngFor="let list of lists">{{list.name}}
-        <i class="bi bi-trash-fill float-right" style="cursor: pointer; font-size: 20px;" data-toggle="modal"
-           data-target="#modal_deleteList"></i>
+      <div
+        style="cursor: pointer"
+        class="rounded-3 list-group-item" *ngFor="let list of lists">
+        <div class="row" style="font-family: Square Peg, cursive;font-size: 30px;">
+          <div (click)="clicker(list.name, list.list_id)" class="col-sm">{{list.name}}</div>
+          <div class="col-md-auto d-flex justify-content-end align-items-center ">
+            <i (click)="getPermissionToDelete(list.list_id)"
+               class="bi bi-trash-fill"
+               style="cursor: pointer; font-size: 20px; display: contents;" data-toggle="modal"
+               data-target="#modal_deleteList"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_deleteList" role="dialog"
+     aria-labelledby="exampleModalCenterTitle">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="havePErmissionToDeleteList" class="modal-body">
+        All Data in the list are gone then! Continue?
+      </div>
+      <div *ngIf="!havePErmissionToDeleteList" class="modal-body">
+        You don't have the permissions to do that!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close!</button>
+        <button *ngIf="havePErmissionToDeleteList" (click)="deleteListByCreator(temporaryListIDToDelete)" type="button"
+                class="btn btn-primary" data-dismiss="modal">Continue
+        </button>
       </div>
     </div>
   </div>
