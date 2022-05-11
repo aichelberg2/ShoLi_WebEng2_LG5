@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"listname":"List2","isListShared":"true","creator":"user1","usernames":{"0":"user2","1":"user3"}}';
+//$inputRaw = '{"listname":"List2","isListShared":"true","creator":"user5","usernames":{"0":"user2","1":"user3"}}';
 //echo "inputRaw: $inputRaw";
 
 $input = json_decode($inputRaw);
@@ -21,29 +21,33 @@ if ($isListShared == "true") {
 $creator = mysqli_real_escape_string($conn, $input->creator);
 $usernames = $input->usernames;
 
-$listInsertStatement = "INSERT INTO list (name, shared, creator)
-                        VALUES ('$listname', '$isListSharedBool', '$creator')";
+$listInsertStmt = $conn->prepare( "INSERT INTO list (name, shared, creator)
+                                        VALUES (?, ?, ?)");
+$listInsertStmt->bind_param("sis", $listname,$isListSharedBool, $creator);
+
 //echo "listInsertStatement: $listInsertStatement";
 $list_id = null;
-if ($conn->query($listInsertStatement) === TRUE) {
+if ($listInsertStmt->execute()) {
   $list_id = $conn->insert_id;
   //echo "New record created successfully. Last inserted ID is: " . $list_id;
 
-  $userlistInsertStatement = "INSERT INTO userlist(list_id, user)
-                    VALUES('$list_id', '$creator')";
-  $result = mysqli_query($conn, $userlistInsertStatement);
-  if (!$result) {
+  $creatorInsertStmt = $conn->prepare(   "INSERT INTO userlist(list_id, user)
+                                                VALUES(?, ?)");
+  $creatorInsertStmt->bind_param("is", $list_id, $creator);
+  if (!$creatorInsertStmt->execute()) {
     echo 0;
   } else {
     foreach ($usernames as $username) {
-      $userlistInsertStatement = "INSERT INTO userlist(list_id, user)
-                    VALUES('$list_id', '$username')";
-      $result = mysqli_query($conn, $userlistInsertStatement);
-      if (!$result) {
+      $usersInsertStmt = $conn->prepare("INSERT INTO userlist(list_id, user)
+                                                VALUES(?, ?)");
+      $usersInsertStmt->bind_param("is", $list_id, $username);
+      if (!$usersInsertStmt->execute()) {
         echo 0;
       }
     }
     echo $list_id;
   }
+} else{
+  echo 0;
 }
 ?>
