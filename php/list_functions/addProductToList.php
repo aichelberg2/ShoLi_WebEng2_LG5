@@ -16,7 +16,7 @@ $productIDs = $input->productIDs;
 foreach ($productIDs as $productID){
   $stmt = $conn->prepare( "INSERT INTO listproduct(list_id, pr_id)
                                 VALUES(?, ?)");
-  $stmt->bind_param("ii", $listID,$productID);
+  $stmt->bind_param("ii", $listID,$productID); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
   if (!$stmt->execute()) {
     echo 0;
   }

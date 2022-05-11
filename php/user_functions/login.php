@@ -15,7 +15,7 @@ $loginStmt = $conn->prepare(  "SELECT password as pw
                                     FROM user
                                     WHERE username=?
                                     LIMIT 1");
-$loginStmt->bind_param('s', $username); // 's' specifies the variable type => 'string'
+$loginStmt->bind_param('s', $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 $loginStmt->execute();
 $result = $loginStmt->get_result();
 
@@ -27,7 +27,7 @@ if (mysqli_num_rows($result) == 1) {
     $updateStmt = $conn->prepare(  "UPDATE user
                                         SET logged_in = 1
                                         WHERE username=?");
-    $updateStmt->bind_param('s', $username); // 's' specifies the variable type => 'string'
+    $updateStmt->bind_param('s', $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
     if ($updateStmt->execute()) {
       echo 1;
     } else {

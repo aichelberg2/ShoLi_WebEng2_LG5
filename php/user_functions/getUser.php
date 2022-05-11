@@ -15,7 +15,7 @@ $stmt = $conn->prepare(   "SELECT username, firstname, lastname, email, logged_i
                                 FROM user
                                 WHERE username=?
                                 LIMIT 1");
-$stmt->bind_param("s", $username);
+$stmt->bind_param("s", $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 $stmt->execute();
 $result = $stmt->get_result();
 if (mysqli_num_rows($result) == 1) {

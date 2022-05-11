@@ -18,7 +18,7 @@ if ($productName != '')
 {
   $stmt = $conn->prepare( "INSERT INTO product(name, price, category)
                                 VALUES(?, ?, ?)");
-  $stmt->bind_param("sds", $productName,$productPrice, $productCategory);
+  $stmt->bind_param("sds", $productName,$productPrice, $productCategory); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
   if ($stmt->execute()) {
     $productId = $conn->insert_id;
     echo $productId;
