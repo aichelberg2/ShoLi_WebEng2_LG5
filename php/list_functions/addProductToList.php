@@ -7,17 +7,17 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"listID":"3","productIDs":{"0":"1","1":"2"}}';
+//$inputRaw = '{"listID":"4","productIDs":{"0":"1","1":"2"}}';
 
 $input = json_decode($inputRaw);
 $listID = mysqli_real_escape_string($conn, $input->listID);
 $productIDs = $input->productIDs;
 
 foreach ($productIDs as $productID){
-  $insertStatement = " INSERT INTO listproduct(list_id, pr_id)
-                    VALUES('$listID', '$productID')";
-  $result = mysqli_query($conn, $insertStatement);
-  if (!$result) {
+  $stmt = $conn->prepare( "INSERT INTO listproduct(list_id, pr_id)
+                                VALUES(?, ?)");
+  $stmt->bind_param("ss", $listID,$productID);
+  if (!$stmt->execute()) {
     echo 0;
   }
 }
