@@ -14,7 +14,7 @@ $listID = mysqli_real_escape_string($conn, $input->listID);
 $productID = mysqli_real_escape_string($conn, $input->productID);
 
 $stmt = $conn->prepare(   "DELETE FROM listproduct
-                                WHERE list_id= ? AND pr_id=?");
+                                WHERE list_id=? AND pr_id=?");
 $stmt->bind_param("ii", $listID,$productID); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 if ($stmt->execute()) {
   if($stmt->affected_rows > 0) {
