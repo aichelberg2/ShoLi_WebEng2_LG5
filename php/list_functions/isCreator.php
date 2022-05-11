@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"creator":"user3","listID":"5"}';
+//$inputRaw = '{"creator":"user3","listID":"4"}';
 $input = json_decode($inputRaw);
 
 $creator = mysqli_real_escape_string($conn, $input->creator);
