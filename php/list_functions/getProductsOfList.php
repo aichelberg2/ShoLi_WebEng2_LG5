@@ -7,17 +7,19 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"listID":"1"}';
+//$inputRaw = '{"listID":"3"}';
 
 $input = json_decode($inputRaw);
 
 $listID = mysqli_real_escape_string($conn, $input->listID);
 
-$query = "SELECT  product.pr_id, product.name,product.price, listproduct.ticked
-            FROM listproduct
-            INNER JOIN product ON listproduct.pr_id=product.pr_id
-            WHERE listproduct.list_id = '$listID'";
-$result = mysqli_query($conn,$query) or die(mysqli_error());
+  $stmt = $conn->prepare( "SELECT  product.pr_id, product.name,product.price, listproduct.ticked
+                                FROM listproduct
+                                INNER JOIN product ON listproduct.pr_id=product.pr_id
+                                WHERE listproduct.list_id = ?");
+$stmt->bind_param('i', $listID); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+$stmt->execute();
+$result = $stmt->get_result();
 $products = array();
 while($row = mysqli_fetch_assoc($result))
 {

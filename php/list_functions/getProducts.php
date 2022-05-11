@@ -17,18 +17,13 @@ $stmt = $conn->prepare(   "SELECT listproduct.pr_id, product.name
                                 FROM listproduct
                                 INNER JOIN product ON listproduct.pr_id=product.pr_id
                                 WHERE listproduct.list_id = ?");
-$stmt->bind_param('i', $listID); // 's' specifies the variable type => 'string'
+$stmt->bind_param('i', $listID); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 $stmt->execute();
 $result = $stmt->get_result();
-if (mysqli_num_rows($result) >= 1) {
-  $products = array();
-  while($row = mysqli_fetch_assoc($result))
-  {
-    $products[] = $row;
-  }
-  echo json_encode($products);
-} else{
-  echo 0;
+$products = array();
+while($row = mysqli_fetch_assoc($result))
+{
+  $products[] = $row;
 }
-
+echo json_encode($products);
 ?>

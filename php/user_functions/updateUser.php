@@ -13,7 +13,7 @@ $lastname = mysqli_real_escape_string($conn, $input->lastname);
 $mail = mysqli_real_escape_string($conn, $input->email);
 
 $stmt = $conn->prepare("UPDATE user SET firstname=?, lastname=?, email=? WHERE username=?");
-$stmt->bind_param("ssss", $firstname,$lastname, $email, $username);
+$stmt->bind_param("ssss", $firstname,$lastname, $email, $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 if ($stmt->execute()) {
   echo 1;
 } else {

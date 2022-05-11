@@ -17,7 +17,7 @@ $stmt = $conn->prepare(   "SELECT userlist.list_id, list.name
                                 FROM userlist
                                 INNER JOIN list ON userlist.list_id=list.list_id
                                 WHERE userlist.user = ?");
-$stmt->bind_param('s', $username); // 's' specifies the variable type => 'string'
+$stmt->bind_param('s', $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 $stmt->execute();
 $result = $stmt->get_result();
 $lists = array();

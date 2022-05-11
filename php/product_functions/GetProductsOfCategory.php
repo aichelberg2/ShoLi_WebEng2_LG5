@@ -16,7 +16,7 @@ $productCategory = mysqli_real_escape_string($conn, $input->productCategory);
 $stmt = $conn->prepare("SELECT pr_id, name, price, 0 as ticked
             FROM product
             WHERE category = ?");
-$stmt->bind_param('s', $productCategory); // 's' specifies the variable type => 'string'
+$stmt->bind_param('s', $productCategory); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 $stmt->execute();
 $result = $stmt->get_result();
 $lists = array();

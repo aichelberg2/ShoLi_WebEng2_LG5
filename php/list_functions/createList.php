@@ -23,7 +23,7 @@ $usernames = $input->usernames;
 
 $listInsertStmt = $conn->prepare( "INSERT INTO list (name, shared, creator)
                                         VALUES (?, ?, ?)");
-$listInsertStmt->bind_param("sis", $listname,$isListSharedBool, $creator);
+$listInsertStmt->bind_param("sis", $listname,$isListSharedBool, $creator); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 
 //echo "listInsertStatement: $listInsertStatement";
 $list_id = null;
@@ -33,14 +33,14 @@ if ($listInsertStmt->execute()) {
 
   $creatorInsertStmt = $conn->prepare(   "INSERT INTO userlist(list_id, user)
                                                 VALUES(?, ?)");
-  $creatorInsertStmt->bind_param("is", $list_id, $creator);
+  $creatorInsertStmt->bind_param("is", $list_id, $creator); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
   if (!$creatorInsertStmt->execute()) {
     echo 0;
   } else {
     foreach ($usernames as $username) {
       $usersInsertStmt = $conn->prepare("INSERT INTO userlist(list_id, user)
                                                 VALUES(?, ?)");
-      $usersInsertStmt->bind_param("is", $list_id, $username);
+      $usersInsertStmt->bind_param("is", $list_id, $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
       if (!$usersInsertStmt->execute()) {
         echo 0;
       }

@@ -14,7 +14,8 @@ $listID = mysqli_real_escape_string($conn, $input->listID);
 
 $stmt = $conn->prepare("DELETE FROM list
                              WHERE list_id= ?");
-$stmt->bind_param("i", $listID);if ($stmt->execute()) {
+$stmt->bind_param("i", $listID); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+if ($stmt->execute()) {
   echo 1;
 } else {
   echo 0;

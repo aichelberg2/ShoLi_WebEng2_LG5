@@ -20,7 +20,7 @@ if ($username != '')
 {
   $stmt = $conn->prepare("INSERT INTO user(username, firstname, lastname, email, password, logged_in)
                                 VALUES(?, ?, ?, ?, ?, 0)");
-  $stmt->bind_param("sssss", $username,$firstname, $lastname, $email, $hash);
+  $stmt->bind_param("sssss", $username,$firstname, $lastname, $email, $hash); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
   if ($stmt->execute()) {
     echo 1;
   } else {
