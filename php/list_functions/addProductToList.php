@@ -14,10 +14,10 @@ $listID = mysqli_real_escape_string($conn, $input->listID);
 $productIDs = $input->productIDs;
 
 foreach ($productIDs as $productID){
-  $insertStatement = " INSERT INTO listproduct(list_id, pr_id)
-                    VALUES('$listID', '$productID')";
-  $result = mysqli_query($conn, $insertStatement);
-  if (!$result) {
+  $stmt = $conn->prepare( "INSERT INTO listproduct(list_id, pr_id)
+                                VALUES(?, ?)");
+  $stmt->bind_param("ii", $listID,$productID);
+  if (!$stmt->execute()) {
     echo 0;
   }
 }
