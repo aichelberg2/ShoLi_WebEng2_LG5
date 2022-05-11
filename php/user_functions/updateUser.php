@@ -12,12 +12,11 @@ $firstname = mysqli_real_escape_string($conn, $input->firstname);
 $lastname = mysqli_real_escape_string($conn, $input->lastname);
 $mail = mysqli_real_escape_string($conn, $input->email);
 
-$sql = "UPDATE user SET firstname=$firstname, lastname=$lastname, email=$mail WHERE username=$username";
-
-if ($conn->query($sql) === TRUE) {
+$stmt = $conn->prepare("UPDATE user SET firstname=?, lastname=?, email=? WHERE username=?");
+$stmt->bind_param("ssss", $firstname,$lastname, $email, $username);
+if ($stmt->execute()) {
   echo 1;
 } else {
   echo 0;
 }
-
 ?>

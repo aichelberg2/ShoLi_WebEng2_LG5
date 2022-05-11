@@ -28,10 +28,11 @@ if (mysqli_num_rows($result) == 1) {
                                         SET logged_in = 1
                                         WHERE username=?");
     $updateStmt->bind_param('s', $username); // 's' specifies the variable type => 'string'
-    $updateStmt->execute();
-    $result = $updateStmt->get_result();
-
-    echo 1;
+    if ($updateStmt->execute()) {
+      echo 1;
+    } else {
+      echo 0;
+    }
   } else {
     echo 0;
   }
