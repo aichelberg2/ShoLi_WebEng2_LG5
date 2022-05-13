@@ -14,8 +14,9 @@ export class LogOutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.manageUserData.setUsername_loggedIn(undefined);
-    this.authService.setIsLoggedIn(false);
+    // this.manageUserData.setUsername_loggedIn(undefined);
+    sessionStorage.removeItem('loggedIn')
+    sessionStorage.removeItem('user')
     this.router.navigate(['login'])
   }
 }

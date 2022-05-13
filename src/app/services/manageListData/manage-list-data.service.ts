@@ -30,7 +30,6 @@ export class ManageListDataService {
   }
 
   deleteList(data: any): Observable<any> {
-    console.log(data)
     return this.http.post(this.urlDeleteList, data);
   }
 }
