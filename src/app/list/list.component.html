@@ -29,13 +29,15 @@
           </mat-grid-tile>
 
           <mat-grid-tile>
-            <input *ngIf="options.ticked==1" class="form-check-input" type="checkbox" id="checkboxNoLabel" checked>
-            <input *ngIf="options.ticked==0" class="form-check-input" type="checkbox" id="checkboxNoLabel1">
+            <input *ngIf="options.ticked==1" (click)="options.ticked=0; toggleTicked(options.pr_id,options.ticked);"
+                   class="form-check-input" type="checkbox" id="checkboxNoLabel" checked>
+            <input *ngIf="options.ticked==0" (click)="options.ticked=1; toggleTicked(options.pr_id,options.ticked)"
+                   class="form-check-input" type="checkbox" id="checkboxNoLabel1">
           </mat-grid-tile>
 
           <mat-grid-tile>
             <i class="bi bi-trash-fill" style="cursor: pointer" data-toggle="modal"
-               data-target="#modal_deleteProductOfList"></i>
+               data-target="#modal_deleteProductOfList" (click)="temporaryProductToDelete=options.pr_id"></i>
           </mat-grid-tile>
         </mat-grid-list>
       </div>
@@ -50,7 +52,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Produkt aus Liste löschen?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -66,33 +68,74 @@
   </div>
 </div>
 
-
 <div class="modal fade" id="modal_createProduct" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create a Product!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Search!</button>
+  <form id="formCreateProduct" #productForm="ngForm"
+        (ngSubmit)="createProduct(productForm.value.newProductName,productForm.value.newProductPrice,productForm.value.shouldBeAddedToList); clearForm(productForm)">
+    <div class="modal-dialog modal-dialog-centered" role="dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create a Product!</h5>
+          <button (click)="resetModal(productForm)" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="!createNextNewProduct" class="modal-body">
+          <div class="form-floating">
+            <select id="newProductCategory" name="newProductCategory" class="custom-select mr-sm-2"
+                    [(ngModel)]="selectedProductCategory">
+              <option *ngFor="let option of productCategories">{{option}}</option>
+            </select>
+          </div>
+          <br>
+          <div class="form-floating">
+            <input autocomplete="off" class="form-control" type="text" name="newProductName" id="newProductName"
+                   placeholder="name" ngModel
+                   required>
+            <label for="newProductName">Productname</label>
+          </div>
+          <br>
+          <div class="form-floating">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">€</div>
+              </div>
+              <input autocomplete="off" class="form-control" step="0.01" type="number" name="newProductPrice"
+                     id="newProductPrice"
+                     placeholder="0,00" ngModel
+                     required>
+            </div>
+          </div>
+          <br>
+          <div class="form-check form-switch" id="toggleButton">
+            <input class="form-check-input" type="checkbox" name="shouldBeAddedToList"
+                   id="shouldBeAddedToList" ngModel required>
+            <label for="shouldBeAddedToList">Should the created product be added to the list?</label>
+          </div>
+        </div>
+        <div *ngIf="createNextNewProduct" class="modal-body">
+          Create another product?
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="createNextNewProduct=false" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button *ngIf="!createNextNewProduct" type="submit" class="btn btn-primary">Create!
+          </button>
+          <button *ngIf="createNextNewProduct" (click)="createNextNewProduct=false" type="button"
+                  class="btn btn-primary">Yes!
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
 
 
-<div class="modal fade" id="modal_addProduct" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_addProduct" aria-labelledby="modal-title">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Choose a Categorie!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 *ngIf="!isProductKategorieChoosed" class="modal-title">Choose a Categorie!</h5>
+        <h5 *ngIf="isProductKategorieChoosed" class="modal-title">Which products should be added?</h5>
+        <button (click)="isProductKategorieChoosed=false" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -117,13 +160,13 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!isProductKategorieChoosed" class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)="transmitProductCategorie()" type="button" class="btn btn-primary">Search!</button>
-      </div>
-      <div *ngIf="isProductKategorieChoosed" class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)="addProductsToList()" type="button" class="btn btn-primary">Search!</button>
+      <div class="modal-footer">
+        <button *ngIf="!isProductKategorieChoosed" (click)="transmitProductCategorie()" type="button"
+                class="btn btn-primary">Search!
+        </button>
+        <button *ngIf="isProductKategorieChoosed" (click)="addProductsToList()" type="button" data-bs-dismiss="modal"
+                class="btn btn-primary">Add!
+        </button>
       </div>
     </div>
   </div>
