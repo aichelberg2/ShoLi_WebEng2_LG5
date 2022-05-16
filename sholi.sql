@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
-INSERT INTO `list` VALUES (1,'test',1,'lux1'),(2,'ggg',0,'lux1'),(3,'ddd',0,'lux1'),(4,'Shopping',1,'chris'),(8,'dddd',0,'lux1'),(10,'kkk',0,'lux1'),(14,'Summer',0,'chris');
+INSERT INTO `list` VALUES (1,'test',1,'lux1'),(2,'ggg',0,'lux1'),(3,'ddd',0,'lux1'),(4,'shopping',1,'chris'),(8,'dddd',0,'lux1'),(10,'kkk',0,'lux1'),(14,'summer',0,'chris'),(15,'familie',0,'chris');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (1,2,0),(1,14,0);
+INSERT INTO `listproduct` VALUES (1,2,0),(1,14,0),(1,4,0),(1,15,1),(5,15,1),(1,4,0),(5,4,0);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `product` (
   `price` decimal(10,2) NOT NULL,
   `Category` varchar(30) NOT NULL,
   PRIMARY KEY (`pr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Erdbeeren',0.99,'Fruits & Vegetables');
+INSERT INTO `product` VALUES (1,'Erdbeeren',3.99,'Fruits & Vegetables'),(3,'bananen',0.79,'Fruits & Vegetables'),(4,'apfel',0.49,'Fruits & Vegetables'),(5,'kiwi',0.43,'Fruits & Vegetables');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +148,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
-INSERT INTO `userlist` VALUES ('lux1',1),('lux1',2),('lux1',3),('chris',4),('lux1',4),('lux1',8),('lux1',10),('chris',14);
+INSERT INTO `userlist` VALUES ('lux1',1),('lux1',2),('lux1',3),('chris',4),('lux1',4),('lux1',8),('lux1',10),('chris',14),('chris',15);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-16 12:00:01
+-- Dump completed on 2022-05-16 15:00:01
