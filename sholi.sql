@@ -67,7 +67,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (1,2,0),(1,14,0),(1,4,0),(1,15,1),(5,15,1),(1,4,0),(5,4,0);
+INSERT INTO `listproduct` VALUES (1,2,0),(1,14,0),(1,15,1),(5,15,1);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `product` (
   `price` decimal(10,2) NOT NULL,
   `Category` varchar(30) NOT NULL,
   PRIMARY KEY (`pr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Erdbeeren',3.99,'Fruits & Vegetables'),(3,'bananen',0.79,'Fruits & Vegetables'),(4,'apfel',0.49,'Fruits & Vegetables'),(5,'kiwi',0.43,'Fruits & Vegetables');
+INSERT INTO `product` VALUES (1,'Erdbeeren',3.99,'Fruits & Vegetables'),(3,'bananen',0.79,'Fruits & Vegetables'),(4,'apfel',0.49,'Fruits & Vegetables'),(5,'kiwi',0.43,'Fruits & Vegetables'),(6,'soll kiwi',0.00,'Fruits & Vegetables'),(7,'banane zur',0.00,'Fruits & Vegetables'),(8,'banane',0.00,'Fruits & Vegetables');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-16 15:00:01
+-- Dump completed on 2022-05-17  0:00:01
