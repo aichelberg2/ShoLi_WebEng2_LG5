@@ -69,7 +69,6 @@ export class HomeComponent implements OnInit {
     this.isPopUpDisplayed = !this.isPopUpDisplayed;
   }
 
-
   removeItem(option: string) {
     this.options.forEach((name, index) => {
       if (name == option)
