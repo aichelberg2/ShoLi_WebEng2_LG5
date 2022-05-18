@@ -66,6 +66,8 @@ export class ListComponent implements OnInit {
     );
 
     this.receivedProductsOfListOberservable.subscribe(value => {
+      this.receivedProductIDOfList.length=0
+      this.receivedProductsOfList.length=0
       for (let i = 0; i < value.length; i++) {
         if (!this.receivedProductIDOfList.includes(value[i].pr_id)) {
           this.receivedProductIDOfList.push(value[i].pr_id)
