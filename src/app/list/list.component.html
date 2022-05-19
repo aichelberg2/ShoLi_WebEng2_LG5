@@ -27,7 +27,6 @@
               <span matPrefix>€</span>
             </mat-form-field>
           </mat-grid-tile>
-{{options.ticked}}
           <mat-grid-tile>
             <input *ngIf="options.ticked==1" (click)="options.ticked=0; toggleTicked(options.pr_id,options.ticked);"
                    class="form-check-input" type="checkbox" id="checkboxNoLabel" checked>
