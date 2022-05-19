@@ -46,6 +46,7 @@ export class ManageUserDataService {
   // }
 
   getThisUser(name: any): Observable<any> {
+    console.log(name)
     return this.http.post(this.urlGetThisUser, name);
   }
 
