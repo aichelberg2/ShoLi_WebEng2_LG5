@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('chris','Chris','Markov','chris@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('lucario1234','lucas','222','ttttt','$2y$10$9JUjxqRT9yTkbVjOSMGiJeTt/y0ZWs7NtanFMq731ebKGfm/ajF2C',1),('lux1','Ff','Ff','ff','$2y$10$elNEv4NK7ZC3lbujyqwMZunuF6tjBCzn5WSFK6WlPRh3UUdzNe6Ci',1);
+INSERT INTO `user` VALUES ('chris','Chris','Markov','chris@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('HeiniMeier','Horst','Maier','qda3hl+bg0euqcniw2ps@sharklasers.com','$2y$10$xY8qFcwG9OBMWBs3gFcFMOXaH0uNensTy3G0cG90/U5E1NLKWu35O',1),('lucario1234','lucas','222','ttttt','$2y$10$9JUjxqRT9yTkbVjOSMGiJeTt/y0ZWs7NtanFMq731ebKGfm/ajF2C',1),('lux1','Ff','Ff','ff','$2y$10$elNEv4NK7ZC3lbujyqwMZunuF6tjBCzn5WSFK6WlPRh3UUdzNe6Ci',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-19 12:00:01
+-- Dump completed on 2022-05-19 15:00:01
