@@ -3,7 +3,6 @@ import {NgForm} from "@angular/forms";
 import {AuthService} from "../services/auth/auth.service";
 import {Router} from "@angular/router";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
-import {User} from "../User";
 
 
 @Component({
