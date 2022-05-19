@@ -45,7 +45,7 @@ export class UserSettingsComponent implements OnInit {
       'username': this.username,
       'firstname':this.firstname,
       'lastname':this.lastname,
-      'email':this.email
+      'eMail':this.email
     }
 
     this.manageUserData.updateThisUser(data).subscribe(value => {
