@@ -60,39 +60,14 @@ export class HomeComponent implements OnInit {
           this.lists.push(value[i])
         }
       }
+      console.log(this.lists)
+      console.log(this.listIDs)
     })
-
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value)),
-    // );
   }
-
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-  //   return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  // }
 
   closePopUpForListName() {
     this.isPopUpDisplayed = !this.isPopUpDisplayed;
   }
-
-  // addValue(option: string) {
-  //   let element = document.getElementById("addedUsersTextArea");
-  //   if (element != null) {
-  //     if (this.selectedNames.length == 0) {
-  //       this.selectedNames.push(option);
-  //       element.append(option);
-  //     } else {
-  //       for (let i = 0; i < this.selectedNames.length; i++) {
-  //         if (!(this.selectedNames.includes(option))) {
-  //           this.selectedNames.push(option);
-  //           element.append(", " + option);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   removeItem(option: string) {
     this.options.forEach((name, index) => {
@@ -128,7 +103,7 @@ export class HomeComponent implements OnInit {
     }
     console.log(data)
     this.manageListData.createList(data).subscribe(value => {
-      this.listIDs.push(value)
+      //this.listIDs.push(value)
     });
   }
 

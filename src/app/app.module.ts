@@ -24,6 +24,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
 
+
+
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LogInComponent },
@@ -53,7 +55,7 @@ const routes: Routes = [
     ScannertestComponent,
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
