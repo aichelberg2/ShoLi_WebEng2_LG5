@@ -54,8 +54,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="modal_deleteList" role="dialog"
-     aria-labelledby="exampleModalCenterTitle">
+<div class="modal fade" id="modal_deleteList" role="dialog">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,8 +86,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modal-title">Create new list?</h5>
-          <button type="button" class="btn close" data-bs-dismiss="modal"
-                  aria-label="Close">X
+          <button (click)="clearForm(listInfoForm)" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
@@ -105,31 +104,40 @@
             <label for="isShared">Want to share the list?</label>
           </div>
           <br>
-          <div *ngIf="!isPopUpDisplayed" class="form-floating">
-            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled
-                   ngModel required>
-            <label for="sharedUSers">Usernames for sharing</label>
+<!--          <div *ngIf="!isPopUpDisplayed" class="form-floating">-->
+<!--            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled-->
+<!--                   ngModel required>-->
+<!--            <label for="sharedUSers">Usernames for sharing</label>-->
+<!--          </div>-->
+          <div *ngIf="isPopUpDisplayed" id="selectDiv">
+            <mat-form-field>
+              <mat-label>Usernames</mat-label>
+              <mat-select [formControl]="myControl" [(value)]="selectedNames" multiple>
+                <mat-option style="color: black" *ngFor="let option of options"
+                            [value]="option">{{option}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-          <div *ngIf="isPopUpDisplayed" class="form-floating">
-            <input matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off"
-                   class="form-control"
-                   type="text" name="sharedUSers1"
-                   id="sharedUSers1" placeholder="user" ngModel required multiple>
-            <label for="sharedUSers1">Usernames for sharing</label>
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                              (optionSelected)='addValue($event.option.value); removeItem($event.option.value)'>
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                <div class="overflow-auto">
-                  {{option}} <i class="float-right bi bi-person-plus"></i>
-                </div>
-              </mat-option>
-            </mat-autocomplete>
-          </div>
+<!--          <div *ngIf="isPopUpDisplayed" class="form-floating">-->
+<!--            <input matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off"-->
+<!--                   class="form-control"-->
+<!--                   type="text" name="sharedUSers1"-->
+<!--                   id="sharedUSers1" placeholder="user" ngModel required multiple>-->
+<!--            <label for="sharedUSers1">Usernames for sharing</label>-->
+<!--            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"-->
+<!--                              (optionSelected)='addValue($event.option.value); removeItem($event.option.value)'>-->
+<!--              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">-->
+<!--                <div class="overflow-auto">-->
+<!--                  {{option}} <i class="float-right bi bi-person-plus"></i>-->
+<!--                </div>-->
+<!--              </mat-option>-->
+<!--            </mat-autocomplete>-->
+<!--          </div>-->
           <br>
-          <div *ngIf="isPopUpDisplayed" class="form-group">
-            <label for="addedUsersTextArea">Added Users:</label>
-            <textarea class="form-control" id="addedUsersTextArea" rows="3" readonly></textarea>
-          </div>
+<!--          <div *ngIf="isPopUpDisplayed" class="form-group">-->
+<!--            <label for="addedUsersTextArea">Added Users:</label>-->
+<!--            <textarea class="form-control" id="addedUsersTextArea" rows="3" readonly></textarea>-->
+<!--          </div>-->
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"

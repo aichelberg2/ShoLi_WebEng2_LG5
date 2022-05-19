@@ -30,3 +30,7 @@
   align-items: center;
   flex-direction: column;
 }
+
+#toggleButton{
+  margin-left: 20px;
+}

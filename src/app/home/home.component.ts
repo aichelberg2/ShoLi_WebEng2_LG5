@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, NgForm} from "@angular/forms";
-//import {PollingService} from "../services/polling/polling.service";
 import {Observable, retry, share, startWith, Subject, subscribeOn, switchMap, takeUntil, timer} from "rxjs";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
 import {map} from "rxjs/operators";
@@ -28,7 +27,9 @@ export class HomeComponent implements OnInit {
   listIDs: any[] = [];
   havePErmissionToDeleteList: boolean = false;
   userNameAsJSON = {
-    "username": this.manageUserData.getUsername_loggedIn()
+    //"username": this.manageUserData.getUsername_loggedIn()
+    //"username": JSON.parse(sessionStorage.getItem('user') || ' ')
+    'username':sessionStorage.getItem('user')
   }
   temporaryListIDToDelete: string | undefined;
 
@@ -36,8 +37,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let listDiv = document.getElementById("listDiv");
-
     this.receivedListsObservable = timer(1, 1000).pipe(
       switchMap(() => this.manageListData.getLists(this.userNameAsJSON)),
       retry(),
@@ -63,37 +62,37 @@ export class HomeComponent implements OnInit {
       }
     })
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value)),
-    );
+    // this.filteredOptions = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value)),
+    // );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
+  //   return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  // }
 
   closePopUpForListName() {
     this.isPopUpDisplayed = !this.isPopUpDisplayed;
   }
 
-  addValue(option: string) {
-    let element = document.getElementById("addedUsersTextArea");
-    if (element != null) {
-      if (this.selectedNames.length == 0) {
-        this.selectedNames.push(option);
-        element.append(option);
-      } else {
-        for (let i = 0; i < this.selectedNames.length; i++) {
-          if (!(this.selectedNames.includes(option))) {
-            this.selectedNames.push(option);
-            element.append(", " + option);
-          }
-        }
-      }
-    }
-  }
+  // addValue(option: string) {
+  //   let element = document.getElementById("addedUsersTextArea");
+  //   if (element != null) {
+  //     if (this.selectedNames.length == 0) {
+  //       this.selectedNames.push(option);
+  //       element.append(option);
+  //     } else {
+  //       for (let i = 0; i < this.selectedNames.length; i++) {
+  //         if (!(this.selectedNames.includes(option))) {
+  //           this.selectedNames.push(option);
+  //           element.append(", " + option);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   removeItem(option: string) {
     this.options.forEach((name, index) => {
@@ -117,18 +116,18 @@ export class HomeComponent implements OnInit {
   }
 
   pushLol(newList_name: any) {
+    let names: any[] = [];
+    this.selectedNames.forEach((element:any)=>{
+      names.push(element);
+    })
     let data = {
       'listname': newList_name,
       'isListShared': this.isPopUpDisplayed,
-      'usernames': this.selectedNames,
+      'usernames': names,
       'creator': this.userNameAsJSON.username
     }
+    console.log(data)
     this.manageListData.createList(data).subscribe(value => {
-      let obj =
-        {
-          list_id: `${value}`,
-          name: `${newList_name}`
-        }
       this.listIDs.push(value)
     });
   }
@@ -136,7 +135,8 @@ export class HomeComponent implements OnInit {
   async getPermissionToDelete(list_id: any) {
     this.temporaryListIDToDelete = list_id;
     let data = {
-      'creator': this.manageUserData.getUsername_loggedIn(),
+      //'creator': this.manageUserData.getUsername_loggedIn(),
+      'creator': sessionStorage.getItem('user'),
       'listID': list_id
     }
     await new Promise<void>(resolve => {
@@ -163,7 +163,7 @@ export class HomeComponent implements OnInit {
         }
 
         for (let i = 0; i < this.lists.length; i++) {
-          if(this.lists[i].list_id==list_id){
+          if (this.lists[i].list_id == list_id) {
             const index = this.lists.indexOf(this.lists[i], 0);
             if (index > -1) {
               this.lists.splice(index, 1);

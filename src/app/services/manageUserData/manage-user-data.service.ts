@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class ManageUserDataService {
 
-  private username_loggedIn: string | undefined;
+  // private username_loggedIn: string | undefined;
 
   private host: string = `${window.location.protocol}//${window.location.hostname}`;
 
@@ -37,13 +37,13 @@ export class ManageUserDataService {
     return this.http.post(this.urlUpdateThisUser, data);
   }
 
-  setUsername_loggedIn(name: any) {
-    this.username_loggedIn = name;
-  }
+  // setUsername_loggedIn(name: any) {
+  //   this.username_loggedIn = name;
+  // }
 
-  getUsername_loggedIn() {
-    return this.username_loggedIn
-  }
+  // getUsername_loggedIn() {
+  //   return this.username_loggedIn
+  // }
 
   getThisUser(name: any): Observable<any> {
     return this.http.post(this.urlGetThisUser, name);

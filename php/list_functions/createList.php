@@ -13,7 +13,7 @@ $inputRaw = file_get_contents("php://input");
 $input = json_decode($inputRaw);
 $listname = mysqli_real_escape_string($conn, $input->listname);
 $isListShared = mysqli_real_escape_string($conn, $input->isListShared);
-if ($isListShared == "true") {
+if ($isListShared == true) {
   $isListSharedBool = 1;
 } else {
   $isListSharedBool = 0;
