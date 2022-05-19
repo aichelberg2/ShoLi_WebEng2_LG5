@@ -10,7 +10,7 @@ $inputRaw = file_get_contents("php://input");
 //$inputRaw = '{"listID":"3","productIDs":{"0":"1","1":"2"}}';
 
 $input = json_decode($inputRaw);
-$listID = mysqli_real_escape_string($conn, $input->listID);
+$listID = mysqli_real_escape_string($input, $input->listID);
 $productIDs = $input->productIDs;
 
 foreach ($productIDs as $productID){
