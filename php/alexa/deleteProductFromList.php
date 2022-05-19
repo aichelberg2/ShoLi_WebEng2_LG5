@@ -32,8 +32,8 @@ $result = $prodIDStmt->get_result();
 if ($prodIDRow = $result->fetch_object()) {
   $productId = $prodIDRow->pr_id;
 
-  $stmt = $conn->prepare("DELETE FROM listproduct(list_id, pr_id)
-                                  VALUES(?, ?)");
+  $stmt = $conn->prepare("DELETE FROM listproduct
+                                  WHERE list_id=? AND pr_id=?");
   $stmt->bind_param("ii", $listId, $productId); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
   if (!$stmt->execute()) {
     echo 0;
