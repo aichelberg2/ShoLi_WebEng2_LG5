@@ -31,27 +31,27 @@ $result = $prodIDStmt->get_result();
 
 if ($prodIDRow = $result->fetch_object()) {
   $productId = $prodIDRow->pr_id;
-} else {
-  $productPrice = 0.0;
-  $productCategory = "Fruits & Vegetables";
 
-  $stmt = $conn->prepare("INSERT INTO product(name, price, category)
-                                VALUES(?, ?, ?)");
-  $stmt->bind_param("sds", $productName, $productPrice, $productCategory);
-  if ($stmt->execute()) {
-    $productId = $conn->insert_id;
-    echo $productId;
-  } else {
+  $stmt = $conn->prepare("DELETE FROM listproduct(list_id, pr_id)
+                                  VALUES(?, ?)");
+  $stmt->bind_param("ii", $listId, $productId); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+  if (!$stmt->execute()) {
     echo 0;
+  } else {
+    echo 1;
   }
-}
+} 
+// else {
+//   $productPrice = 0.0;
+//   $productCategory = "Fruits & Vegetables";
 
-
-$stmt = $conn->prepare("DELETE FROM listproduct(list_id, pr_id)
-                                VALUES(?, ?)");
-$stmt->bind_param("ii", $listId, $productId); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
-if (!$stmt->execute()) {
-  echo 0;
-} else {
-  echo 1;
-}
+//   $stmt = $conn->prepare("INSERT INTO product(name, price, category)
+//                                 VALUES(?, ?, ?)");
+//   $stmt->bind_param("sds", $productName, $productPrice, $productCategory);
+//   if ($stmt->execute()) {
+//     $productId = $conn->insert_id;
+//     echo $productId;
+//   } else {
+//     echo 0;
+//   }
+// }
