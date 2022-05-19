@@ -7,25 +7,24 @@
           <form #updateForm="ngForm" (ngSubmit)="updateUser(updateForm)">
             <input type="text" readonly class="form-control-plaintext" value="Your Firstname: {{firstname}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="firstname" id="firstname"
+              <input autocomplete="off" type="text" class="form-control" name="firstname" id="firstname"
                      placeholder="name" ngModel required>
               <label for="firstname">Firstname <i class="bi bi-pencil-square float-right"></i></label>
             </div>
             <input type="text" readonly class="form-control-plaintext" value="Your Lastname: {{lastname}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="lastname" id="lastname"
+              <input autocomplete="off" type="text" class="form-control" name="lastname" id="lastname"
                      placeholder="name" ngModel required>
               <label for="lastname">Lastname <i class="bi bi-pencil-square float-right"></i></label>
             </div>
-            <input type="mail" readonly class="form-control-plaintext" value="Your Email-Adress: {{email}}">
+            <input type="mail" readonly class="form-control-plaintext" value="Your Email-Adress: {{mail}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="mail" id="mail"
-                     placeholder="name" ngModel required>
+              <input autocomplete="off" type="text" class="form-control" name="mail" id="mail"
+                     placeholder="mail" ngModel required>
               <label for="mail">EMail <i class="bi bi-pencil-square float-right"></i></label>
             </div>
             <div class="d-grid">
               <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Save Changes
-                in
               </button>
             </div>
           </form>

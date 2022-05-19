@@ -60,8 +60,6 @@ export class HomeComponent implements OnInit {
           this.lists.push(value[i])
         }
       }
-      console.log(this.lists)
-      console.log(this.listIDs)
     })
   }
 
