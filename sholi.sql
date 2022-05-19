@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
-INSERT INTO `list` VALUES (1,'test',1,'lux1'),(2,'ggg',0,'lux1'),(3,'ddd',0,'lux1'),(4,'shopping',1,'chris'),(8,'dddd',0,'lux1'),(10,'kkk',0,'lux1'),(14,'summer',0,'chris'),(15,'familie',0,'chris');
+INSERT INTO `list` VALUES (1,'test',1,'lux1'),(2,'ggg',0,'lux1'),(3,'ddd',0,'lux1'),(4,'shopping',1,'chris'),(8,'dddd',0,'lux1'),(10,'kkk',0,'lux1'),(14,'summer',0,'chris'),(15,'familie',0,'chris'),(16,'FirstList',1,'lucario1234');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (1,2,0),(1,14,0),(1,15,1),(5,15,1);
+INSERT INTO `listproduct` VALUES (1,2,0),(1,14,0),(1,15,1),(5,15,1),(1,16,0),(3,16,1),(4,16,1),(5,16,1),(6,16,0),(8,16,0),(6,16,0),(8,16,0);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('chris','Chris','Markov','chris@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('lux1','Ff','Ff','ff','$2y$10$elNEv4NK7ZC3lbujyqwMZunuF6tjBCzn5WSFK6WlPRh3UUdzNe6Ci',1);
+INSERT INTO `user` VALUES ('chris','Chris','Markov','chris@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('lucario1234','lucas','222','ttttt','$2y$10$9JUjxqRT9yTkbVjOSMGiJeTt/y0ZWs7NtanFMq731ebKGfm/ajF2C',1),('lux1','Ff','Ff','ff','$2y$10$elNEv4NK7ZC3lbujyqwMZunuF6tjBCzn5WSFK6WlPRh3UUdzNe6Ci',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +148,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
-INSERT INTO `userlist` VALUES ('lux1',1),('lux1',2),('lux1',3),('chris',4),('lux1',4),('lux1',8),('lux1',10),('chris',14),('chris',15);
+INSERT INTO `userlist` VALUES ('lux1',1),('lux1',2),('lux1',3),('chris',4),('lux1',4),('lux1',8),('lux1',10),('chris',14),('chris',15),('lucario1234',16),('lux1',16);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-18 15:00:01
+-- Dump completed on 2022-05-19  0:00:01
