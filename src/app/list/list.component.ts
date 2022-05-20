@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ManageProductDataService} from "../services/manageProductData/manage-product-data.service";
-import {FormControl, NgForm} from "@angular/forms";
-import {Observable, retry, share, Subject, switchMap, takeUntil, timer} from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { ManageProductDataService } from "../services/manageProductData/manage-product-data.service";
+import { FormControl, NgForm } from "@angular/forms";
+import { Observable, retry, share, Subject, switchMap, takeUntil, timer } from "rxjs";
 
 @Component({
   selector: 'app-list',
@@ -49,9 +49,9 @@ export class ListComponent implements OnInit {
 
     this.route.queryParams
       .subscribe(params => {
-          this.listname = params['name'];
-          this.listid = params['id'];
-        }
+        this.listname = params['name'];
+        this.listid = params['id'];
+      }
       );
 
     let listID = {
@@ -66,8 +66,8 @@ export class ListComponent implements OnInit {
     );
 
     this.receivedProductsOfListOberservable.subscribe(value => {
-      this.receivedProductIDOfList.length=0
-      this.receivedProductsOfList.length=0
+      this.receivedProductIDOfList.length = 0
+      this.receivedProductsOfList.length = 0
       for (let i = 0; i < value.length; i++) {
         if (!this.receivedProductIDOfList.includes(value[i].pr_id)) {
           this.receivedProductIDOfList.push(value[i].pr_id)
@@ -99,6 +99,7 @@ export class ListComponent implements OnInit {
       value.forEach((element: any) => {
         if (!this.receivedProductIDOfList.includes(element.pr_id)) {
           this.receivedProductsOfCategory.push(element)
+          this.receivedProductIDOfList.push(element.pr_id)
         }
       })
     })
@@ -151,7 +152,7 @@ export class ListComponent implements OnInit {
     })
     this.choosedProductCategorie = undefined;
     this.isProductKategorieChoosed = false;
-    this.selectedProducts.length=0;
+    this.selectedProducts.length = 0;
   }
 
   ngOnDestroy() {
