@@ -88,6 +88,7 @@ export class ListComponent implements OnInit {
       element.style.backgroundColor = '#007bff';
   }
 
+  receivedProductsIDOfCategory: any = [];
 
   transmitProductCategorie() {
     if (this.choosedProductCategorie)
@@ -97,8 +98,9 @@ export class ListComponent implements OnInit {
     }
     this.manageProductData.getProductsOfCategoerie(data).subscribe(value => {
       value.forEach((element: any) => {
-        if (!this.receivedProductIDOfList.includes(element.pr_id)) {
+        if (!this.receivedProductsIDOfCategory.includes(element.pr_id)) {
           this.receivedProductsOfCategory.push(element)
+          this.receivedProductsIDOfCategory.push(element.pr_id)
         }
       })
     })
@@ -152,6 +154,8 @@ export class ListComponent implements OnInit {
     this.choosedProductCategorie = undefined;
     this.isProductKategorieChoosed = false;
     this.selectedProducts.length = 0;
+    this.receivedProductsOfCategory.length = 0;
+    this.receivedProductsIDOfCategory.length = 0;
   }
 
   ngOnDestroy() {
