@@ -10,50 +10,48 @@ import {ManageUserDataService} from "../services/manageUserData/manage-user-data
 export class UserSettingsComponent implements OnInit {
 
   myControl = new FormControl();
-  username: any;
+  username: any=sessionStorage.getItem('user');
   firstname: any;
   lastname: any;
-  email: any;
+  mail: any;
 
   constructor(private manageUserData: ManageUserDataService) {
   }
 
   ngOnInit(): void {
-    this.manageUserData.getThisUser(sessionStorage.getItem('user')).subscribe(value => {
-      console.log(value)
+    let data={
+      'username':sessionStorage.getItem('user')
+    }
+    this.manageUserData.getThisUser(data).subscribe(value => {
+       console.log(value)
       this.firstname=value.firstname;
       this.lastname=value.lastname;
-      this.email=value.email;
+      this.mail=value.email;
     });
   }
 
   updateUser(updateForm: NgForm) {
 
-    if (this.firstname != updateForm.value.firstname) {
-      this.firstname = updateForm.value.firstname;
+    if (updateForm.value.firstname!=""&&updateForm.value.firstname) {
+       this.firstname = updateForm.value.firstname;
     }
 
-    if (this.lastname != updateForm.value.lastname) {
-      this.lastname = updateForm.value.lastname;
+    if (updateForm.value.lastname!=""&&updateForm.value.lastname) {
+       this.lastname = updateForm.value.lastname;
     }
 
-    if (this.email != updateForm.value.email) {
-      this.email = updateForm.value.email;
+    if (updateForm.value.mail!=""&&updateForm.value.mail) {
+      this.mail = updateForm.value.mail;
     }
+
 
     let data={
       'username': this.username,
       'firstname':this.firstname,
       'lastname':this.lastname,
-      'eMail':this.email
+      'eMail':this.mail
     }
 
-    this.manageUserData.updateThisUser(data).subscribe(value => {
-      if (value == 1) {
-        alert("Toll!");
-      } else {
-        alert("Blöd");
-      }
-    });
+    this.manageUserData.updateThisUser(data).subscribe();
   }
 }
