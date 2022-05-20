@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
-INSERT INTO `list` VALUES (1,'test',1,'lux1'),(2,'ggg',0,'lux1'),(3,'ddd',0,'lux1'),(4,'shopping',1,'chris'),(8,'dddd',0,'lux1'),(10,'kkk',0,'lux1'),(14,'summer',0,'chris'),(16,'FirstList',1,'lucario1234'),(18,'familie',1,'chris'),(22,'Hallo',1,'lucario1234'),(23,'Christian',1,'lucario1234'),(24,'weihnachten',1,'chris');
+INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(29,'Gym',0,'chris'),(32,'familie',1,'chris');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,6 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (1,2,0),(1,14,0),(1,16,0),(3,16,1),(4,16,1),(5,16,1),(6,16,0),(8,16,0),(6,16,0),(8,16,0),(1,4,0),(3,4,0),(1,22,1),(3,22,0),(11,22,0),(1,4,0),(5,18,0),(1,4,0);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +83,7 @@ CREATE TABLE `product` (
   `price` decimal(10,2) NOT NULL,
   `Category` varchar(30) NOT NULL,
   PRIMARY KEY (`pr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +92,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Erdbeeren',3.99,'Fruits & Vegetables'),(3,'bananen',0.79,'Fruits & Vegetables'),(4,'apfel',0.49,'Fruits & Vegetables'),(5,'kiwi',0.43,'Fruits & Vegetables'),(6,'soll kiwi',0.00,'Fruits & Vegetables'),(7,'banane zur',0.00,'Fruits & Vegetables'),(8,'banane',0.00,'Fruits & Vegetables'),(9,'soll erdbeeren',0.00,'Fruits & Vegetables'),(10,'mir was assistenten er soll kiwi',0.00,'Fruits & Vegetables'),(11,'Babypuder',6.99,'Baby & Child'),(12,'r. soll erdbeeren',0.00,'Fruits & Vegetables'),(13,'t. v.',0.00,'Fruits & Vegetables'),(14,'undefined',0.00,'Fruits & Vegetables'),(15,'meinem assistenten lösche kiwi',0.00,'Fruits & Vegetables');
+INSERT INTO `product` VALUES (16,'Erbeeren',3.99,'Fruits & Vegetables'),(17,'Tiefkühlpizza Salami',2.69,'Deep freeze'),(18,'Joghurt',0.99,'Freshness and cooling'),(19,'Milch',1.29,'Freshness and cooling'),(20,'Salat',0.99,'Fruits & Vegetables'),(21,'Reis',1.29,'Food'),(22,'Chips',1.29,'Sweet & Salty'),(23,'Flips',0.99,'Sweet & Salty'),(24,'Kamillentee',2.99,'Coffee, Tea & Cocoa'),(25,'Cola',1.29,'Beverages'),(26,'Fanta',1.29,'Beverages'),(27,'Wodka',8.99,'Wine, spirits & luxury food'),(28,'Kaviar',11.99,'Wine, spirits & luxury food'),(29,'Deo',2.69,'Drugstore & Cosmetics'),(30,'Abdeckstift',0.99,'Drugstore & Cosmetics'),(31,'Babypuder',2.99,'Baby & Child'),(32,'Spülmittel',1.99,'Kitchen & Household'),(33,'Katzenfutter',0.39,'Pet Supplies'),(34,'Bananen',0.78,'Fruits & Vegetables'),(35,'Kiwi',0.32,'Fruits & Vegetables'),(36,'Blumenkohl',0.78,'Fruits & Vegetables'),(37,'Kokosnuss',1.29,'Fruits & Vegetables');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +120,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('chris','Chris','Markov','chris@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('HeiniMeier','Horst','Maier','qda3hl+bg0euqcniw2ps@sharklasers.com','$2y$10$xY8qFcwG9OBMWBs3gFcFMOXaH0uNensTy3G0cG90/U5E1NLKWu35O',1),('Jefi','Jewgeni','Schnaper','jewgeni_schnaper@online.de','$2y$10$w8S5VScU5kJ9qITNG705auxucR8XHpzc2WWcEy5/xga0az5w2u8uu',1),('lucario1234','lucas','222','ttttt','$2y$10$9JUjxqRT9yTkbVjOSMGiJeTt/y0ZWs7NtanFMq731ebKGfm/ajF2C',1),('lux1','Ff','Ff','ff','$2y$10$elNEv4NK7ZC3lbujyqwMZunuF6tjBCzn5WSFK6WlPRh3UUdzNe6Ci',1);
+INSERT INTO `user` VALUES ('chris','Chris','Markov','chris@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('elli','Elli','Gott','elli@elli.com','$2y$10$hIupFDgJ1rD64.o2dH0jue.K8mhlQHKVxsy.dmxOYOwZpKRLv0Jaa',1),('Jefi','Jewgeni','Schnaper','jewgeni_schnaper@online.de','$2y$10$w8S5VScU5kJ9qITNG705auxucR8XHpzc2WWcEy5/xga0az5w2u8uu',1),('KindOfGod','Alexander','Toll','alex@alex.com','$2y$10$Wws7aYyCdi6VNyluulvfp.ZZMn/CYUpLg4IJ7.mgdVR6nUQayjpSK',0),('l3roit','Jonas','Schere','jonas@jonas.com','$2y$10$5auLJw3lFBszOQI2y3lcE.E.E/JV9ympyDaeCO.Jl.Zl1ef2IV2Rq',0),('lucario1234','Lucas','Müller','lucas@lucas.gmail.com','$2y$10$tqNV93.hyusRE0yW7hrQA.queVtwE9psnO9CLUgkb7CG2mhweWIXu',1),('tomisboy','Thomas','Albert','thomas@thomas.com','$2y$10$1kYeATqSGPhmzdlfUpHce.rwzMuN.9WYju6G8dvbM20mzUhphVC/W',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +147,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
-INSERT INTO `userlist` VALUES ('lux1',1),('lux1',2),('lux1',3),('chris',4),('lux1',4),('lux1',8),('lux1',10),('chris',14),('lucario1234',16),('lux1',16),('chris',18),('lucario1234',18),('lucario1234',22),('HeiniMeier',22),('lux1',22),('lucario1234',23),('chris',23),('chris',24),('lucario1234',24);
+INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('chris',29),('chris',32),('elli',32),('Jefi',32),('KindOfGod',32),('l3roit',32),('lucario1234',32),('tomisboy',32);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -161,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-20  0:00:01
+-- Dump completed on 2022-05-20 12:00:01
