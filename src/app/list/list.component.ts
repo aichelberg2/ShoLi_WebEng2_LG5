@@ -153,6 +153,8 @@ export class ListComponent implements OnInit {
     this.choosedProductCategorie = undefined;
     this.isProductKategorieChoosed = false;
     this.selectedProducts.length = 0;
+    this.receivedProductsOfCategory.length = 0;
+
   }
 
   ngOnDestroy() {
