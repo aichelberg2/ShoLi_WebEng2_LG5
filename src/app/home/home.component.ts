@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   userNameAsJSON = {
     //"username": this.manageUserData.getUsername_loggedIn()
     //"username": JSON.parse(sessionStorage.getItem('user') || ' ')
-    'username':sessionStorage.getItem('user')
+    'username': sessionStorage.getItem('user')
   }
   temporaryListIDToDelete: string | undefined;
 
@@ -44,16 +44,9 @@ export class HomeComponent implements OnInit {
       takeUntil(this.stopPolling)
     );
 
-    this.manageUserData.getAllUsers().subscribe(value => {
-      for (let i = 0; i < value.length; i++) {
-        if (value[i].username != this.userNameAsJSON.username) {
-          this.options.push(value[i].username);
-        }
-      }
-    });
-
-
     this.receivedListsObservable.subscribe(value => {
+      this.listIDs.length = 0;
+      this.lists.length = 0;
       for (let i = 0; i < value.length; i++) {
         if (!this.listIDs.includes(value[i].list_id)) {
           this.listIDs.push(value[i].list_id)
@@ -65,6 +58,17 @@ export class HomeComponent implements OnInit {
 
   closePopUpForListName() {
     this.isPopUpDisplayed = !this.isPopUpDisplayed;
+
+    if (this.isPopUpDisplayed) {
+      this.options.length = 0;
+      this.manageUserData.getAllUsers().subscribe(value => {
+        for (let i = 0; i < value.length; i++) {
+          if (value[i].username != this.userNameAsJSON.username) {
+            this.options.push(value[i].username);
+          }
+        }
+      });
+    }
   }
 
   removeItem(option: string) {
@@ -90,7 +94,7 @@ export class HomeComponent implements OnInit {
 
   pushLol(newList_name: any) {
     let names: any[] = [];
-    this.selectedNames.forEach((element:any)=>{
+    this.selectedNames.forEach((element: any) => {
       names.push(element);
     })
     let data = {

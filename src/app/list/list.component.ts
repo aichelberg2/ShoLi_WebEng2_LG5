@@ -41,6 +41,7 @@ export class ListComponent implements OnInit {
   private stopPolling = new Subject();
   createNextNewProduct: boolean = false;
   temporaryProductToDelete: any;
+  isEditPriceField: boolean = false;
 
   constructor(private route: ActivatedRoute, private manageProductData: ManageProductDataService) {
   }
@@ -66,8 +67,8 @@ export class ListComponent implements OnInit {
     );
 
     this.receivedProductsOfListOberservable.subscribe(value => {
-      this.receivedProductIDOfList.length=0
-      this.receivedProductsOfList.length=0
+      this.receivedProductIDOfList.length = 0
+      this.receivedProductsOfList.length = 0
       for (let i = 0; i < value.length; i++) {
         if (!this.receivedProductIDOfList.includes(value[i].pr_id)) {
           this.receivedProductIDOfList.push(value[i].pr_id)
@@ -88,6 +89,7 @@ export class ListComponent implements OnInit {
       element.style.backgroundColor = '#007bff';
   }
 
+  receivedProductsIDOfCategory: any = [];
 
   transmitProductCategorie() {
     if (this.choosedProductCategorie)
@@ -97,8 +99,9 @@ export class ListComponent implements OnInit {
     }
     this.manageProductData.getProductsOfCategoerie(data).subscribe(value => {
       value.forEach((element: any) => {
-        if (!this.receivedProductIDOfList.includes(element.pr_id)) {
+        if (!this.receivedProductsIDOfCategory.includes(element.pr_id)) {
           this.receivedProductsOfCategory.push(element)
+          this.receivedProductsIDOfCategory.push(element.pr_id)
         }
       })
     })
@@ -151,7 +154,9 @@ export class ListComponent implements OnInit {
     })
     this.choosedProductCategorie = undefined;
     this.isProductKategorieChoosed = false;
-    this.selectedProducts.length=0;
+    this.selectedProducts.length = 0;
+    this.receivedProductsOfCategory.length = 0;
+    this.receivedProductsIDOfCategory.length = 0;
   }
 
   ngOnDestroy() {
@@ -212,5 +217,13 @@ export class ListComponent implements OnInit {
 
   resetModal(productForm: NgForm) {
     productForm.resetForm();
+  }
+
+  editPriceField() {
+    this.isEditPriceField=true;
+  }
+
+  transmitProductPrice() {
+    this.isEditPriceField=false;
   }
 }

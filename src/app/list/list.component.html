@@ -23,9 +23,12 @@
 
           <mat-grid-tile>
             <mat-form-field floatLabel="always">
-              <input matInput [value]="options.price" readonly>
+              <input *ngIf="!isEditPriceField" matInput [value]="options.price" readonly>
+              <input *ngIf="isEditPriceField" matInput [value]="options.price">
               <span matPrefix>€</span>
             </mat-form-field>
+            <i *ngIf="!isEditPriceField" class="bi bi-pencil-fill" style="margin-left: 20px;cursor: pointer;" (click)="editPriceField()"></i>
+            <i *ngIf="isEditPriceField" class="bi bi-check-lg"  style="margin-left: 20px;cursor: pointer;" (click)="transmitProductPrice()"></i>
           </mat-grid-tile>
           <mat-grid-tile>
             <input *ngIf="options.ticked==1" (click)="options.ticked=0; toggleTicked(options.pr_id,options.ticked);"
@@ -134,7 +137,7 @@
       <div class="modal-header">
         <h5 *ngIf="!isProductKategorieChoosed" class="modal-title">Choose a Categorie!</h5>
         <h5 *ngIf="isProductKategorieChoosed" class="modal-title">Which products should be added?</h5>
-        <button (click)="isProductKategorieChoosed=false" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button (click)="isProductKategorieChoosed=false; receivedProductsOfCategory.length=0;receivedProductsIDOfCategory.length=0" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
