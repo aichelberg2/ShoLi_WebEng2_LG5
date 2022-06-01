@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { ManageProductDataService } from "../services/manageProductData/manage-product-data.service";
-import { FormControl, NgForm } from "@angular/forms";
-import { Observable, retry, share, Subject, switchMap, takeUntil, timer } from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {ManageProductDataService} from "../services/manageProductData/manage-product-data.service";
+import {FormControl, NgForm} from "@angular/forms";
+import {Observable, retry, share, Subject, switchMap, takeUntil, timer} from "rxjs";
 
 @Component({
   selector: 'app-list',
@@ -41,6 +41,7 @@ export class ListComponent implements OnInit {
   private stopPolling = new Subject();
   createNextNewProduct: boolean = false;
   temporaryProductToDelete: any;
+  isEditPriceField: boolean = false;
 
   constructor(private route: ActivatedRoute, private manageProductData: ManageProductDataService) {
   }
@@ -49,9 +50,9 @@ export class ListComponent implements OnInit {
 
     this.route.queryParams
       .subscribe(params => {
-        this.listname = params['name'];
-        this.listid = params['id'];
-      }
+          this.listname = params['name'];
+          this.listid = params['id'];
+        }
       );
 
     let listID = {
@@ -216,5 +217,13 @@ export class ListComponent implements OnInit {
 
   resetModal(productForm: NgForm) {
     productForm.resetForm();
+  }
+
+  editPriceField() {
+    this.isEditPriceField=true;
+  }
+
+  transmitProductPrice() {
+    this.isEditPriceField=false;
   }
 }
