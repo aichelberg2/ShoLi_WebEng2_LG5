@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
-INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(29,'Gym',0,'chris'),(32,'familie',1,'chris'),(33,'jkgsdcuzwd',0,'lucario1234');
+INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(32,'familie',1,'chris'),(33,'jkgsdcuzwd',0,'lucario1234');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (20,32,0),(34,32,0),(35,32,0),(36,32,0),(37,32,0);
+INSERT INTO `listproduct` VALUES (20,32,0),(34,32,0),(35,32,0),(36,32,0),(37,32,0),(34,26,0),(18,26,0),(19,26,0),(16,26,0),(20,26,0),(18,26,0),(19,26,0);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('chris','Chris','Markov','chris@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('elli','Elli','Gott','elli@elli.com','$2y$10$hIupFDgJ1rD64.o2dH0jue.K8mhlQHKVxsy.dmxOYOwZpKRLv0Jaa',1),('Jefi','Jewgeni','Schnaper','jewgeni_schnaper@online.de','$2y$10$w8S5VScU5kJ9qITNG705auxucR8XHpzc2WWcEy5/xga0az5w2u8uu',1),('KindOfGod','Alexander','Toll','alex@alex.com','$2y$10$Wws7aYyCdi6VNyluulvfp.ZZMn/CYUpLg4IJ7.mgdVR6nUQayjpSK',0),('l3roit','Jonas','Schere','jonas@jonas.com','$2y$10$5auLJw3lFBszOQI2y3lcE.E.E/JV9ympyDaeCO.Jl.Zl1ef2IV2Rq',0),('lucario1234','Lucas','Müller','lucas@lucas.gmail.com','$2y$10$tqNV93.hyusRE0yW7hrQA.queVtwE9psnO9CLUgkb7CG2mhweWIXu',1),('tomisboy','Thomas','Albert','thomas@thomas.com','$2y$10$1kYeATqSGPhmzdlfUpHce.rwzMuN.9WYju6G8dvbM20mzUhphVC/W',0);
+INSERT INTO `user` VALUES ('chris','Chris','Markov','chris1@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('elli','Elli','Gott','elli@elli.com','$2y$10$hIupFDgJ1rD64.o2dH0jue.K8mhlQHKVxsy.dmxOYOwZpKRLv0Jaa',1),('Jefi','Jewgeni','Schnaper','jewgeni_schnaper@online.de','$2y$10$w8S5VScU5kJ9qITNG705auxucR8XHpzc2WWcEy5/xga0az5w2u8uu',1),('KindOfGod','Alexander','Toll','alex@alex.com','$2y$10$Wws7aYyCdi6VNyluulvfp.ZZMn/CYUpLg4IJ7.mgdVR6nUQayjpSK',0),('l3roit','Jonas','Schere','jonas@jonas.com','$2y$10$5auLJw3lFBszOQI2y3lcE.E.E/JV9ympyDaeCO.Jl.Zl1ef2IV2Rq',0),('lucario1234','Lucas','Müller','lucas@lucas.gmail.com','$2y$10$tqNV93.hyusRE0yW7hrQA.queVtwE9psnO9CLUgkb7CG2mhweWIXu',1),('tomisboy','Thomas','Albert','thomas@thomas.com','$2y$10$1kYeATqSGPhmzdlfUpHce.rwzMuN.9WYju6G8dvbM20mzUhphVC/W',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +148,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
-INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('chris',29),('chris',32),('elli',32),('Jefi',32),('KindOfGod',32),('l3roit',32),('lucario1234',32),('tomisboy',32),('lucario1234',33);
+INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('chris',32),('elli',32),('Jefi',32),('KindOfGod',32),('l3roit',32),('lucario1234',32),('tomisboy',32),('lucario1234',33);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-01 15:00:01
+-- Dump completed on 2022-06-02  0:00:01
