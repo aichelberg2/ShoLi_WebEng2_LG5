@@ -23,6 +23,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
 import { DataprivacyComponent } from './dataprivacy/dataprivacy.component';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 
@@ -67,7 +68,8 @@ const routes: Routes = [
     MatInputModule,
     ScrollingModule,
     MatGridListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

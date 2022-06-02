@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, NgForm} from "@angular/forms";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
+import {Location} from '@angular/common';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-user-settings',
@@ -15,7 +17,7 @@ export class UserSettingsComponent implements OnInit {
   lastname: any;
   mail: any;
 
-  constructor(private manageUserData: ManageUserDataService) {
+  constructor(private snackBar: MatSnackBar, private manageUserData: ManageUserDataService,private _location: Location) {
   }
 
   ngOnInit(): void {
@@ -52,6 +54,20 @@ export class UserSettingsComponent implements OnInit {
       'eMail':this.mail
     }
 
-    this.manageUserData.updateThisUser(data).subscribe();
+    this.manageUserData.updateThisUser(data).subscribe(value=>{
+      if(value==1){
+        this.snackBar.open('Succesful!', 'Close', {
+          duration: 3000
+        });
+      }else {
+        this.snackBar.open('Failes!', 'Close', {
+          duration: 3000
+        });
+      }
+    });
+  }
+
+  goBack() {
+    this._location.back();
   }
 }

@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {ManageProductDataService} from "../services/manageProductData/manage-product-data.service";
 import {FormControl, NgForm} from "@angular/forms";
 import {Observable, retry, share, Subject, switchMap, takeUntil, timer} from "rxjs";
+import {Location} from "@angular/common";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-list',
@@ -43,7 +45,7 @@ export class ListComponent implements OnInit {
   temporaryProductToDelete: any;
   isEditPriceField: boolean = false;
 
-  constructor(private route: ActivatedRoute, private manageProductData: ManageProductDataService) {
+  constructor(private snackBar: MatSnackBar, private _location: Location, private route: ActivatedRoute, private manageProductData: ManageProductDataService) {
   }
 
   ngOnInit(): void {
@@ -99,7 +101,7 @@ export class ListComponent implements OnInit {
     }
     this.manageProductData.getProductsOfCategoerie(data).subscribe(value => {
       value.forEach((element: any) => {
-        if (!this.receivedProductsIDOfCategory.includes(element.pr_id)) {
+        if (!this.receivedProductIDOfList.includes(element.pr_id)) {
           this.receivedProductsOfCategory.push(element)
           this.receivedProductsIDOfCategory.push(element.pr_id)
         }
@@ -149,6 +151,13 @@ export class ListComponent implements OnInit {
           this.receivedProductIDOfList.push(this.selectedProducts[i].pr_id);
           this.receivedProductsOfList.push(this.selectedProducts[i]);
         }
+        this.snackBar.open('Added!', 'Close', {
+          duration: 3000
+        });
+      }else {
+        this.snackBar.open('Failed!', 'Close', {
+          duration: 3000
+        });
       }
 
     })
@@ -173,6 +182,9 @@ export class ListComponent implements OnInit {
     // await new Promise<void>(resolve => {
     this.manageProductData.createProduct(data).subscribe(value => {
       if (value != 0) {
+        this.snackBar.open('Created!', 'Close', {
+          duration: 3000
+        });
         let temp: any[] = [];
         if (shouldBeAddedToList) {
           temp.push(value);
@@ -180,7 +192,17 @@ export class ListComponent implements OnInit {
             'listID': this.listid,
             'productIDs': temp
           }
-          this.manageProductData.addProductToList(prod).subscribe();
+          this.manageProductData.addProductToList(prod).subscribe(value=>{
+            if(value==1){
+              this.snackBar.open('Product created and added!', 'Close', {
+                duration: 3000
+              });
+            }else {
+              this.snackBar.open('Adding failed', 'Close', {
+                duration: 3000
+              });
+            }
+          });
           // let product = {
           //   'pr_id': value,
           //   'name': newProductName,
@@ -192,6 +214,10 @@ export class ListComponent implements OnInit {
           // console.log(this.selectedProducts);
           // this.addProductsToList();
         }
+      }else {
+        this.snackBar.open('Create failed!', 'Close', {
+          duration: 3000
+        });
       }
     })
     //   resolve();
@@ -220,10 +246,15 @@ export class ListComponent implements OnInit {
   }
 
   editPriceField() {
-    this.isEditPriceField=true;
+    this.isEditPriceField = true;
+
   }
 
   transmitProductPrice() {
-    this.isEditPriceField=false;
+    this.isEditPriceField = false;
+  }
+
+  goBack() {
+    this._location.back();
   }
 }
