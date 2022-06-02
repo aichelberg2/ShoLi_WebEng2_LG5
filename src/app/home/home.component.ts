@@ -6,6 +6,7 @@ import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {ManageListDataService} from "../services/manageListData/manage-list-data.service";
 import {AuthService} from "../services/auth/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit {
   }
   temporaryListIDToDelete: string | undefined;
 
-  constructor(private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService: AuthService) {
+  constructor(private snackBar: MatSnackBar, private manageUserData: ManageUserDataService, private router: Router, private manageListData: ManageListDataService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -105,7 +106,15 @@ export class HomeComponent implements OnInit {
     }
     console.log(data)
     this.manageListData.createList(data).subscribe(value => {
-      //this.listIDs.push(value)
+      if (value != 0) {
+        this.snackBar.open('Created!', 'Close', {
+          duration: 3000
+        });
+      } else {
+        this.snackBar.open('Failed!', 'Close', {
+          duration: 3000
+        });
+      }
     });
   }
 
