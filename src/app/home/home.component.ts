@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, NgForm} from "@angular/forms";
-import {Observable, retry, share, startWith, Subject, subscribeOn, switchMap, takeUntil, timer} from "rxjs";
-import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
-import {map} from "rxjs/operators";
-import {Router} from "@angular/router";
-import {ManageListDataService} from "../services/manageListData/manage-list-data.service";
-import {AuthService} from "../services/auth/auth.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, NgForm } from "@angular/forms";
+import { Observable, retry, share, startWith, Subject, subscribeOn, switchMap, takeUntil, timer } from "rxjs";
+import { ManageUserDataService } from "../services/manageUserData/manage-user-data.service";
+import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { ManageListDataService } from "../services/manageListData/manage-list-data.service";
+import { AuthService } from "../services/auth/auth.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-home',
@@ -38,8 +38,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let data = {
+      'jwt': this.authService.loggedInUserValue.token
+    }
     this.receivedListsObservable = timer(1, 1000).pipe(
-      switchMap(() => this.manageListData.getLists(this.userNameAsJSON)),
+      switchMap(() => this.manageListData.getLists(data)),
       retry(),
       share(),
       takeUntil(this.stopPolling)
@@ -90,7 +93,7 @@ export class HomeComponent implements OnInit {
   }
 
   clicker(list_name: any, list_id: any) {
-    this.router.navigate(["home/list"], {queryParams: {name: list_name, id: list_id}});
+    this.router.navigate(["home/list"], { queryParams: { name: list_name, id: list_id } });
   }
 
   pushLol(newList_name: any) {

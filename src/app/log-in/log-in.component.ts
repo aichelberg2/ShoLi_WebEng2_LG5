@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {AuthService} from "../services/auth/auth.service";
-import {Router} from "@angular/router";
-import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { AuthService } from "../services/auth/auth.service";
+import { ManageUserDataService } from "../services/manageUserData/manage-user-data.service";
 
 
 @Component({
@@ -12,7 +11,7 @@ import {ManageUserDataService} from "../services/manageUserData/manage-user-data
 })
 export class LogInComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private manageUserData: ManageUserDataService) {
+  constructor(private authService: AuthService, private manageUserData: ManageUserDataService) {
   }
 
   ngOnInit(): void {
@@ -23,18 +22,16 @@ export class LogInComponent implements OnInit {
       if (!form.value.login_username.includes(" ") || !form.value.login_password.includes(" ")) {
         let data = {
           'username': form.value.login_username,
-          'pw': form.value.login_password
+          'password': form.value.login_password
         }
-        this.manageUserData.checkUserDataInput_Login(data).subscribe(value => {
-          if (value == 1) {
-            this.authService.setIsLoggedIn();
-            sessionStorage.setItem('user',`${form.value.login_username}`)
-            //this.manageUserData.setUsername_loggedIn(form.value.login_username);
-            this.router.navigate(['home']);
-          } else {
-            console.log(`${window.location.protocol}//${window.location.hostname}`);
-          }
-        });
+        this.authService.loginUser(data.username, data.password)
+          .subscribe(
+            data => {
+              console.log(data);
+            },
+            error => {
+              console.log(error);
+            });
       }
     }
   }

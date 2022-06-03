@@ -21,8 +21,8 @@ export class ManageListDataService {
     return this.http.post(this.urlCreateList, data);
   }
 
-  getLists(name: any): Observable<any> {
-    return this.http.post(this.urlGetLists, name);
+  getLists(data: any): Observable<any> {
+    return this.http.post(this.urlGetLists, data);
   }
 
   getIsCreator(data: any): Observable<any> {
