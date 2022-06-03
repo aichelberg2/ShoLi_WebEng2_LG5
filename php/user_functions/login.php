@@ -4,12 +4,12 @@ header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
-require "../vendor/autoload.php";
+require '../../../vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
 
-$inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"user1","pw":"1"}';
+// $inputRaw = file_get_contents("php://input");
+$inputRaw = '{"username":"chris","pw":"asd123"}';
 $input = json_decode($inputRaw);
 
 $username = mysqli_real_escape_string($conn, $input->username);
@@ -28,8 +28,15 @@ if (mysqli_num_rows($result) == 1) {
   $savedHash = $row->pw;
   $boolv = password_verify($passwordInput, $savedHash);
   if (password_verify($passwordInput, $savedHash)) {
-    $expiry = time() + 60;
-    $jwtValue = JWT::encode($username, $expiry);
+    $key = "SholiIsJustGreat";
+    $issuedAt = time();
+    $expirationTime = $issuedAt + 60 * 60;
+    $payload = array(
+      "usr" => $username,
+      "iss" => $issuedAt,
+      "exp" => $expirationTime
+    );
+    $jwtValue = JWT::encode($payload, $key, 'HS256');
 
     $updateStmt = $conn->prepare("UPDATE user
                                         SET logged_in = 1
@@ -39,7 +46,7 @@ if (mysqli_num_rows($result) == 1) {
       echo json_encode(
         array(
           "token" => $jwtValue,
-          "expiry" => $expiry
+          "expiry" => $payload["exp"]
         )
       );
     } else {

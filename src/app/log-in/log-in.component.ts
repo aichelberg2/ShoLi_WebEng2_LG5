@@ -25,16 +25,23 @@ export class LogInComponent implements OnInit {
           'username': form.value.login_username,
           'pw': form.value.login_password
         }
-        this.manageUserData.checkUserDataInput_Login(data).subscribe(value => {
-          if (value != 0) {
-            this.authService.loginUser(data.username, data.pw);
-            sessionStorage.setItem('user', `${form.value.login_username}`)
-            //this.manageUserData.setUsername_loggedIn(form.value.login_username);
-            this.router.navigate(['home']);
-          } else {
-            console.log(`${window.location.protocol}//${window.location.hostname}`);
-          }
-        });
+        this.authService.loginUser(data.username, data.pw)
+          .subscribe(
+            data => {
+              console.log(data);
+            },
+            error => {
+              console.log(error);
+            });
+
+        // this.manageUserData.checkUserDataInput_Login(data).subscribe(value => {
+        //   if (value != 0) {
+        //     this.authService.loginUser(data.username, data.pw);
+        //     this.router.navigate(['home']);
+        //   } else {
+        //     console.log(`${window.location.protocol}//${window.location.hostname}`);
+        //   }
+        // });
       }
     }
   }

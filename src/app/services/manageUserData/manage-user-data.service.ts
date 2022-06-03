@@ -12,7 +12,6 @@ export class ManageUserDataService {
 
   private host: string = `${window.location.protocol}//${window.location.hostname}`;
 
-  urlCheckUserDataInput_Login: any = `${this.host}/php/user_functions/login.php`;
   urlCheckUserDataInput_Register: any = `${this.host}/php/user_functions/registration.php`;
   urlGetUser: any = `${this.host}/php/user_functions/getUsers.php`;
   urlGetThisUser: any = `${this.host}/php/user_functions/getUser.php`;
@@ -52,11 +51,6 @@ export class ManageUserDataService {
 
   getAllUsers(): Observable<any> {
     return this.http.get(this.urlGetUser);
-  }
-
-  checkUserDataInput_Login(dataInput: any): Observable<any> {
-    console.log(dataInput)
-    return this.http.post(this.urlCheckUserDataInput_Login, dataInput);
   }
 
   checkUserDataInput_Register(dataInput: any): Observable<any> {

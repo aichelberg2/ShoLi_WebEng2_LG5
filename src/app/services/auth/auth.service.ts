@@ -8,10 +8,11 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
   private host: string = `${window.location.protocol}//${window.location.hostname}`;
+  urlCheckUserDataInput_Login: any = `${this.host}/php/user_functions/login.php`;
   private loggedUserSubject: BehaviorSubject<any>;
   public loggedInUser: Observable<any>;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
     let loggedInUserStorage = localStorage.getItem('loggedInUser');
     if (loggedInUserStorage != null) {
       this.loggedUserSubject = new BehaviorSubject(JSON.parse(loggedInUserStorage));
@@ -24,12 +25,11 @@ export class AuthService {
   }
 
   loginUser(username: string, password: string) {
-    return this.httpClient.post<any>(`${this.host}/`, { username, password })
+    return this.http.post<any>(this.urlCheckUserDataInput_Login, { username, password })
       .pipe(map(response => {
         console.log(response);
         localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.loggedUserSubject.next(response);
-        console.log(response);
         return response;
       }));
   }
