@@ -14,20 +14,25 @@ $inputRaw = file_get_contents("php://input");
 // echo $inputRaw;
 $input = json_decode($inputRaw);
 $jwt = $input->jwt;
+// $jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJjaHJpcyIsImlzcyI6MTY1NDI5MjEwMSwiZXhwIjoxNjU0Mjk4MTAxfQ.QwaxRLLHpGHJ5ak1gVHjktlV8qwZCXx_5-Btg3ljhe0";
 
-$jwtValue = JWT::decode($jwt, new Key($key, 'HS256'));
+try {
+  $jwtValue = JWT::decode($jwt, new Key($key, 'HS256'));
+  // echo json_encode($jwtValue);
+  //$inputRaw = '{"username":"user2","firstname":"1","lastname":"1","eMail":"1"}';
 
-//$inputRaw = '{"username":"user2","firstname":"1","lastname":"1","eMail":"1"}';
+  $username = mysqli_real_escape_string($conn, $jwtValue->usr);
+  $firstname = mysqli_real_escape_string($conn, $input->firstname);
+  $lastname = mysqli_real_escape_string($conn, $input->lastname);
+  $email = mysqli_real_escape_string($conn, $input->eMail);
 
-$username = mysqli_real_escape_string($conn, $jwtValue->usr);
-$firstname = mysqli_real_escape_string($conn, $input->firstname);
-$lastname = mysqli_real_escape_string($conn, $input->lastname);
-$email = mysqli_real_escape_string($conn, $input->eMail);
-
-$stmt = $conn->prepare("UPDATE user SET firstname=?, lastname=?, email=? WHERE username=?");
-$stmt->bind_param("ssss", $firstname, $lastname, $email, $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
-if ($stmt->execute()) {
-  echo 1;
-} else {
+  $stmt = $conn->prepare("UPDATE user SET firstname=?, lastname=?, email=? WHERE username=?");
+  $stmt->bind_param("ssss", $firstname, $lastname, $email, $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+  if ($stmt->execute()) {
+    echo 1;
+  } else {
+    echo 0;
+  }
+} catch (Exception $e) {
   echo 0;
 }

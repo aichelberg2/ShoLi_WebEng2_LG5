@@ -49,13 +49,20 @@ export class HomeComponent implements OnInit {
     );
 
     this.receivedListsObservable.subscribe(value => {
-      this.listIDs.length = 0;
-      this.lists.length = 0;
-      for (let i = 0; i < value.length; i++) {
-        if (!this.listIDs.includes(value[i].list_id)) {
-          this.listIDs.push(value[i].list_id)
-          this.lists.push(value[i])
+      console.log(value);
+      if (value.accessGranted == 1) {
+        this.listIDs.length = 0;
+        this.lists.length = 0;
+        for (let i = 0; i < value.length; i++) {
+          if (!this.listIDs.includes(value[i].list_id)) {
+            this.listIDs.push(value[i].list_id)
+            this.lists.push(value[i])
+          }
         }
+      }
+      else {
+        this.authService.logoutUser();
+        this.router.navigate(['login']);
       }
     })
   }
