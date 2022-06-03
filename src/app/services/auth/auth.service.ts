@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   private loggedUserSubject: BehaviorSubject<any>;
   public loggedInUser: Observable<any>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     let loggedInUserStorage = localStorage.getItem('loggedInUser');
     if (loggedInUserStorage != null) {
       this.loggedUserSubject = new BehaviorSubject(JSON.parse(loggedInUserStorage));
@@ -27,10 +28,17 @@ export class AuthService {
   loginUser(username: string, password: string) {
     return this.http.post<any>(this.urlCheckUserDataInput_Login, { username, password })
       .pipe(map(response => {
-        console.log(response);
-        localStorage.setItem('loggedInUser', JSON.stringify(response));
-        this.loggedUserSubject.next(response);
-        return response;
+        if (response != 0) {
+          // console.log(response);
+          localStorage.setItem('loggedInUser', JSON.stringify(response));
+          this.loggedUserSubject.next(response);
+          this.router.navigate(['home']);
+          return response;
+        }
+        else {
+          // user feedback wrong credentials
+
+        }
       }));
   }
 

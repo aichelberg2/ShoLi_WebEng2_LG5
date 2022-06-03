@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, NgForm} from "@angular/forms";
-import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
-import {Location} from '@angular/common';
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, NgForm } from "@angular/forms";
+import { ManageUserDataService } from "../services/manageUserData/manage-user-data.service";
+import { Location } from '@angular/common';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AuthService } from '../services/auth/auth.service'
 
 @Component({
   selector: 'app-user-settings',
@@ -12,54 +13,53 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class UserSettingsComponent implements OnInit {
 
   myControl = new FormControl();
-  username: any=sessionStorage.getItem('user');
   firstname: any;
   lastname: any;
   mail: any;
 
-  constructor(private snackBar: MatSnackBar, private manageUserData: ManageUserDataService,private _location: Location) {
+  constructor(private snackBar: MatSnackBar, private manageUserData: ManageUserDataService, private _location: Location, private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    let data={
-      'username':sessionStorage.getItem('user')
+    let data = {
+      'jwt': this.authService.loggedInUserValue.token
     }
     this.manageUserData.getThisUser(data).subscribe(value => {
-       console.log(value)
-      this.firstname=value.firstname;
-      this.lastname=value.lastname;
-      this.mail=value.email;
+      console.log(value)
+      this.firstname = value.firstname;
+      this.lastname = value.lastname;
+      this.mail = value.email;
     });
   }
 
   updateUser(updateForm: NgForm) {
 
-    if (updateForm.value.firstname!=""&&updateForm.value.firstname) {
-       this.firstname = updateForm.value.firstname;
+    if (updateForm.value.firstname != "" && updateForm.value.firstname) {
+      this.firstname = updateForm.value.firstname;
     }
 
-    if (updateForm.value.lastname!=""&&updateForm.value.lastname) {
-       this.lastname = updateForm.value.lastname;
+    if (updateForm.value.lastname != "" && updateForm.value.lastname) {
+      this.lastname = updateForm.value.lastname;
     }
 
-    if (updateForm.value.mail!=""&&updateForm.value.mail) {
+    if (updateForm.value.mail != "" && updateForm.value.mail) {
       this.mail = updateForm.value.mail;
     }
 
 
-    let data={
-      'username': this.username,
-      'firstname':this.firstname,
-      'lastname':this.lastname,
-      'eMail':this.mail
+    let data = {
+      'jwt': this.authService.loggedInUserValue,
+      'firstname': this.firstname,
+      'lastname': this.lastname,
+      'eMail': this.mail
     }
 
-    this.manageUserData.updateThisUser(data).subscribe(value=>{
-      if(value==1){
+    this.manageUserData.updateThisUser(data).subscribe(value => {
+      if (value == 1) {
         this.snackBar.open('Succesful!', 'Close', {
           duration: 3000
         });
-      }else {
+      } else {
         this.snackBar.open('Failes!', 'Close', {
           duration: 3000
         });

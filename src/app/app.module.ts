@@ -6,7 +6,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-// import { AuthenticationGuard } from "./services/auth/auth-guard-service.guard";
+import { AuthenticationGuard } from "./services/auth/auth-guard-service.guard";
 import { ApplicationInformationComponent } from './application-information/application-information.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { NgxPopperModule } from 'ngx-popper';
@@ -30,14 +30,10 @@ import { AuthInterceptor } from './auth.interceptor';
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LogInComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'home/list', component: ListComponent },
-  { path: 'home/profile', component: UserSettingsComponent },
-  { path: 'home/faq', component: ApplicationInformationComponent },
-  // { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
-  // { path: 'home/list', component: ListComponent, canActivate: [AuthenticationGuard] },
-  // { path: 'home/profile', component: UserSettingsComponent, canActivate: [AuthenticationGuard] },
-  // { path: 'home/faq', component: ApplicationInformationComponent, canActivate: [AuthenticationGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
+  { path: 'home/list', component: ListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'home/profile', component: UserSettingsComponent, canActivate: [AuthenticationGuard] },
+  { path: 'home/faq', component: ApplicationInformationComponent, canActivate: [AuthenticationGuard] },
   { path: 'impressum', component: ImpressumComponent },
   { path: 'dataprivacy', component: DataprivacyComponent },
   { path: 'home/logout', component: LogOutComponent },

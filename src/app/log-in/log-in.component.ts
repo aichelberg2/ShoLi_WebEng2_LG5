@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../services/auth/auth.service";
-import { Router } from "@angular/router";
 import { ManageUserDataService } from "../services/manageUserData/manage-user-data.service";
 
 
@@ -12,7 +11,7 @@ import { ManageUserDataService } from "../services/manageUserData/manage-user-da
 })
 export class LogInComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private manageUserData: ManageUserDataService) {
+  constructor(private authService: AuthService, private manageUserData: ManageUserDataService) {
   }
 
   ngOnInit(): void {
@@ -23,9 +22,9 @@ export class LogInComponent implements OnInit {
       if (!form.value.login_username.includes(" ") || !form.value.login_password.includes(" ")) {
         let data = {
           'username': form.value.login_username,
-          'pw': form.value.login_password
+          'password': form.value.login_password
         }
-        this.authService.loginUser(data.username, data.pw)
+        this.authService.loginUser(data.username, data.password)
           .subscribe(
             data => {
               console.log(data);
@@ -33,15 +32,6 @@ export class LogInComponent implements OnInit {
             error => {
               console.log(error);
             });
-
-        // this.manageUserData.checkUserDataInput_Login(data).subscribe(value => {
-        //   if (value != 0) {
-        //     this.authService.loginUser(data.username, data.pw);
-        //     this.router.navigate(['home']);
-        //   } else {
-        //     console.log(`${window.location.protocol}//${window.location.hostname}`);
-        //   }
-        // });
       }
     }
   }

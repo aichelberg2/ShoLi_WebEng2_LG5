@@ -4,14 +4,22 @@ header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
+require '../../../vendor/autoload.php';
 
+use \Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = "SholiIsJustGreat";
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"user5"}';
+// echo $inputRaw;
 $input = json_decode($inputRaw);
-//alt: $username = mysqli_real_escape_string($conn, $inputRaw);
-$username = mysqli_real_escape_string($conn, $input->username);
+$jwt = $input->jwt;
 
-$stmt = $conn->prepare(   "SELECT username, firstname, lastname, email, logged_in
+$jwtValue = JWT::decode($jwt, new Key($key, 'HS256'));
+//alt: $username = mysqli_real_escape_string($conn, $inputRaw);
+$username = mysqli_real_escape_string($conn, $jwtValue->usr);
+
+$stmt = $conn->prepare("SELECT username, firstname, lastname, email, logged_in
                                 FROM user
                                 WHERE username=?
                                 LIMIT 1");
@@ -24,4 +32,3 @@ if (mysqli_num_rows($result) == 1) {
 } else {
   echo 0;
 }
-?>

@@ -8,14 +8,14 @@ require '../../../vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
 
-// $inputRaw = file_get_contents("php://input");
-$inputRaw = '{"username":"chris","pw":"asd123"}';
+$inputRaw = file_get_contents("php://input");
+// $inputRaw = '{"username":"chris","password":"asd123"}';
 $input = json_decode($inputRaw);
 
 $username = mysqli_real_escape_string($conn, $input->username);
-$passwordInput = mysqli_real_escape_string($conn, $input->pw);
+$passwordInput = mysqli_real_escape_string($conn, $input->password);
 
-$loginStmt = $conn->prepare("SELECT password as pw
+$loginStmt = $conn->prepare("SELECT password as password
                                     FROM user
                                     WHERE username=?
                                     LIMIT 1");
@@ -25,7 +25,7 @@ $result = $loginStmt->get_result();
 
 if (mysqli_num_rows($result) == 1) {
   $row = $result->fetch_object();
-  $savedHash = $row->pw;
+  $savedHash = $row->password;
   $boolv = password_verify($passwordInput, $savedHash);
   if (password_verify($passwordInput, $savedHash)) {
     $key = "SholiIsJustGreat";
