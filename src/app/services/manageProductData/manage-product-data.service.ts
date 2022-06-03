@@ -18,6 +18,7 @@ export class ManageProductDataService {
   urlCreateProduct: any = `${this.host}/php/product_functions/createProduct.php`;
   urlRemoveProduct: any = `${this.host}/php/list_functions/removeProduct.php`;
   urlUpdateIsTicked: any = `${this.host}/php/list_functions/updateIsTickedOfProduct.php`;
+  urlUpdatePrice: any = `${this.host}/php/list_functions/updatePriceOfProduct.php`;
 
   getProductsOfCategoerie(categorie: any): Observable<any> {
     return this.http.post(this.urlGetProductsOfCategorie, categorie);
@@ -43,5 +44,9 @@ export class ManageProductDataService {
   updateIsTicked(data:any):Observable<any>{
     console.log(data)
     return this.http.post(this.urlUpdateIsTicked, data);
+  }
+
+  updatePriceOfProduct(data:any):Observable<any>{
+    return this.http.post(this.urlUpdatePrice, data);
   }
 }

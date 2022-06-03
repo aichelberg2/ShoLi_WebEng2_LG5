@@ -43,7 +43,8 @@ export class ListComponent implements OnInit {
   private stopPolling = new Subject();
   createNextNewProduct: boolean = false;
   temporaryProductToDelete: any;
-  isEditPriceField: boolean = false;
+  temporaryPriceToEdit: any;
+  temporaryProductID: any;
 
   constructor(private snackBar: MatSnackBar, private _location: Location, private route: ActivatedRoute, private manageProductData: ManageProductDataService) {
   }
@@ -154,7 +155,7 @@ export class ListComponent implements OnInit {
         this.snackBar.open('Added!', 'Close', {
           duration: 3000
         });
-      }else {
+      } else {
         this.snackBar.open('Failed!', 'Close', {
           duration: 3000
         });
@@ -192,12 +193,12 @@ export class ListComponent implements OnInit {
             'listID': this.listid,
             'productIDs': temp
           }
-          this.manageProductData.addProductToList(prod).subscribe(value=>{
-            if(value==1){
+          this.manageProductData.addProductToList(prod).subscribe(value => {
+            if (value == 1) {
               this.snackBar.open('Product created and added!', 'Close', {
                 duration: 3000
               });
-            }else {
+            } else {
               this.snackBar.open('Adding failed', 'Close', {
                 duration: 3000
               });
@@ -214,7 +215,7 @@ export class ListComponent implements OnInit {
           // console.log(this.selectedProducts);
           // this.addProductsToList();
         }
-      }else {
+      } else {
         this.snackBar.open('Create failed!', 'Close', {
           duration: 3000
         });
@@ -245,16 +246,34 @@ export class ListComponent implements OnInit {
     productForm.resetForm();
   }
 
-  editPriceField() {
-    this.isEditPriceField = true;
-
-  }
-
-  transmitProductPrice() {
-    this.isEditPriceField = false;
+  editPriceField(price: any, id: any) {
+    this.temporaryPriceToEdit = price;
+    this.temporaryProductID = id;
   }
 
   goBack() {
     this._location.back();
+  }
+
+  changeProductPrice(price: any) {
+    if (price.includes(',')) {
+      price = price.replace(',', '.');
+    }
+    let data = {
+      'listID': this.listid,
+      'productID': this.temporaryProductID,
+      'price': price
+    }
+    this.manageProductData.updatePriceOfProduct(data).subscribe(value => {
+      if (value == 1) {
+        this.snackBar.open('Price updated!', 'Close', {
+          duration: 3000
+        });
+      } else {
+        this.snackBar.open('Update failed!', 'Close', {
+          duration: 3000
+        });
+      }
+    })
   }
 }
