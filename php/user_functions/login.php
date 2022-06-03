@@ -30,7 +30,7 @@ if (mysqli_num_rows($result) == 1) {
   if (password_verify($passwordInput, $savedHash)) {
     $key = "SholiIsJustGreat";
     $issuedAt = time();
-    $expirationTime = $issuedAt + 6000;
+    $expirationTime = $issuedAt + 60 * 30;
     $payload = array(
       "usr" => $username,
       "iss" => $issuedAt,

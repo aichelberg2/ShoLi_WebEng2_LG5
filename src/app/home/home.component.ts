@@ -49,14 +49,14 @@ export class HomeComponent implements OnInit {
     );
 
     this.receivedListsObservable.subscribe(value => {
-      console.log(value);
       if (value.accessGranted == 1) {
+        let lists = value.lists;
         this.listIDs.length = 0;
         this.lists.length = 0;
-        for (let i = 0; i < value.length; i++) {
-          if (!this.listIDs.includes(value[i].list_id)) {
-            this.listIDs.push(value[i].list_id)
-            this.lists.push(value[i])
+        for (let i = 0; i < lists.length; i++) {
+          if (!this.listIDs.includes(lists[i].list_id)) {
+            this.listIDs.push(lists[i].list_id)
+            this.lists.push(lists[i])
           }
         }
       }
