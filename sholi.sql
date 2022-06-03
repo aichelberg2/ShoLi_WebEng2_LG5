@@ -54,6 +54,7 @@ CREATE TABLE `listproduct` (
   `pr_id` int(10) NOT NULL,
   `list_id` int(10) NOT NULL,
   `ticked` tinyint(4) NOT NULL DEFAULT 0,
+  `edited_price` double NOT NULL,
   KEY `pr_id` (`pr_id`),
   KEY `listproduct_ibfk_2` (`list_id`),
   CONSTRAINT `listproduct_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `product` (`pr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
@@ -67,7 +68,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (20,32,0),(34,32,0),(35,32,0),(36,32,0),(37,32,0),(34,26,0),(18,26,0),(19,26,0),(16,26,0),(20,26,0),(18,26,0),(19,26,0);
+INSERT INTO `listproduct` VALUES (20,32,0,0),(34,32,0,0),(35,32,0,0),(36,32,0,0),(37,32,0,0),(34,26,0,0),(18,26,0,0),(19,26,0,0),(16,26,0,0),(20,26,0,0),(18,26,0,0),(19,26,0,0);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-03 15:00:01
+-- Dump completed on 2022-06-03 19:23:50
