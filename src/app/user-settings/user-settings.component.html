@@ -1,30 +1,35 @@
+<div>
+  <nav class="navbar">
+    <i class="bi bi-arrow-left-square-fill" style="cursor: pointer; font-size: 50px" (click)="goBack()"></i>
+  </nav>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card border-0 shadow rounded-3 my-5">
-        <div class="card-body p-4 p-sm-5">
+        <i class="bi bi-gear-fill text-center" style="margin-top: 20px; font-size: 50px"></i>
+        <div class="card-body p-4 p-sm-5" style="margin-top: -40px">
           <form #updateForm="ngForm" (ngSubmit)="updateUser(updateForm)">
-            <input type="text" readonly class="form-control-plaintext" value="Your Firstname: {{data.firstname}}">
+            <input type="text" readonly class="form-control-plaintext" value="Your Firstname: {{firstname}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="firstname" id="firstname"
+              <input autocomplete="off" type="text" class="form-control" name="firstname" id="firstname"
                      placeholder="name" ngModel required>
               <label for="firstname">Firstname <i class="bi bi-pencil-square float-right"></i></label>
             </div>
-            <input type="text" readonly class="form-control-plaintext" value="Your Lastname: {{data.lastname}}">
+            <input type="text" readonly class="form-control-plaintext" value="Your Lastname: {{lastname}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="lastname" id="lastname"
+              <input autocomplete="off" type="text" class="form-control" name="lastname" id="lastname"
                      placeholder="name" ngModel required>
               <label for="lastname">Lastname <i class="bi bi-pencil-square float-right"></i></label>
             </div>
-            <input type="mail" readonly class="form-control-plaintext" value="Your Email-Adress: {{data.email}}">
+            <input type="mail" readonly class="form-control-plaintext" value="Your Email-Adress: {{mail}}">
             <div class="form-floating mb-3">
-              <input [formControl]="myControl" autocomplete="off" type="text" class="form-control" name="mail" id="mail"
-                     placeholder="name" ngModel required>
+              <input autocomplete="off" type="text" class="form-control" name="mail" id="mail"
+                     placeholder="mail" ngModel required>
               <label for="mail">EMail <i class="bi bi-pencil-square float-right"></i></label>
             </div>
             <div class="d-grid">
               <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Save Changes
-                in
               </button>
             </div>
           </form>

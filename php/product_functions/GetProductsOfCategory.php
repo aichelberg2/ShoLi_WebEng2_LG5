@@ -7,17 +7,16 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"username":"user5"}';
+//$inputRaw = '{"productCategory":"kat1"}';
 
 $input = json_decode($inputRaw);
 
-$username = mysqli_real_escape_string($conn, $input->username);
+$productCategory = mysqli_real_escape_string($conn, $input->productCategory);
 
-$stmt = $conn->prepare(   "SELECT userlist.list_id, list.name
-                                FROM userlist
-                                INNER JOIN list ON userlist.list_id=list.list_id
-                                WHERE userlist.user = ?");
-$stmt->bind_param('s', $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+$stmt = $conn->prepare("SELECT pr_id, name, price, 0 as ticked
+            FROM product
+            WHERE category = ?");
+$stmt->bind_param('s', $productCategory); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 $stmt->execute();
 $result = $stmt->get_result();
 $lists = array();

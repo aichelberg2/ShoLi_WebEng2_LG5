@@ -16,29 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `groups`
---
-
-DROP TABLE IF EXISTS `groups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `groups` (
-  `groupname` varchar(30) NOT NULL,
-  `gr_id` int(10) NOT NULL,
-  PRIMARY KEY (`gr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `groups`
---
-
-LOCK TABLES `groups` WRITE;
-/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `list`
 --
 
@@ -52,8 +29,8 @@ CREATE TABLE `list` (
   `creator` varchar(30) NOT NULL,
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
-  CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,6 +39,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
+INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(32,'familie',1,'chris'),(33,'jkgsdcuzwd',0,'lucario1234'),(35,'Test',0,'lucario1234');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,6 +67,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
+INSERT INTO `listproduct` VALUES (20,32,0),(34,32,0),(35,32,0),(36,32,0),(37,32,0),(34,26,0),(18,26,0),(19,26,0),(16,26,0),(20,26,0),(18,26,0),(19,26,0);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,11 +79,12 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
-  `pr_id` int(10) NOT NULL,
+  `pr_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `price` decimal(10,2) NOT NULL,
+  `Category` varchar(30) NOT NULL,
   PRIMARY KEY (`pr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +93,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (16,'Erbeeren',3.99,'Fruits & Vegetables'),(17,'Tiefkühlpizza Salami',2.69,'Deep freeze'),(18,'Joghurt',0.99,'Freshness and cooling'),(19,'Milch',1.29,'Freshness and cooling'),(20,'Salat',0.99,'Fruits & Vegetables'),(21,'Reis',1.29,'Food'),(22,'Chips',1.29,'Sweet & Salty'),(23,'Flips',0.99,'Sweet & Salty'),(24,'Kamillentee',2.99,'Coffee, Tea & Cocoa'),(25,'Cola',1.29,'Beverages'),(26,'Fanta',1.29,'Beverages'),(27,'Wodka',8.99,'Wine, spirits & luxury food'),(28,'Kaviar',11.99,'Wine, spirits & luxury food'),(29,'Deo',2.69,'Drugstore & Cosmetics'),(30,'Abdeckstift',0.99,'Drugstore & Cosmetics'),(31,'Babypuder',2.99,'Baby & Child'),(32,'Spülmittel',1.99,'Kitchen & Household'),(33,'Katzenfutter',0.39,'Pet Supplies'),(34,'Bananen',0.78,'Fruits & Vegetables'),(35,'Kiwi',0.32,'Fruits & Vegetables'),(36,'Blumenkohl',0.78,'Fruits & Vegetables'),(37,'Kokosnuss',1.29,'Fruits & Vegetables');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +109,7 @@ CREATE TABLE `user` (
   `firstname` varchar(30) NOT NULL,
   `lastname` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `logged_in` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -140,34 +121,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('a','aa','aa','a','a',0),('aSRGER','ERGEQRG','ERQG','EQRG','123',0),('chris','Chris','Markov','chris@gmail.com','asd123',1),('lucario1234','adesrb','rb','nfg','123',1),('Phonee','Pho','Nee','phone@mail.com','asd123',1),('user3','user','3','user@3.de','user3',0);
+INSERT INTO `user` VALUES ('chris','Chris','Markov','chris1@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('elli','Elli','Gott','elli@elli.com','$2y$10$hIupFDgJ1rD64.o2dH0jue.K8mhlQHKVxsy.dmxOYOwZpKRLv0Jaa',1),('Jefi','Jewgeni','Schnaper','jewgeni_schnaper@online.de','$2y$10$w8S5VScU5kJ9qITNG705auxucR8XHpzc2WWcEy5/xga0az5w2u8uu',1),('KindOfGod','Alexander','Toll','alex@alex.com','$2y$10$Wws7aYyCdi6VNyluulvfp.ZZMn/CYUpLg4IJ7.mgdVR6nUQayjpSK',0),('l3roit','Jonas','Schere','jonas@jonas.com','$2y$10$5auLJw3lFBszOQI2y3lcE.E.E/JV9ympyDaeCO.Jl.Zl1ef2IV2Rq',0),('lucario1234','Lucas','Müller','lucas@lucas.gmail.com','$2y$10$tqNV93.hyusRE0yW7hrQA.queVtwE9psnO9CLUgkb7CG2mhweWIXu',1),('tomisboy','Thomas','Albert','thomas@thomas.com','$2y$10$1kYeATqSGPhmzdlfUpHce.rwzMuN.9WYju6G8dvbM20mzUhphVC/W',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usergroup`
---
-
-DROP TABLE IF EXISTS `usergroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usergroup` (
-  `user` varchar(30) NOT NULL,
-  `gr_id` int(10) NOT NULL,
-  KEY `usergroup_ibfk_1` (`user`),
-  KEY `gr_id` (`gr_id`),
-  CONSTRAINT `usergroup_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `usergroup_ibfk_2` FOREIGN KEY (`gr_id`) REFERENCES `groups` (`gr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usergroup`
---
-
-LOCK TABLES `usergroup` WRITE;
-/*!40000 ALTER TABLE `usergroup` DISABLE KEYS */;
-/*!40000 ALTER TABLE `usergroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -193,6 +148,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
+INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('chris',32),('elli',32),('Jefi',32),('KindOfGod',32),('l3roit',32),('lucario1234',32),('tomisboy',32),('lucario1234',33),('lucario1234',35);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -205,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-27 15:00:01
+-- Dump completed on 2022-06-03  0:00:01

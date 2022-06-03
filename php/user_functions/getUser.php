@@ -6,13 +6,22 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$input = json_decode($inputRaw);
-$username = mysqli_real_escape_string($conn, $inputRaw);
+//$inputRaw = '{"username":"user5"}';
+$input = json_decode($inputRaw);
+//alt: $username = mysqli_real_escape_string($conn, $inputRaw);
+$username = mysqli_real_escape_string($conn, $input->username);
 
-
-$query = "SELECT * FROM user WHERE username='$username'";
-$result = mysqli_query($conn,$query) or die(mysqli_error());
-$row = mysqli_fetch_assoc($result);
-
-echo json_encode($row);
+$stmt = $conn->prepare(   "SELECT username, firstname, lastname, email, logged_in
+                                FROM user
+                                WHERE username=?
+                                LIMIT 1");
+$stmt->bind_param("s", $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+$stmt->execute();
+$result = $stmt->get_result();
+if (mysqli_num_rows($result) == 1) {
+  $row = $result->fetch_object();
+  echo json_encode($row);
+} else {
+  echo 0;
+}
 ?>

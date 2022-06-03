@@ -12,10 +12,6 @@
           <i id="nav_usersettings" class="bi bi-person-square"> Profile</i>
         </a>
         <div class="dropdown-divider"></div>
-        <a routerLink="settings" class="dropdown-item">
-          <i id="nav_settings" class="bi bi-gear-fill"> Settings</i>
-        </a>
-        <div class="dropdown-divider"></div>
         <a routerLink="faq" class="dropdown-item">
           <i id="nav_questions" class="bi bi-question-circle-fill"> Help</i>
         </a>
@@ -32,71 +28,119 @@
   <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
     <div>
       <button id="button_createNewList" type="button" class="btn btn-dark" data-bs-toggle="modal"
-        data-bs-target="#show_modal"><i id="plus_createNewList" class="bi bi-plus">New List</i>
+              data-bs-target="#modal_createListByPopUp"><i
+        id="plus_createNewList" class="bi bi-plus">New List</i>
       </button>
     </div>
-    <div class="card border-0 shadow rounded-3 my-5">
-      <table id="listTable">
-      </table>
+    <div id="listDiv" class="overflow-auto card border-0 shadow rounded-3 my-5" style="height: 631px">
+      <div
+        style="cursor: pointer"
+        class="rounded-3 list-group-item" *ngFor="let list of lists">
+        <div class="row" style="font-family: Square Peg, cursive;font-size: 30px;">
+          <div (click)="clicker(list.name, list.list_id)" class="col-sm">{{list.name}}</div>
+          <div class="col-md-auto d-flex justify-content-end align-items-center ">
+            <i (click)="getPermissionToDelete(list.list_id)"
+               class="bi bi-trash-fill"
+               style="cursor: pointer; font-size: 20px; display: contents;" data-toggle="modal"
+               data-target="#modal_deleteList"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="show_modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+<div class="modal fade" id="modal_deleteList" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete List?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="havePErmissionToDeleteList" class="modal-body">
+        All Data in the list are gone then! Continue?
+      </div>
+      <div *ngIf="!havePErmissionToDeleteList" class="modal-body">
+        You don't have the permissions to do that!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close!</button>
+        <button *ngIf="havePErmissionToDeleteList" (click)="deleteListByCreator(temporaryListIDToDelete)" type="button"
+                class="btn btn-primary" data-dismiss="modal">Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_createListByPopUp" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
   <form id="formForCreateList" #listInfoForm="ngForm"
-        (ngSubmit)="createNewList(listInfoForm.value.newList_name,true); clearForm(listInfoForm)">
+        (ngSubmit)="pushLol(listInfoForm.value.newList_name); clearForm(listInfoForm)">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modal-title">Create new list?</h5>
-          <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">X
+          <button (click)="clearForm(listInfoForm)" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-floating">
             <input autocomplete="off" class="form-control" type="text" name="newList_name" id="newListName"
-              placeholder="name" ngModel required>
+                   placeholder="name" ngModel
+                   required>
             <label class="form-check-label" for="newListName">Name for the new list</label>
           </div>
           <br>
           <div class="form-check form-switch" id="toggleButton">
             <input (click)="closePopUpForListName()" class="form-check-input" type="checkbox" name="isShared"
-              id="isShared" ngModel required>
+                   id="isShared" ngModel required>
             <label for="isShared">Want to share the list?</label>
           </div>
           <br>
-          <div *ngIf="!isPopUpDisplayed" class="form-floating">
-            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled
-              ngModel required>
-            <label for="sharedUSers">Usernames for sharing</label>
+<!--          <div *ngIf="!isPopUpDisplayed" class="form-floating">-->
+<!--            <input class="form-control" type="text" name="sharedUSers" id="sharedUSers" placeholder="user" disabled-->
+<!--                   ngModel required>-->
+<!--            <label for="sharedUSers">Usernames for sharing</label>-->
+<!--          </div>-->
+          <div *ngIf="isPopUpDisplayed" id="selectDiv">
+            <mat-form-field>
+              <mat-label>Usernames</mat-label>
+              <mat-select [formControl]="myControl" [(value)]="selectedNames" multiple>
+                <mat-option style="color: black" *ngFor="let option of options"
+                            [value]="option">{{option}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-          <div *ngIf="isPopUpDisplayed" class="form-floating">
-            <input matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off" class="form-control"
-              type="text" name="sharedUSers1" id="sharedUSers1" placeholder="user" ngModel required multiple>
-            <label for="sharedUSers1">Usernames for sharing</label>
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-              (optionSelected)='addValue($event.option.value); removeItem($event.option.value)'>
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                <div class="overflow-auto">
-                  {{option}} <i class="float-right bi bi-person-plus"></i>
-                </div>
-              </mat-option>
-            </mat-autocomplete>
-          </div>
+<!--          <div *ngIf="isPopUpDisplayed" class="form-floating">-->
+<!--            <input matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off"-->
+<!--                   class="form-control"-->
+<!--                   type="text" name="sharedUSers1"-->
+<!--                   id="sharedUSers1" placeholder="user" ngModel required multiple>-->
+<!--            <label for="sharedUSers1">Usernames for sharing</label>-->
+<!--            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"-->
+<!--                              (optionSelected)='addValue($event.option.value); removeItem($event.option.value)'>-->
+<!--              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">-->
+<!--                <div class="overflow-auto">-->
+<!--                  {{option}} <i class="float-right bi bi-person-plus"></i>-->
+<!--                </div>-->
+<!--              </mat-option>-->
+<!--            </mat-autocomplete>-->
+<!--          </div>-->
           <br>
-          <div *ngIf="isPopUpDisplayed" class="form-group">
-            <label for="addedUsersTextArea">Added Users:</label>
-            <textarea class="form-control" id="addedUsersTextArea" rows="3" readonly></textarea>
-          </div>
+<!--          <div *ngIf="isPopUpDisplayed" class="form-group">-->
+<!--            <label for="addedUsersTextArea">Added Users:</label>-->
+<!--            <textarea class="form-control" id="addedUsersTextArea" rows="3" readonly></textarea>-->
+<!--          </div>-->
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Create
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                  aria-label="Close">Create
           </button>
         </div>
       </div>
     </div>
   </form>
 </div>
-
-<button routerLink="scannertest">test
-</button>

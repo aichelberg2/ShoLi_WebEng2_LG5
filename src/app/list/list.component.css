@@ -1,0 +1,32 @@
+#add_product_from_DB, #add_product {
+  font-size: 25px;
+  color: white;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-style: normal;
+}
+
+#add_product_from_DB:hover, #add_product:hover {
+  cursor: pointer;
+}
+
+.options{
+  cursor: pointer;
+  background: #6c757d;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+/deep/ .cdk-overlay-container {
+  z-index: 9999;
+}
+
+#selectDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#toggleButton{
+  margin-left: 20px;
+}

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, NgForm} from "@angular/forms";
 import {ManageUserDataService} from "../services/manageUserData/manage-user-data.service";
+import {Location} from '@angular/common';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-user-settings',
@@ -10,42 +12,62 @@ import {ManageUserDataService} from "../services/manageUserData/manage-user-data
 export class UserSettingsComponent implements OnInit {
 
   myControl = new FormControl();
-  data: any;
+  username: any=sessionStorage.getItem('user');
+  firstname: any;
+  lastname: any;
+  mail: any;
 
-  constructor(private manageUserData: ManageUserDataService) {
+  constructor(private snackBar: MatSnackBar, private manageUserData: ManageUserDataService,private _location: Location) {
   }
 
   ngOnInit(): void {
-    this.manageUserData.getThisUser(this.manageUserData.getUsername_loggedIn()).subscribe(value => {
-      this.data = {
-        'username': value.username,
-        'firstname': value.firstname,
-        'lastname': value.lastname,
-        'email': value.email
-      }
+    let data={
+      'username':sessionStorage.getItem('user')
+    }
+    this.manageUserData.getThisUser(data).subscribe(value => {
+       console.log(value)
+      this.firstname=value.firstname;
+      this.lastname=value.lastname;
+      this.mail=value.email;
     });
   }
 
   updateUser(updateForm: NgForm) {
 
-    if (this.data.firstname != updateForm.value.firstname) {
-      this.data.firstname = updateForm.value.firstname;
+    if (updateForm.value.firstname!=""&&updateForm.value.firstname) {
+       this.firstname = updateForm.value.firstname;
     }
 
-    if (this.data.lastname != updateForm.value.lastname) {
-      this.data.lastname = updateForm.value.lastname;
+    if (updateForm.value.lastname!=""&&updateForm.value.lastname) {
+       this.lastname = updateForm.value.lastname;
     }
 
-    if (this.data.email != updateForm.value.email) {
-      this.data.email = updateForm.value.email;
+    if (updateForm.value.mail!=""&&updateForm.value.mail) {
+      this.mail = updateForm.value.mail;
     }
 
-    this.manageUserData.updateThisUser(this.data).subscribe(value => {
-      if (value == 1) {
-        alert("Toll!");
-      } else {
-        alert("Blöd");
+
+    let data={
+      'username': this.username,
+      'firstname':this.firstname,
+      'lastname':this.lastname,
+      'eMail':this.mail
+    }
+
+    this.manageUserData.updateThisUser(data).subscribe(value=>{
+      if(value==1){
+        this.snackBar.open('Succesful!', 'Close', {
+          duration: 3000
+        });
+      }else {
+        this.snackBar.open('Failes!', 'Close', {
+          duration: 3000
+        });
       }
     });
+  }
+
+  goBack() {
+    this._location.back();
   }
 }

@@ -7,7 +7,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationGuard } from "./services/auth/auth-guard-service.guard";
-import { SettingsComponent } from './settings/settings.component';
 import { ApplicationInformationComponent } from './application-information/application-information.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { NgxPopperModule } from 'ngx-popper';
@@ -20,16 +19,23 @@ import { MatInputModule } from "@angular/material/input";
 import { ListComponent } from './list/list.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { ScannertestComponent } from './scannertest/scannertest.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSelectModule} from "@angular/material/select";
+import { DataprivacyComponent } from './dataprivacy/dataprivacy.component';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+
+
 
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LogInComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
   { path: 'home/list', component: ListComponent, canActivate: [AuthenticationGuard] },
-  { path: 'home/settings', component: SettingsComponent, canActivate: [AuthenticationGuard] },
   { path: 'home/profile', component: UserSettingsComponent, canActivate: [AuthenticationGuard] },
   { path: 'home/faq', component: ApplicationInformationComponent, canActivate: [AuthenticationGuard] },
   { path: 'impressum', component: ImpressumComponent },
+  { path: 'dataprivacy', component: DataprivacyComponent },
   { path: 'home/logout', component: LogOutComponent },
   { path: '', component: LogInComponent },
   { path: 'home/scannertest', component: ScannertestComponent }
@@ -41,16 +47,16 @@ const routes: Routes = [
     LogInComponent,
     RegistrationComponent,
     HomeComponent,
-    SettingsComponent,
     ApplicationInformationComponent,
     UserSettingsComponent,
     LogOutComponent,
     ListComponent,
     ImpressumComponent,
     ScannertestComponent,
+    DataprivacyComponent,
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -59,7 +65,11 @@ const routes: Routes = [
     MatAutocompleteModule,
     NoopAnimationsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ScrollingModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

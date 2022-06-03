@@ -1,6 +1,5 @@
 import {Component, NgModule, OnInit} from '@angular/core';
 import {ManageUserDataService} from '../services/manageUserData/manage-user-data.service';
-import {User} from "../User";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 

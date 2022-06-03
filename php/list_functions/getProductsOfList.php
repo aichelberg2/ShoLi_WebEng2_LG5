@@ -13,7 +13,7 @@ $input = json_decode($inputRaw);
 
 $listID = mysqli_real_escape_string($conn, $input->listID);
 
-$stmt = $conn->prepare(   "SELECT listproduct.pr_id, product.name
+  $stmt = $conn->prepare( "SELECT  product.pr_id, product.name,product.price, listproduct.ticked
                                 FROM listproduct
                                 INNER JOIN product ON listproduct.pr_id=product.pr_id
                                 WHERE listproduct.list_id = ?");

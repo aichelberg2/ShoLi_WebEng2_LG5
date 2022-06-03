@@ -7,14 +7,13 @@ header("Access-Control-Allow-Headers: *");
 require '../db_connection.php';
 
 $inputRaw = file_get_contents("php://input");
-//$inputRaw = '{"listname":"ListLonely","isListShared":"true","creator":"user1","usernames":{}}';
-//$inputRaw = '{"listname":"List2","isListShared":"true","creator":"user1","usernames":{"0":"user2","1":"user3"}}';
+//$inputRaw = '{"listname":"List2","isListShared":"true","creator":"user5","usernames":{"0":"user2","1":"user3"}}';
 //echo "inputRaw: $inputRaw";
 
 $input = json_decode($inputRaw);
 $listname = mysqli_real_escape_string($conn, $input->listname);
 $isListShared = mysqli_real_escape_string($conn, $input->isListShared);
-if ($isListShared == "true") {
+if ($isListShared == true) {
   $isListSharedBool = 1;
 } else {
   $isListSharedBool = 0;
@@ -22,31 +21,33 @@ if ($isListShared == "true") {
 $creator = mysqli_real_escape_string($conn, $input->creator);
 $usernames = $input->usernames;
 
-$listInsertStatement = "INSERT INTO list (name, shared, creator)
-                        VALUES ('$listname', '$isListSharedBool', '$creator')";
-//echo "listInsertStatement: $listInsertStatement";
-$last_id = null;
-if ($conn->query($listInsertStatement) === TRUE) {
-  $last_id = $conn->insert_id;
-  //echo "New record created successfully. Last inserted ID is: " . $last_id;
+$listInsertStmt = $conn->prepare( "INSERT INTO list (name, shared, creator)
+                                        VALUES (?, ?, ?)");
+$listInsertStmt->bind_param("sis", $listname,$isListSharedBool, $creator); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 
-  $userlistInsertStatement = "INSERT INTO userlist(list_id, user)
-                    VALUES('$last_id', '$creator')";
-  $result = mysqli_query($conn, $userlistInsertStatement);
-  if (!$result) {
+//echo "listInsertStatement: $listInsertStatement";
+$list_id = null;
+if ($listInsertStmt->execute()) {
+  $list_id = $conn->insert_id;
+  //echo "New record created successfully. Last inserted ID is: " . $list_id;
+
+  $creatorInsertStmt = $conn->prepare(   "INSERT INTO userlist(list_id, user)
+                                                VALUES(?, ?)");
+  $creatorInsertStmt->bind_param("is", $list_id, $creator); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+  if (!$creatorInsertStmt->execute()) {
     echo 0;
-  }
-  foreach ($usernames as $username) {
-    $userlistInsertStatement = "INSERT INTO userlist(list_id, user)
-                    VALUES('$last_id', '$username')";
-    $result = mysqli_query($conn, $userlistInsertStatement);
-    if (!$result) {
-      echo 0;
-    } else {
-      echo 1;
+  } else {
+    foreach ($usernames as $username) {
+      $usersInsertStmt = $conn->prepare("INSERT INTO userlist(list_id, user)
+                                                VALUES(?, ?)");
+      $usersInsertStmt->bind_param("is", $list_id, $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
+      if (!$usersInsertStmt->execute()) {
+        echo 0;
+      }
     }
+    echo $list_id;
   }
-} else {
+} else{
   echo 0;
 }
 ?>
