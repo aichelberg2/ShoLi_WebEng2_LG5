@@ -19,7 +19,7 @@ $jwtValue = JWT::decode($jwt, new Key($key, 'HS256'));
 
 //$inputRaw = '{"username":"user2","firstname":"1","lastname":"1","eMail":"1"}';
 
-$username = mysqli_real_escape_string($conn, $input->username);
+$username = mysqli_real_escape_string($conn, $jwtValue->usr);
 $firstname = mysqli_real_escape_string($conn, $input->firstname);
 $lastname = mysqli_real_escape_string($conn, $input->lastname);
 $email = mysqli_real_escape_string($conn, $input->eMail);
