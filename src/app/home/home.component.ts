@@ -50,13 +50,13 @@ export class HomeComponent implements OnInit {
 
     this.receivedListsObservable.subscribe(value => {
       if (value.accessGranted == 1) {
-        let lists = value.lists;
+        let responseLists = value.lists;
         this.listIDs.length = 0;
         this.lists.length = 0;
-        for (let i = 0; i < lists.length; i++) {
-          if (!this.listIDs.includes(lists[i].list_id)) {
-            this.listIDs.push(lists[i].list_id)
-            this.lists.push(lists[i])
+        for (let i = 0; i < responseLists.length; i++) {
+          if (!this.listIDs.includes(responseLists[i].list_id)) {
+            this.listIDs.push(responseLists[i].list_id)
+            this.lists.push(responseLists[i])
           }
         }
       }
