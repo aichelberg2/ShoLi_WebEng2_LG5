@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ManageProductDataService} from "../services/manageProductData/manage-product-data.service";
-import {FormControl, NgForm} from "@angular/forms";
-import {Observable, retry, share, Subject, switchMap, takeUntil, timer} from "rxjs";
-import {Location} from "@angular/common";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { ManageProductDataService } from "../services/manageProductData/manage-product-data.service";
+import { FormControl, NgForm } from "@angular/forms";
+import { Observable, retry, share, Subject, switchMap, takeUntil, timer } from "rxjs";
+import { Location } from "@angular/common";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AuthService } from "../services/auth/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-list',
@@ -46,37 +48,45 @@ export class ListComponent implements OnInit {
   temporaryPriceToEdit: any;
   temporaryProductID: any;
 
-  constructor(private snackBar: MatSnackBar, private _location: Location, private route: ActivatedRoute, private manageProductData: ManageProductDataService) {
+  constructor(private snackBar: MatSnackBar, private _location: Location, private route: ActivatedRoute, private manageProductData: ManageProductDataService, private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
 
     this.route.queryParams
       .subscribe(params => {
-          this.listname = params['name'];
-          this.listid = params['id'];
-        }
+        this.listname = params['name'];
+        this.listid = params['id'];
+      }
       );
 
-    let listID = {
-      'listID': this.listid
+    let data = {
+      'listID': this.listid,
+      'jwt': this.authService.loggedInUserValue.token
     }
 
     this.receivedProductsOfListOberservable = timer(1, 3000).pipe(
-      switchMap(() => this.manageProductData.getProductsOfList(listID)),
+      switchMap(() => this.manageProductData.getProductsOfList(data)),
       retry(),
       share(),
       takeUntil(this.stopPolling)
     );
 
     this.receivedProductsOfListOberservable.subscribe(value => {
-      this.receivedProductIDOfList.length = 0
-      this.receivedProductsOfList.length = 0
-      for (let i = 0; i < value.length; i++) {
-        if (!this.receivedProductIDOfList.includes(value[i].pr_id)) {
-          this.receivedProductIDOfList.push(value[i].pr_id)
-          this.receivedProductsOfList.push(value[i])
+      if (value.accessGranted == 1) {
+        let products = value.products;
+        this.receivedProductIDOfList.length = 0
+        this.receivedProductsOfList.length = 0
+        for (let i = 0; i < products.length; i++) {
+          if (!this.receivedProductIDOfList.includes(products[i].pr_id)) {
+            this.receivedProductIDOfList.push(products[i].pr_id)
+            this.receivedProductsOfList.push(products[i])
+          }
         }
+      }
+      else {
+        this.authService.logoutUser();
+        this.router.navigate(['login']);
       }
     })
   }

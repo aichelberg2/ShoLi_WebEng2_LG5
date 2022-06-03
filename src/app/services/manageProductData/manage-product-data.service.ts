@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -24,24 +24,24 @@ export class ManageProductDataService {
     return this.http.post(this.urlGetProductsOfCategorie, categorie);
   }
 
-  getProductsOfList(listID:any):Observable<any>{
-    return this.http.post(this.urlGetProductsOfList, listID);
+  getProductsOfList(data: any): Observable<any> {
+    return this.http.post(this.urlGetProductsOfList, data);
   }
 
-  addProductToList(data:any):Observable<any>{
+  addProductToList(data: any): Observable<any> {
     console.log(data)
     return this.http.post(this.urlAddProductsToList, data);
   }
 
-  createProduct(data:any):Observable<any>{
+  createProduct(data: any): Observable<any> {
     return this.http.post(this.urlCreateProduct, data);
   }
 
-  removeProduct(data:any):Observable<any>{
+  removeProduct(data: any): Observable<any> {
     return this.http.post(this.urlRemoveProduct, data);
   }
 
-  updateIsTicked(data:any):Observable<any>{
+  updateIsTicked(data: any): Observable<any> {
     console.log(data)
     return this.http.post(this.urlUpdateIsTicked, data);
   }

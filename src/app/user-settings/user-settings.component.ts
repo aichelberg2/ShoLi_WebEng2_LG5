@@ -4,6 +4,7 @@ import { ManageUserDataService } from "../services/manageUserData/manage-user-da
 import { Location } from '@angular/common';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from '../services/auth/auth.service'
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-user-settings',
@@ -17,7 +18,7 @@ export class UserSettingsComponent implements OnInit {
   lastname: any;
   mail: any;
 
-  constructor(private snackBar: MatSnackBar, private manageUserData: ManageUserDataService, private _location: Location, private authService: AuthService) {
+  constructor(private snackBar: MatSnackBar, private manageUserData: ManageUserDataService, private _location: Location, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -55,6 +56,7 @@ export class UserSettingsComponent implements OnInit {
     }
 
     this.manageUserData.updateThisUser(data).subscribe(value => {
+      console.log(value);
       if (value == 1) {
         this.snackBar.open('Succesful!', 'Close', {
           duration: 3000
