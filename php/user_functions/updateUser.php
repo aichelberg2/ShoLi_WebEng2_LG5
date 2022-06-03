@@ -11,10 +11,8 @@ use Firebase\JWT\Key;
 
 $key = "SholiIsJustGreat";
 $inputRaw = file_get_contents("php://input");
-// echo $inputRaw;
 $input = json_decode($inputRaw);
 $jwt = $input->jwt;
-// $jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJjaHJpcyIsImlzcyI6MTY1NDI5MjEwMSwiZXhwIjoxNjU0Mjk4MTAxfQ.QwaxRLLHpGHJ5ak1gVHjktlV8qwZCXx_5-Btg3ljhe0";
 
 try {
   $jwtValue = JWT::decode($jwt, new Key($key, 'HS256'));

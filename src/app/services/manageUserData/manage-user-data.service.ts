@@ -24,16 +24,7 @@ export class ManageUserDataService {
     return this.http.post(this.urlUpdateThisUser, data);
   }
 
-  // setUsername_loggedIn(name: any) {
-  //   this.username_loggedIn = name;
-  // }
-
-  // getUsername_loggedIn() {
-  //   return this.username_loggedIn
-  // }
-
   getThisUser(data: any): Observable<any> {
-    console.log(data)
     return this.http.post(this.urlGetThisUser, data);
   }
 
@@ -42,7 +33,6 @@ export class ManageUserDataService {
   }
 
   checkUserDataInput_Register(dataInput: any): Observable<any> {
-    console.log(dataInput);
     return this.http.post(this.urlCheckUserDataInput_Register, dataInput);
   }
 }
