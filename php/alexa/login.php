@@ -8,12 +8,12 @@ require '/vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
 
-$inputRaw = file_get_contents("php://input");
-// $inputRaw = '{"username":"chris","password":"asd123"}';
-$input = json_decode($inputRaw);
+$alexaKey = $_GET["key"];
+$alexaUsername = $_GET["username"];
+$alexaPassword = $_GET["password"];
 
-$username = mysqli_real_escape_string($conn, $input->username);
-$passwordInput = mysqli_real_escape_string($conn, $input->password);
+$username = mysqli_real_escape_string($conn, $alexaUsername);
+$passwordInput = mysqli_real_escape_string($conn, $alexaPassword);
 
 $loginStmt = $conn->prepare("SELECT password as password
                                     FROM user
@@ -30,11 +30,12 @@ if (mysqli_num_rows($result) == 1) {
   if (password_verify($passwordInput, $savedHash)) {
     $key = "SholiIsJustGreat";
     $issuedAt = time();
-    $expirationTime = $issuedAt + 60 * 30;
-    $payload = array(
+    $expirationTime = $issuedAt + 60 * 5; // alexa will refresh the expirationTime before
+    $payload = array(                       // every call, so 5min are more than enough
       "usr" => $username,
       "iss" => $issuedAt,
-      "exp" => $expirationTime
+      "exp" => $expirationTime,
+      "key" => $alexaKey
     );
     $jwtValue = JWT::encode($payload, $key, 'HS256');
 
@@ -43,18 +44,20 @@ if (mysqli_num_rows($result) == 1) {
                                         WHERE username=?");
     $updateStmt->bind_param('s', $username); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
     if ($updateStmt->execute()) {
-      echo json_encode(
-        array(
-          "token" => $jwtValue,
-          "expiry" => $payload["exp"]
-        )
-      );
+      $data = json_encode(array(
+        "token" => $jwtValue,
+        "expiry" => $payload["exp"]
+      ));
     } else {
-      echo 0;
+      $data = null;
     }
   } else {
-    echo 0;
+    $data = null;
   }
 } else {
-  echo 0;
+  $data = null;
 }
+
+$fp = fopen("./tokens/" . $username . ".json", 'w');
+fwrite($fp, json_encode($data));
+fclose($fp);
