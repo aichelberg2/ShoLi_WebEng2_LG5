@@ -12,8 +12,4 @@ export class ApplicationInformationComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  goBack() {
-    this._location.back();
-  }
 }
