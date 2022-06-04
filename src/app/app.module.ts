@@ -18,11 +18,11 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ListComponent } from './list/list.component';
 import { ImpressumComponent } from './impressum/impressum.component';
-import {ScrollingModule} from "@angular/cdk/scrolling";
-import {MatGridListModule} from "@angular/material/grid-list";
-import {MatSelectModule} from "@angular/material/select";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatSelectModule } from "@angular/material/select";
 import { DataprivacyComponent } from './dataprivacy/dataprivacy.component';
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { BackButtonComponent } from './back-button/back-button.component';
 import { WhatDoesApplComponent } from './application-information/what-does-appl/what-does-appl.component';
 import { HowCreateListComponent } from './application-information/how-create-list/how-create-list.component';
@@ -46,7 +46,7 @@ const routes: Routes = [
   { path: 'impressum', component: ImpressumComponent },
   { path: 'dataprivacy', component: DataprivacyComponent },
   { path: 'home/logout', component: LogOutComponent },
-  { path: '', component: LogInComponent }
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
