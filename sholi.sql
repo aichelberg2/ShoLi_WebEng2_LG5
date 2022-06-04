@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('chris','Chris','Markov','chris1@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('elli','Elli','Gott','elli@elli.com','$2y$10$hIupFDgJ1rD64.o2dH0jue.K8mhlQHKVxsy.dmxOYOwZpKRLv0Jaa',1),('Jefi','Jewgeni','Schnaper','jewgeni_schnaper@online.de','$2y$10$w8S5VScU5kJ9qITNG705auxucR8XHpzc2WWcEy5/xga0az5w2u8uu',1),('KindOfGod','Alexander','Toll','alex@alex.com','$2y$10$Wws7aYyCdi6VNyluulvfp.ZZMn/CYUpLg4IJ7.mgdVR6nUQayjpSK',0),('l3roit','Jonas','Schere','jonas@jonas.com','$2y$10$5auLJw3lFBszOQI2y3lcE.E.E/JV9ympyDaeCO.Jl.Zl1ef2IV2Rq',0),('lucario1234','Lucas','Müller','lucas@lucas.gmail.com','$2y$10$tqNV93.hyusRE0yW7hrQA.queVtwE9psnO9CLUgkb7CG2mhweWIXu',1),('tomisboy','Thomas','Albert','thomas@thomas.com','$2y$10$1kYeATqSGPhmzdlfUpHce.rwzMuN.9WYju6G8dvbM20mzUhphVC/W',0);
+INSERT INTO `user` VALUES ('chris','Chris','Markov','chris1@gmail.com','$2y$10$Zm5vi0a354.8btbDm7KGReNvSA/dR.ATn0ONJYSmtfEjcZvX.zKqq',1),('elli','Elli','Gott','elli@elli.com','$2y$10$hIupFDgJ1rD64.o2dH0jue.K8mhlQHKVxsy.dmxOYOwZpKRLv0Jaa',1),('Jefi','Jewgeni','Schnaper','jewgeni_schnaper@online.de','$2y$10$w8S5VScU5kJ9qITNG705auxucR8XHpzc2WWcEy5/xga0az5w2u8uu',1),('KindOfGod','Alexander','Toll','alex@alex.com','$2y$10$Wws7aYyCdi6VNyluulvfp.ZZMn/CYUpLg4IJ7.mgdVR6nUQayjpSK',0),('l3roit','Jonas','Schere','jonas@jonas.com','$2y$10$5auLJw3lFBszOQI2y3lcE.E.E/JV9ympyDaeCO.Jl.Zl1ef2IV2Rq',0),('lucario','Th','Hh','gt','$2y$10$WshkWK5Tqs8SqwV6dwff/OS.0Yo5I7oRM.5FlvX/uEZJxj0dFYR9O',0),('lucario1234','Lucas','Müller','lucas@lucas.gmail.com','$2y$10$tqNV93.hyusRE0yW7hrQA.queVtwE9psnO9CLUgkb7CG2mhweWIXu',1),('tomisboy','Thomas','Albert','thomas@thomas.com','$2y$10$1kYeATqSGPhmzdlfUpHce.rwzMuN.9WYju6G8dvbM20mzUhphVC/W',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-03 19:23:50
+-- Dump completed on 2022-06-04  0:00:01
