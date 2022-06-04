@@ -24,6 +24,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
 import { DataprivacyComponent } from './dataprivacy/dataprivacy.component';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import { BackButtonComponent } from './back-button/back-button.component';
+import { WhatDoesApplComponent } from './application-information/what-does-appl/what-does-appl.component';
+import { HowCreateListComponent } from './application-information/how-create-list/how-create-list.component';
+import { HowShareListComponent } from './application-information/how-share-list/how-share-list.component';
 
 
 
@@ -54,6 +58,10 @@ const routes: Routes = [
     ImpressumComponent,
     ScannertestComponent,
     DataprivacyComponent,
+    BackButtonComponent,
+    WhatDoesApplComponent,
+    HowCreateListComponent,
+    HowShareListComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
