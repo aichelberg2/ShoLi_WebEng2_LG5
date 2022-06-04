@@ -68,7 +68,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (20,32,0,0),(34,32,0,0),(35,32,0,0),(36,32,0,0),(37,32,0,0),(16,26,0,1.34),(20,26,0,0.99),(34,26,0,0.78),(35,26,0,0.32);
+INSERT INTO `listproduct` VALUES (16,26,0,1.34),(20,26,0,0.99),(34,26,0,0.78),(35,26,0,0.32);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `product` (
   `price` decimal(10,2) NOT NULL,
   `Category` varchar(30) NOT NULL,
   PRIMARY KEY (`pr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (16,'Erbeeren',3.99,'Fruits & Vegetables'),(17,'Tiefkühlpizza Salami',2.69,'Deep freeze'),(18,'Joghurt',0.99,'Freshness and cooling'),(19,'Milch',1.29,'Freshness and cooling'),(20,'Salat',0.99,'Fruits & Vegetables'),(21,'Reis',1.29,'Food'),(22,'Chips',1.29,'Sweet & Salty'),(23,'Flips',0.99,'Sweet & Salty'),(24,'Kamillentee',2.99,'Coffee, Tea & Cocoa'),(25,'Cola',1.29,'Beverages'),(26,'Fanta',1.29,'Beverages'),(27,'Wodka',8.99,'Wine, spirits & luxury food'),(28,'Kaviar',11.99,'Wine, spirits & luxury food'),(29,'Deo',2.69,'Drugstore & Cosmetics'),(30,'Abdeckstift',0.99,'Drugstore & Cosmetics'),(31,'Babypuder',2.99,'Baby & Child'),(32,'Spülmittel',1.99,'Kitchen & Household'),(33,'Katzenfutter',0.39,'Pet Supplies'),(34,'Bananen',0.78,'Fruits & Vegetables'),(35,'Kiwi',0.32,'Fruits & Vegetables'),(36,'Blumenkohl',0.78,'Fruits & Vegetables'),(37,'Kokosnuss',1.29,'Fruits & Vegetables');
+INSERT INTO `product` VALUES (16,'Erbeeren',3.99,'Fruits & Vegetables'),(17,'Tiefkühlpizza Salami',2.69,'Deep freeze'),(18,'Joghurt',0.99,'Freshness and cooling'),(19,'Milch',1.29,'Freshness and cooling'),(20,'Salat',0.99,'Fruits & Vegetables'),(21,'Reis',1.29,'Food'),(22,'Chips',1.29,'Sweet & Salty'),(23,'Flips',0.99,'Sweet & Salty'),(24,'Kamillentee',2.99,'Coffee, Tea & Cocoa'),(25,'Cola',1.29,'Beverages'),(26,'Fanta',1.29,'Beverages'),(27,'Wodka',8.99,'Wine, spirits & luxury food'),(28,'Kaviar',11.99,'Wine, spirits & luxury food'),(29,'Deo',2.69,'Drugstore & Cosmetics'),(30,'Abdeckstift',0.99,'Drugstore & Cosmetics'),(31,'Babypuder',2.99,'Baby & Child'),(32,'Spülmittel',1.99,'Kitchen & Household'),(33,'Katzenfutter',0.39,'Pet Supplies'),(34,'Bananen',0.78,'Fruits & Vegetables'),(35,'Kiwi',0.32,'Fruits & Vegetables'),(36,'Blumenkohl',0.78,'Fruits & Vegetables'),(37,'Kokosnuss',1.29,'Fruits & Vegetables'),(38,'erdbeeren',4.30,'Fruits & Vegetables');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-04 12:00:01
+-- Dump completed on 2022-06-04 15:00:01
