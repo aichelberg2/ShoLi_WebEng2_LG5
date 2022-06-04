@@ -37,19 +37,11 @@ nav {
   cursor: pointer;
 }
 
-#toggleButton {
-  margin-left: 25px;
-}
-
 a {
   text-decoration: none !important;
 }
 
 .dropdown-item:hover {
   background-color: lightgray;
-}
-
-/deep/ .cdk-overlay-container {
-  z-index: 9999;
 }
 

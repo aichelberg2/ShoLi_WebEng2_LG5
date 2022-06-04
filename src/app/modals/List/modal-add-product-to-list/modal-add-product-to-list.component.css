@@ -1,0 +1,13 @@
+#selectDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.options{
+  cursor: pointer;
+  background: #6c757d;
+  color: white;
+  transition: background-color 0.2s;
+}

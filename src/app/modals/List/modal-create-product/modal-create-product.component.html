@@ -1,0 +1,59 @@
+<div class="modal fade" id="modal_createProduct" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+  <form id="formCreateProduct" #productForm="ngForm"
+        (ngSubmit)="list.createProduct(productForm.value.newProductName,productForm.value.newProductPrice,productForm.value.shouldBeAddedToList); list.clearForm(productForm)">
+    <div class="modal-dialog modal-dialog-centered" role="dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create a Product!</h5>
+          <button (click)="list.resetModal(productForm)" type="button" class="close" data-bs-dismiss="modal"
+                  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="!manageListProduct.createNextNewProduct" class="modal-body">
+          <div class="form-floating">
+            <select id="newProductCategory" name="newProductCategory" class="custom-select mr-sm-2"
+                    [(ngModel)]="manageListProduct.selectedProductCategory">
+              <option *ngFor="let option of manageListProduct.productCategories">{{option}}</option>
+            </select>
+          </div>
+          <br>
+          <div class="form-floating">
+            <input autocomplete="off" class="form-control" type="text" name="newProductName" id="newProductName"
+                   placeholder="name" ngModel required>
+            <label for="newProductName">Productname</label>
+          </div>
+          <br>
+          <div class="form-floating">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">€</div>
+              </div>
+              <input autocomplete="off" class="form-control" step="0.01" type="number" name="newProductPrice"
+                     id="newProductPrice" placeholder="0,00" ngModel required>
+            </div>
+          </div>
+          <br>
+          <div class="form-check form-switch" id="toggleButton">
+            <input class="form-check-input" type="checkbox" name="shouldBeAddedToList" id="shouldBeAddedToList" ngModel
+                   required>
+            <label for="shouldBeAddedToList">Should the created product be added to the list?</label>
+          </div>
+        </div>
+        <div *ngIf="manageListProduct.createNextNewProduct" class="modal-body">
+          Create another product?
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="manageListProduct.createNextNewProduct=false" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button *ngIf="!manageListProduct.createNextNewProduct" type="submit" class="btn btn-primary">Create!
+          </button>
+          <button *ngIf="manageListProduct.createNextNewProduct" (click)="manageListProduct.createNextNewProduct=false" type="button"
+                  class="btn btn-primary">Yes!
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

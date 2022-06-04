@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManageUserDataService {
-
-  // private username_loggedIn: string | undefined;
 
   private host: string = `${window.location.protocol}//${window.location.hostname}`;
 
@@ -17,20 +16,24 @@ export class ManageUserDataService {
   urlGetThisUser: any = `${this.host}/php/user_functions/getUser.php`;
   urlUpdateThisUser: any = `${this.host}/php/user_functions/updateUser.php`;
 
+  myControl = new FormControl();
+  firstname: any;
+  lastname: any;
+  mail: any;
+
+  isUsernameValid: boolean = true;
+  isPasswordValid: boolean = true;
+  isPasswordValidValid: boolean = true;
+  isFirstnameValid: boolean = true;
+  isLastnameValid: boolean = true;
+  isEmailValid: boolean = true;
+
   constructor(private http: HttpClient) {
   }
 
   updateThisUser(data: any) {
     return this.http.post(this.urlUpdateThisUser, data);
   }
-
-  // setUsername_loggedIn(name: any) {
-  //   this.username_loggedIn = name;
-  // }
-
-  // getUsername_loggedIn() {
-  //   return this.username_loggedIn
-  // }
 
   getThisUser(data: any): Observable<any> {
     console.log(data)
