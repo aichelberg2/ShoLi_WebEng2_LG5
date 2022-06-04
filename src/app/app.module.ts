@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'impressum', component: ImpressumComponent },
   { path: 'dataprivacy', component: DataprivacyComponent },
   { path: 'home/logout', component: LogOutComponent },
-  { path: '', component: LogInComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home/scannertest', component: ScannertestComponent }
 ];
 
