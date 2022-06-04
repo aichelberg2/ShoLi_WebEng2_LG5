@@ -109,10 +109,10 @@ export class HomeComponent implements OnInit {
       names.push(element);
     })
     let data = {
+      'jwt': this.authService.loggedInUserValue.token,
       'listname': newList_name,
       'isListShared': this.isPopUpDisplayed,
       'usernames': names,
-      'creator': this.userNameAsJSON.username
     }
     console.log(data)
     this.manageListData.createList(data).subscribe(value => {
@@ -131,8 +131,7 @@ export class HomeComponent implements OnInit {
   async getPermissionToDelete(list_id: any) {
     this.temporaryListIDToDelete = list_id;
     let data = {
-      //'creator': this.manageUserData.getUsername_loggedIn(),
-      'creator': sessionStorage.getItem('user'),
+      'jwt': this.authService.loggedInUserValue.token,
       'listID': list_id
     }
     await new Promise<void>(resolve => {

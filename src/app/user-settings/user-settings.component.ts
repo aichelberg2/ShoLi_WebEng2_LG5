@@ -49,14 +49,13 @@ export class UserSettingsComponent implements OnInit {
 
 
     let data = {
-      'jwt': this.authService.loggedInUserValue,
+      'jwt': this.authService.loggedInUserValue.token,
       'firstname': this.firstname,
       'lastname': this.lastname,
       'eMail': this.mail
     }
 
     this.manageUserData.updateThisUser(data).subscribe(value => {
-      console.log(value);
       if (value == 1) {
         this.snackBar.open('Succesful!', 'Close', {
           duration: 3000

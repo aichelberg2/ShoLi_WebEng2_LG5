@@ -16,7 +16,7 @@ $stmt = $conn->prepare("DELETE FROM list
                              WHERE list_id= ?");
 $stmt->bind_param("i", $listID); // 's' => 'string', 'i' => 'integer', 'd' => 'double'
 if ($stmt->execute()) {
-  if($stmt->affected_rows > 0) {
+  if ($stmt->affected_rows > 0) {
     echo 1;
   } else {
     echo 0;
@@ -24,4 +24,3 @@ if ($stmt->execute()) {
 } else {
   echo 0;
 }
-?>

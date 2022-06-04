@@ -7,16 +7,17 @@
   <div class="mx-auto">
     <div>
       <button id="add_product_from_DB" type="button" class="btn btn-dark" data-bs-toggle="modal"
-              data-bs-target="#modal_addProduct"><i class="bi bi-card-checklist">Add Product</i>
+        data-bs-target="#modal_addProduct"><i class="bi bi-card-checklist">Add Product</i>
       </button>
       <button id="add_product" type="button" class="btn btn-dark float-right" data-bs-toggle="modal"
-              data-bs-target="#modal_createProduct"><i
-        id="plus_addProduct" class="bi bi-plus">New Product</i>
+        data-bs-target="#modal_createProduct"><i id="plus_addProduct" class="bi bi-plus">New Product</i>
       </button>
     </div>
 
     <div class="card border-0 shadow rounded-3 my-5" style="min-height: 631px;">
-      <u><h1 class="text-center" style="font-family:'Square Peg, cursive'">Liste: {{listname}}</h1></u>
+      <u>
+        <h1 class="text-center" style="font-family:'Square Peg, cursive'">List: {{listname}}</h1>
+      </u>
       <div id="productList" class="overflow-auto" style="height:631px;">
         <mat-grid-list cols="4" rowHeight="50px" *ngFor="let options of receivedProductsOfList">
           <mat-grid-tile>
@@ -28,22 +29,23 @@
 
           <mat-grid-tile>
             <mat-form-field floatLabel="always">
-              <input matInput [value]="options.price" readonly>
+              <input matInput [value]="options.edited_price" readonly>
               <span matPrefix>€</span>
             </mat-form-field>
             <i data-target="#modal_changePrice" data-toggle="modal" class="bi bi-pencil-fill"
-               style="margin-left: 20px;cursor: pointer;" (click)="editPriceField(options.price,options.pr_id)"></i>
+              style="margin-left: 20px;cursor: pointer;"
+              (click)="editPriceField(options.edited_price,options.pr_id)"></i>
           </mat-grid-tile>
           <mat-grid-tile>
             <input *ngIf="options.ticked==1" (click)="options.ticked=0; toggleTicked(options.pr_id,options.ticked);"
-                   class="form-check-input" type="checkbox" id="checkboxNoLabel" checked>
+              class="form-check-input" type="checkbox" id="checkboxNoLabel" checked>
             <input *ngIf="options.ticked==0" (click)="options.ticked=1; toggleTicked(options.pr_id,options.ticked)"
-                   class="form-check-input" type="checkbox" id="checkboxNoLabel1">
+              class="form-check-input" type="checkbox" id="checkboxNoLabel1">
           </mat-grid-tile>
 
           <mat-grid-tile>
             <i class="bi bi-trash-fill" style="cursor: pointer" data-toggle="modal"
-               data-target="#modal_deleteProductOfList" (click)="temporaryProductToDelete=options.pr_id"></i>
+              data-target="#modal_deleteProductOfList" (click)="temporaryProductToDelete=options.pr_id"></i>
           </mat-grid-tile>
         </mat-grid-list>
       </div>
@@ -52,8 +54,7 @@
 </div>
 
 <div class="modal fade" id="modal_deleteProductOfList" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalCenterTitle"
-     aria-hidden="true">
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,28 +77,27 @@
 
 <div class="modal fade" id="modal_createProduct" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
   <form id="formCreateProduct" #productForm="ngForm"
-        (ngSubmit)="createProduct(productForm.value.newProductName,productForm.value.newProductPrice,productForm.value.shouldBeAddedToList); clearForm(productForm)">
+    (ngSubmit)="createProduct(productForm.value.newProductName,productForm.value.newProductPrice,productForm.value.shouldBeAddedToList); clearForm(productForm)">
     <div class="modal-dialog modal-dialog-centered" role="dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Create a Product!</h5>
           <button (click)="resetModal(productForm)" type="button" class="close" data-bs-dismiss="modal"
-                  aria-label="Close">
+            aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div *ngIf="!createNextNewProduct" class="modal-body">
           <div class="form-floating">
             <select id="newProductCategory" name="newProductCategory" class="custom-select mr-sm-2"
-                    [(ngModel)]="selectedProductCategory">
+              [(ngModel)]="selectedProductCategory">
               <option *ngFor="let option of productCategories">{{option}}</option>
             </select>
           </div>
           <br>
           <div class="form-floating">
             <input autocomplete="off" class="form-control" type="text" name="newProductName" id="newProductName"
-                   placeholder="name" ngModel
-                   required>
+              placeholder="name" ngModel required>
             <label for="newProductName">Productname</label>
           </div>
           <br>
@@ -107,15 +107,13 @@
                 <div class="input-group-text">€</div>
               </div>
               <input autocomplete="off" class="form-control" step="0.01" type="number" name="newProductPrice"
-                     id="newProductPrice"
-                     placeholder="0,00" ngModel
-                     required>
+                id="newProductPrice" placeholder="0,00" ngModel required>
             </div>
           </div>
           <br>
           <div class="form-check form-switch" id="toggleButton">
-            <input class="form-check-input" type="checkbox" name="shouldBeAddedToList"
-                   id="shouldBeAddedToList" ngModel required>
+            <input class="form-check-input" type="checkbox" name="shouldBeAddedToList" id="shouldBeAddedToList" ngModel
+              required>
             <label for="shouldBeAddedToList">Should the created product be added to the list?</label>
           </div>
         </div>
@@ -129,7 +127,7 @@
           <button *ngIf="!createNextNewProduct" type="submit" class="btn btn-primary">Create!
           </button>
           <button *ngIf="createNextNewProduct" (click)="createNextNewProduct=false" type="button"
-                  class="btn btn-primary">Yes!
+            class="btn btn-primary">Yes!
           </button>
         </div>
       </div>
@@ -154,7 +152,7 @@
         <div class="modal-body" style="justify-content: center">
           <mat-grid-list id="gridList" cols="2" rowHeight="100px">
             <mat-grid-tile (click)="choosedCategorie(options)" [id]="options" class="options rounded"
-                           *ngFor="let options of productCategories">{{options}}</mat-grid-tile>
+              *ngFor="let options of productCategories">{{options}}</mat-grid-tile>
           </mat-grid-list>
         </div>
       </div>
@@ -164,8 +162,8 @@
             <mat-form-field>
               <mat-label>Products</mat-label>
               <mat-select [formControl]="myControl" [(value)]="selectedProducts" multiple>
-                <mat-option style="color: black" *ngFor="let option of receivedProductsOfCategory"
-                            [value]="option">{{option.name}}</mat-option>
+                <mat-option style="color: black" *ngFor="let option of receivedProductsOfCategory" [value]="option">
+                  {{option.name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -173,10 +171,10 @@
       </div>
       <div class="modal-footer">
         <button *ngIf="!isProductKategorieChoosed" (click)="transmitProductCategorie()" type="button"
-                class="btn btn-primary">Search!
+          class="btn btn-primary">Search!
         </button>
         <button *ngIf="isProductKategorieChoosed" (click)="addProductsToList()" type="button" data-bs-dismiss="modal"
-                class="btn btn-primary">Add!
+          class="btn btn-primary">Add!
         </button>
       </div>
     </div>
@@ -188,8 +186,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Change price?</h5>
-        <button
-          type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -204,7 +201,7 @@
       </div>
       <div class="modal-footer">
         <button data-dismiss="modal" (click)="changeProductPrice(priceInput.value)" type="button"
-                class="btn btn-primary">Change price!
+          class="btn btn-primary">Change price!
         </button>
       </div>
     </div>

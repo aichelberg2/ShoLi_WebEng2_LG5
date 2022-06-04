@@ -25,4 +25,3 @@ if ($stmt->execute()) {
 } else {
   echo 0;
 }
-?>
