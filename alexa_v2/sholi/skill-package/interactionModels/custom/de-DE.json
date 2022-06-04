@@ -1,0 +1,61 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "meinem assistenten",
+      "intents": [
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AddProductIntent",
+          "slots": [
+            {
+              "name": "productName",
+              "type": "AMAZON.Food"
+            },
+            {
+              "name": "listName",
+              "type": "AMAZON.Food"
+            }
+          ],
+          "samples": [
+            "füge {productName} zu {listName} hinzu",
+            "füge {productName} zur Liste {listName} hinzu"
+          ]
+        },
+        {
+          "name": "DeleteProductIntent",
+          "slots": [
+            {
+              "name": "productName",
+              "type": "AMAZON.Food"
+            },
+            {
+              "name": "listName",
+              "type": "AMAZON.Food"
+            }
+          ],
+          "samples": [
+            "lösche {productName} aus der Liste {listName} ",
+            "lösche {productName} aus {listName} "
+          ]
+        }
+      ],
+      "types": []
+    }
+  },
+  "version": "9"
+}
