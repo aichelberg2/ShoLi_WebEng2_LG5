@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (20,32,0,0),(34,32,0,0),(35,32,0,0),(36,32,0,0),(37,32,0,0),(34,26,0,0),(18,26,0,0),(19,26,0,0),(16,26,0,0),(20,26,0,0),(18,26,0,0),(19,26,0,0);
+INSERT INTO `listproduct` VALUES (20,32,0,0),(34,32,0,0),(35,32,0,0),(36,32,0,0),(37,32,0,0),(16,26,0,1.34),(20,26,0,0.99),(34,26,0,0.78),(35,26,0,0.32);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-04  0:00:01
+-- Dump completed on 2022-06-04 12:00:01
