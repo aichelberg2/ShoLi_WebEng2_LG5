@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import {Observable, Subject} from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import {FormControl} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,40 @@ export class ManageListDataService {
   urlCreateList: any = `${this.host}/php/list_functions/createList.php`;
   urlGetIsCreator: any = `${this.host}/php/list_functions/isCreator.php`;
   urlDeleteList: any = `${this.host}/php/list_functions/deleteList.php`;
+
+  listname: string | undefined;
+  listid: any | undefined;
+  productCategories: string[] = [
+    "Fruits & Vegetables",
+    "Freshness and cooling",
+    "Deep freeze",
+    "Food",
+    "Sweet & Salty",
+    "Coffee, Tea & Cocoa",
+    "Beverages",
+    "Wine, spirits & luxury food",
+    "Drugstore & Cosmetics",
+    "Baby & Child",
+    "Kitchen & Household",
+    "Home & Leisure",
+    "Pet Supplies",
+    "Technical"
+  ];
+  choosedProductCategorie: string | undefined;
+  isProductKategorieChoosed: boolean = false;
+  receivedProductsOfList: any[] = [];
+  receivedProductIDOfList: any[] = [];
+  receivedProductsOfCategory: any[] = [];
+  myControl = new FormControl();
+  selectedProducts: any = [];
+  selectedProductCategory: any = "";
+  receivedProductsOfListOberservable: Observable<any> | undefined;
+  stopPolling = new Subject();
+  createNextNewProduct: boolean = false;
+  receivedProductsIDOfCategory: any = [];
+  temporaryProductToDelete: any;
+  temporaryPriceToEdit: any;
+  temporaryProductID: any;
 
   constructor(private http: HttpClient) {
   }

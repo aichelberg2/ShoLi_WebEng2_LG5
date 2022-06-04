@@ -2,6 +2,7 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {ManageUserDataService} from '../services/manageUserData/manage-user-data.service';
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-registration',
@@ -11,40 +12,100 @@ import {Router} from "@angular/router";
 })
 
 export class RegistrationComponent implements OnInit {
-  constructor(
-    private manageUserData: ManageUserDataService,
-    private router: Router
-  ) {}
+  constructor(public manageUserData: ManageUserDataService, private router: Router, private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
   }
 
   goForRegister(form: NgForm) {
-    if (form.value.login_username != '' && form.value.login_password != '' && form.value.register_firstname != '' && form.value.register_lastname != '' && form.value.register_email != '') {
-      //if (!form.value.login_username.includes(" ") && !form.value.login_password.includes(" ") && !form.value.register_firstname.includes(" ") && !form.value.register_lastname.includes(" ") && !form.value.register_email.includes(" ")) {
-        if (form.value.register_password == form.value.verify_password) {
+    if (this.manageUserData.isUsernameValid && (form.value.register_username != '' && !form.value.register_username.includes(" ")) || !this.manageUserData.isUsernameValid && (form.value.register_username1 != '' && !form.value.register_username1.includes(" "))) {
+      if (this.manageUserData.isFirstnameValid && (form.value.register_firstname != '' && !form.value.register_firstname.includes(" ")) || !this.manageUserData.isFirstnameValid && (form.value.register_firstname1 != '' && !form.value.register_firstname1.includes(" "))) {
+        if (this.manageUserData.isLastnameValid && (form.value.register_lastname != '' && !form.value.register_lastname.includes(" ")) || !this.manageUserData.isLastnameValid && (form.value.register_lastname1 != '' && !form.value.register_lastname1.includes(" "))) {
+          if (this.manageUserData.isEmailValid && (form.value.register_email != '' && !form.value.register_email.includes(" ")) || !this.manageUserData.isEmailValid && (form.value.register_email1 != '' && !form.value.register_email1.includes(" "))) {
+            if (this.manageUserData.isPasswordValid && (form.value.register_password != '' && !form.value.register_password.includes(" ")) || !this.manageUserData.isPasswordValid && (form.value.register_password1 != '' && !form.value.register_password1.includes(" "))) {
+              if (this.manageUserData.isPasswordValidValid && (form.value.verify_password != '' && !form.value.verify_password.includes(" ")) || !this.manageUserData.isPasswordValidValid && (form.value.verify_password1 != '' && !form.value.verify_password1.includes(" "))) {
+                if ((this.manageUserData.isPasswordValid && this.manageUserData.isPasswordValidValid) && (form.value.register_password == form.value.verify_password) || (!this.manageUserData.isPasswordValid && !this.manageUserData.isPasswordValidValid) && (form.value.register_password1 == form.value.verify_password1) ||
+                  (!this.manageUserData.isPasswordValid && this.manageUserData.isPasswordValidValid) && (form.value.register_password1 == form.value.verify_password) || (this.manageUserData.isPasswordValid && !this.manageUserData.isPasswordValidValid) && (form.value.register_password == form.value.verify_password1)) {
 
-          let data = {
-            'username': form.value.register_username,
-            'firstname': form.value.register_firstname,
-            'lastname': form.value.register_lastname,
-            'eMail': form.value.register_email,
-            'password': form.value.register_password,
-          }
+                  this.manageUserData.isUsernameValid = true;
+                  this.manageUserData.isFirstnameValid = true;
+                  this.manageUserData.isFirstnameValid = true;
+                  this.manageUserData.isEmailValid = true;
+                  this.manageUserData.isPasswordValid = true;
+                  this.manageUserData.isPasswordValidValid = true;
 
-          this.manageUserData.checkUserDataInput_Register(data).subscribe(value => {
-            if (value == 1) {
-              this.router.navigate(['login']);
+                  let username;
+                  let firstname;
+                  let lastname;
+                  let email;
+                  let pwd;
+
+                  if (form.value.register_username == undefined)
+                    username = form.value.register_username1;
+                  else
+                    username = form.value.register_username;
+
+                  if (form.value.register_firstname == undefined)
+                    firstname = form.value.register_firstname1;
+                  else
+                    firstname = form.value.register_firstname;
+
+                  if (form.value.register_lastname == undefined)
+                    lastname = form.value.register_lastname1;
+                  else
+                    lastname = form.value.register_lastname;
+
+                  if (form.value.register_email == undefined)
+                    email = form.value.register_email1;
+                  else
+                    email = form.value.register_email;
+
+                  if (form.value.register_password == undefined)
+                    pwd = form.value.register_password1;
+                  else
+                    pwd = form.value.register_password;
+
+                  let data = {
+                    'username': username,
+                    'firstname': firstname,
+                    'lastname': lastname,
+                    'eMail': email,
+                    'password': pwd,
+                  }
+
+                  this.manageUserData.checkUserDataInput_Register(data).subscribe(value => {
+                    if (value == 1) {
+                      this.router.navigate(['login']);
+                    } else {
+                      this.snackBar.open('User is already there!', 'Close', {
+                        duration: 3000
+                      });
+                    }
+                  });
+                } else {
+                  this.snackBar.open('Passwords are not the same!', 'Close', {
+                    duration: 3000
+                  });
+                }
+              } else {
+                this.manageUserData.isPasswordValidValid = false;
+              }
+            } else {
+              this.manageUserData.isPasswordValid = false;
             }
-          });
+          } else {
+            this.manageUserData.isEmailValid = false;
+          }
         } else {
-          alert("Passwörter stimmen nicht überein");
+          this.manageUserData.isLastnameValid = false;
         }
       } else {
-        alert("Leerzeichen sind nicht erlaubt");
+        this.manageUserData.isFirstnameValid = false;
       }
-    //} else {
-    //  alert("Bitte alle Felder ausfüllen!");
-    //}
+    } else {
+      this.manageUserData.isUsernameValid = false;
+    }
   }
 }
+

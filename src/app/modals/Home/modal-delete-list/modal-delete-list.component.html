@@ -1,0 +1,25 @@
+<div class="modal fade" id="modal_deleteList" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete List?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="manageHomeData.havePErmissionToDeleteList" class="modal-body">
+        All Data in the list are gone then! Continue?
+      </div>
+      <div *ngIf="!manageHomeData.havePErmissionToDeleteList" class="modal-body">
+        You don't have the permissions to do that!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close!</button>
+        <button *ngIf="manageHomeData.havePErmissionToDeleteList"
+                (click)="home.deleteListByCreator(manageHomeData.temporaryListIDToDelete)" type="button"
+                class="btn btn-primary" data-dismiss="modal">Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

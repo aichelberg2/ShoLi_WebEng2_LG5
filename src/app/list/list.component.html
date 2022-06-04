@@ -12,10 +12,10 @@
 
     <div class="card border-0 shadow rounded-3 my-5" style="min-height: 631px;">
       <u>
-        <h1 class="text-center" style="font-family:'Square Peg, cursive'">List: {{listname}}</h1>
+        <h1 class="text-center" style="font-family:'Square Peg, cursive'">List: {{manageListData.listname}}</h1>
       </u>
       <div id="productList" class="overflow-auto" style="height:631px;">
-        <mat-grid-list cols="4" rowHeight="50px" *ngFor="let options of receivedProductsOfList">
+        <mat-grid-list cols="4" rowHeight="50px" *ngFor="let options of manageListData.receivedProductsOfList">
           <mat-grid-tile>
             <i style="padding-bottom: 8px; padding-right: 8px" class="bi bi-dash"></i>
             <mat-form-field floatLabel="always">
@@ -41,7 +41,7 @@
 
           <mat-grid-tile>
             <i class="bi bi-trash-fill" style="cursor: pointer" data-toggle="modal"
-              data-target="#modal_deleteProductOfList" (click)="temporaryProductToDelete=options.pr_id"></i>
+              data-target="#modal_deleteProductOfList" (click)="manageListData.temporaryProductToDelete=options.pr_id"></i>
           </mat-grid-tile>
         </mat-grid-list>
       </div>
@@ -49,157 +49,11 @@
   </div>
 </div>
 
-<div class="modal fade" id="modal_deleteProductOfList" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Produkt aus Liste löschen?</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Wenn dieses Produkt gelöscht wird, ist es nichtmehr da!
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)="deleteProductFromList()" type="button" class="btn btn-primary" data-dismiss="modal">Go!
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-modal-delete-product-of-list></app-modal-delete-product-of-list>
 
-<div class="modal fade" id="modal_createProduct" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-  <form id="formCreateProduct" #productForm="ngForm"
-    (ngSubmit)="createProduct(productForm.value.newProductName,productForm.value.newProductPrice,productForm.value.shouldBeAddedToList); clearForm(productForm)">
-    <div class="modal-dialog modal-dialog-centered" role="dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create a Product!</h5>
-          <button (click)="resetModal(productForm)" type="button" class="close" data-bs-dismiss="modal"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div *ngIf="!createNextNewProduct" class="modal-body">
-          <div class="form-floating">
-            <select id="newProductCategory" name="newProductCategory" class="custom-select mr-sm-2"
-              [(ngModel)]="selectedProductCategory">
-              <option *ngFor="let option of productCategories">{{option}}</option>
-            </select>
-          </div>
-          <br>
-          <div class="form-floating">
-            <input autocomplete="off" class="form-control" type="text" name="newProductName" id="newProductName"
-              placeholder="name" ngModel required>
-            <label for="newProductName">Productname</label>
-          </div>
-          <br>
-          <div class="form-floating">
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">€</div>
-              </div>
-              <input autocomplete="off" class="form-control" step="0.01" type="number" name="newProductPrice"
-                id="newProductPrice" placeholder="0,00" ngModel required>
-            </div>
-          </div>
-          <br>
-          <div class="form-check form-switch" id="toggleButton">
-            <input class="form-check-input" type="checkbox" name="shouldBeAddedToList" id="shouldBeAddedToList" ngModel
-              required>
-            <label for="shouldBeAddedToList">Should the created product be added to the list?</label>
-          </div>
-        </div>
-        <div *ngIf="createNextNewProduct" class="modal-body">
-          Create another product?
-        </div>
-        <div class="modal-footer">
-          <button type="button" (click)="createNextNewProduct=false" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button *ngIf="!createNextNewProduct" type="submit" class="btn btn-primary">Create!
-          </button>
-          <button *ngIf="createNextNewProduct" (click)="createNextNewProduct=false" type="button"
-            class="btn btn-primary">Yes!
-          </button>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
+<app-modal-create-product></app-modal-create-product>
 
+<app-modal-add-product-to-list></app-modal-add-product-to-list>
 
-<div class="modal fade" id="modal_addProduct" aria-labelledby="modal-title">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 *ngIf="!isProductKategorieChoosed" class="modal-title">Choose a Categorie!</h5>
-        <h5 *ngIf="isProductKategorieChoosed" class="modal-title">Which products should be added?</h5>
-        <button
-          (click)="isProductKategorieChoosed=false; receivedProductsOfCategory.length=0;receivedProductsIDOfCategory.length=0"
-          type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div *ngIf="!isProductKategorieChoosed">
-        <div class="modal-body" style="justify-content: center">
-          <mat-grid-list id="gridList" cols="2" rowHeight="100px">
-            <mat-grid-tile (click)="choosedCategorie(options)" [id]="options" class="options rounded"
-              *ngFor="let options of productCategories">{{options}}</mat-grid-tile>
-          </mat-grid-list>
-        </div>
-      </div>
-      <div *ngIf="isProductKategorieChoosed">
-        <div class="modal-body">
-          <div id="selectDiv">
-            <mat-form-field>
-              <mat-label>Products</mat-label>
-              <mat-select [formControl]="myControl" [(value)]="selectedProducts" multiple>
-                <mat-option style="color: black" *ngFor="let option of receivedProductsOfCategory" [value]="option">
-                  {{option.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button *ngIf="!isProductKategorieChoosed" (click)="transmitProductCategorie()" type="button"
-          class="btn btn-primary">Search!
-        </button>
-        <button *ngIf="isProductKategorieChoosed" (click)="addProductsToList()" type="button" data-bs-dismiss="modal"
-          class="btn btn-primary">Add!
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-modal-change-price-of-product></app-modal-change-price-of-product>
 
-<div class="modal fade" id="modal_changePrice" aria-labelledby="modal-title">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Change price?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div id="selectDiv1">
-        <div class="modal-body">
-          <mat-form-field floatLabel="always">
-            <input matInput [value]="temporaryPriceToEdit" #priceInput>
-            <span matPrefix>€</span>
-          </mat-form-field>
-          <i class="bi bi-pencil-fill" style="margin-left: 20px"></i>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button data-dismiss="modal" (click)="changeProductPrice(priceInput.value)" type="button"
-          class="btn btn-primary">Change price!
-        </button>
-      </div>
-    </div>
-  </div>
-</div>

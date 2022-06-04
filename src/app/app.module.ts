@@ -18,7 +18,6 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ListComponent } from './list/list.component';
 import { ImpressumComponent } from './impressum/impressum.component';
-import { ScannertestComponent } from './scannertest/scannertest.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
@@ -28,6 +27,12 @@ import { BackButtonComponent } from './back-button/back-button.component';
 import { WhatDoesApplComponent } from './application-information/what-does-appl/what-does-appl.component';
 import { HowCreateListComponent } from './application-information/how-create-list/how-create-list.component';
 import { HowShareListComponent } from './application-information/how-share-list/how-share-list.component';
+import { ModalDeleteListComponent } from './modals/Home/modal-delete-list/modal-delete-list.component';
+import { ModalCreateListByModalWindowComponent } from './modals/Home/modal-create-list-by-modal-window/modal-create-list-by-modal-window.component';
+import { ModalDeleteProductOfListComponent } from './modals/List/modal-delete-product-of-list/modal-delete-product-of-list.component';
+import { ModalCreateProductComponent } from './modals/List/modal-create-product/modal-create-product.component';
+import { ModalAddProductToListComponent } from './modals/List/modal-add-product-to-list/modal-add-product-to-list.component';
+import { ModalChangePriceOfProductComponent } from './modals/List/modal-change-price-of-product/modal-change-price-of-product.component';
 
 
 
@@ -41,8 +46,7 @@ const routes: Routes = [
   { path: 'impressum', component: ImpressumComponent },
   { path: 'dataprivacy', component: DataprivacyComponent },
   { path: 'home/logout', component: LogOutComponent },
-  { path: '', component: LogInComponent },
-  { path: 'home/scannertest', component: ScannertestComponent }
+  { path: '', component: LogInComponent }
 ];
 
 @NgModule({
@@ -56,12 +60,17 @@ const routes: Routes = [
     LogOutComponent,
     ListComponent,
     ImpressumComponent,
-    ScannertestComponent,
     DataprivacyComponent,
     BackButtonComponent,
     WhatDoesApplComponent,
     HowCreateListComponent,
     HowShareListComponent,
+    ModalDeleteListComponent,
+    ModalCreateListByModalWindowComponent,
+    ModalDeleteProductOfListComponent,
+    ModalCreateProductComponent,
+    ModalAddProductToListComponent,
+    ModalChangePriceOfProductComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),

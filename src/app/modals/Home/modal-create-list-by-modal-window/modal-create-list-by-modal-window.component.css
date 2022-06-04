@@ -1,0 +1,7 @@
+#toggleButton {
+  margin-left: 25px;
+}
+
+/deep/ .cdk-overlay-container {
+  z-index: 9999;
+}
