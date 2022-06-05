@@ -8,7 +8,7 @@ import {Location} from '@angular/common';
 })
 export class ApplicationInformationComponent implements OnInit {
 
-  constructor(private _location: Location) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

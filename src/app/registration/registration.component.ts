@@ -19,15 +19,19 @@ export class RegistrationComponent implements OnInit {
   }
 
   goForRegister(form: NgForm) {
+    //hier werden Eingaben geprüft. Es gibt eine Fallunterscheidung, da es das normale Inputfeld und das rot eingekreiste Inputfeld gibt(falls schonmal gegen eine Richtlinie verstoßen wurde)
+    //dies muss für alle Eingaben passieren, gecheckt wird nach Leerzeichen und Leere
     if (this.manageUserData.isUsernameValid && (form.value.register_username != '' && !form.value.register_username.includes(" ")) || !this.manageUserData.isUsernameValid && (form.value.register_username1 != '' && !form.value.register_username1.includes(" "))) {
       if (this.manageUserData.isFirstnameValid && (form.value.register_firstname != '' && !form.value.register_firstname.includes(" ")) || !this.manageUserData.isFirstnameValid && (form.value.register_firstname1 != '' && !form.value.register_firstname1.includes(" "))) {
         if (this.manageUserData.isLastnameValid && (form.value.register_lastname != '' && !form.value.register_lastname.includes(" ")) || !this.manageUserData.isLastnameValid && (form.value.register_lastname1 != '' && !form.value.register_lastname1.includes(" "))) {
           if (this.manageUserData.isEmailValid && (form.value.register_email != '' && !form.value.register_email.includes(" ")) || !this.manageUserData.isEmailValid && (form.value.register_email1 != '' && !form.value.register_email1.includes(" "))) {
             if (this.manageUserData.isPasswordValid && (form.value.register_password != '' && !form.value.register_password.includes(" ")) || !this.manageUserData.isPasswordValid && (form.value.register_password1 != '' && !form.value.register_password1.includes(" "))) {
               if (this.manageUserData.isPasswordValidValid && (form.value.verify_password != '' && !form.value.verify_password.includes(" ")) || !this.manageUserData.isPasswordValidValid && (form.value.verify_password1 != '' && !form.value.verify_password1.includes(" "))) {
+                //sind Passwörter gleich...
                 if ((this.manageUserData.isPasswordValid && this.manageUserData.isPasswordValidValid) && (form.value.register_password == form.value.verify_password) || (!this.manageUserData.isPasswordValid && !this.manageUserData.isPasswordValidValid) && (form.value.register_password1 == form.value.verify_password1) ||
                   (!this.manageUserData.isPasswordValid && this.manageUserData.isPasswordValidValid) && (form.value.register_password1 == form.value.verify_password) || (this.manageUserData.isPasswordValid && !this.manageUserData.isPasswordValidValid) && (form.value.register_password == form.value.verify_password1)) {
 
+                  //wenn Credentials vollst. eingegeben, werden die Inputfelder "normal"
                   this.manageUserData.isUsernameValid = true;
                   this.manageUserData.isFirstnameValid = true;
                   this.manageUserData.isFirstnameValid = true;
@@ -40,7 +44,7 @@ export class RegistrationComponent implements OnInit {
                   let lastname;
                   let email;
                   let pwd;
-
+                  //zwischenspeichern von Credentials, auch hier muss eine Fallunterscheidung getroffen werden, je nachdem ob in das "normale" oder in das rot umkreiste Inputfeld eingegeben wurde
                   if (form.value.register_username == undefined)
                     username = form.value.register_username1;
                   else
@@ -66,7 +70,7 @@ export class RegistrationComponent implements OnInit {
                   else
                     pwd = form.value.register_password;
 
-                  let data = {
+                  let data = {  //Objekt, welches Credentials beinhaltet
                     'username': username,
                     'firstname': firstname,
                     'lastname': lastname,
@@ -74,20 +78,24 @@ export class RegistrationComponent implements OnInit {
                     'password': pwd,
                   }
 
-                  this.manageUserData.checkUserDataInput_Register(data).subscribe(value => {
-                    if (value == 1) {
-                      this.router.navigate(['login']);
+                  this.manageUserData.checkUserDataInput_Register(data).subscribe(value => {  //call, welcher checkt ob registriert werden darf und registriert den User
+                    if (value == 1) {   //wenn geglückt...
+                      this.router.navigate(['login']);   //...auf login verweisen...
+                      this.snackBar.open('Successfully registered!', 'Close', { //...und 3-sekündiges geglücktes Feedback-Fenster
+                        duration: 3000
+                      });
                     } else {
-                      this.snackBar.open('User is already there!', 'Close', {
+                      this.snackBar.open('User is already there!', 'Close', { // 3-sekündiges gescheitertes Feedback-Fenster
                         duration: 3000
                       });
                     }
                   });
                 } else {
-                  this.snackBar.open('Passwords are not the same!', 'Close', {
+                  this.snackBar.open('Passwords are not the same!', 'Close', {  // 3-sekündiges gescheitertes Feedback-Fenster
                     duration: 3000
                   });
                 }
+                //ansonsten werden Inputs rot umrandet
               } else {
                 this.manageUserData.isPasswordValidValid = false;
               }

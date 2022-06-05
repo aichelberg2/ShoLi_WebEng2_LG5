@@ -17,28 +17,32 @@ export class LogInComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goForLogIn(form: NgForm) {
+  goForLogIn(form: NgForm) {    //Methode welche getriggert wird, wenn User sich einloggen will
+    //hier werden Eingaben geprüft. Es gibt eine Fallunterscheidung, da es das normale Inputfeld und das rot eingekreiste Inputfeld gibt(falls schonmal gegen eine Richtlinie verstoßen wurde)
+    //dies muss für sowohl den Usernamen als auch das Passwort passieren, gecheckt wird nach Leerzeichen und Leere
     if (this.manageUserData.isUsernameValid && (form.value.login_username != '' && !form.value.login_username.includes(" ")) || !this.manageUserData.isUsernameValid && (form.value.login_username1 != '' && !form.value.login_username1.includes(" "))) {
       if (this.manageUserData.isPasswordValid && (form.value.login_password != '' && !form.value.login_password.includes(" ")) || !this.manageUserData.isPasswordValid && (form.value.login_password1 != '' && !form.value.login_password1.includes(" "))) {
 
+        //wenn Credentials vollst. eingegeben, werden die Inputfelder "normal"
         this.manageUserData.isUsernameValid = true;
         this.manageUserData.isPasswordValid = true;
 
-        let user: string;
+        let username: string;
         let pwd: string;
 
+        //zwischenspeichern von Username und Passwort, auch hier muss eine Fallunterscheidung getroffen werden, je nachdem ob in das "normale" oder in das rot umkreiste Inputfeld eingegeben wurde
         if (form.value.login_username == undefined)
-          user = form.value.login_username1;
+          username = form.value.login_username1;
         else
-          user = form.value.login_username;
+          username = form.value.login_username;
 
         if (form.value.login_password == undefined)
           pwd = form.value.login_password1;
         else
           pwd = form.value.login_password;
 
-        let data = {
-          'username': user,
+        let data = {    //Objekt, welches Username und Passwort beinhaltet
+          'username': username,
           'password': pwd
         }
 
@@ -50,6 +54,7 @@ export class LogInComponent implements OnInit {
             error => {
               console.log(error);
             });
+        //ist eine Überprüfung gescheitert, wird das Inputfeld rot umkreist
       } else {
         this.manageUserData.isPasswordValid = false;
       }

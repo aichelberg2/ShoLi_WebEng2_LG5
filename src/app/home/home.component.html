@@ -37,7 +37,7 @@
         style="cursor: pointer"
         class="rounded-3 list-group-item" *ngFor="let list of manageHomeData.lists">
         <div class="row" style="font-family: Square Peg, cursive;font-size: 30px;">
-          <div (click)="clicker(list.name, list.list_id)" class="col-sm">{{list.name}}</div>
+          <div (click)="redirectToList(list.name, list.list_id)" class="col-sm">{{list.name}}</div>
           <div class="col-md-auto d-flex justify-content-end align-items-center ">
             <i (click)="getPermissionToDelete(list.list_id)"
                class="bi bi-trash-fill"
