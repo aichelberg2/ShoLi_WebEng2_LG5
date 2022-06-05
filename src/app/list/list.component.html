@@ -34,9 +34,9 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <input *ngIf="options.ticked==1" (click)="options.ticked=0; toggleTicked(options.pr_id,options.ticked);"
-              class="form-check-input" type="checkbox" id="checkboxNoLabel" checked>
+              class="form-check-input" type="checkbox" id="checkboxChecked" checked>
             <input *ngIf="options.ticked==0" (click)="options.ticked=1; toggleTicked(options.pr_id,options.ticked)"
-              class="form-check-input" type="checkbox" id="checkboxNoLabel1">
+              class="form-check-input" type="checkbox" id="checkboxNotChecked">
           </mat-grid-tile>
 
           <mat-grid-tile>

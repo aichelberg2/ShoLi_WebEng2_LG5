@@ -1,10 +1,10 @@
-<div class="modal fade" id="modal_createListByPopUp" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+<div class="modal fade" id="modal_createListByPopUp" tabindex="-1" aria-hidden="true">
   <form id="formForCreateList" #listInfoForm="ngForm"
         (ngSubmit)="home.createList(listInfoForm.value.newList_name); home.clearCreatingForm(listInfoForm)">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modal-title">Create new list?</h5>
+          <h5 class="modal-title">Create new list?</h5>
           <button (click)="home.clearCreatingForm(listInfoForm)" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
