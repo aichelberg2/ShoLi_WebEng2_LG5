@@ -1,0 +1,73 @@
+<html>
+<head>
+    <script>
+        function refresh() {
+            browser.redirect();
+        }
+    </script>
+</head>
+
+<body>
+    <style>
+        body {
+          height: 100%;
+          background: #007bff no-repeat center center fixed;
+          background: linear-gradient(to right, #0062E6, #33AEFF);
+          margin: 0;
+          font-family: Roboto, "Helvetica Neue", sans-serif;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+          padding-top: 100px;
+        }
+
+        .wrap {
+          width: 70%;
+          height: fit-content;
+          margin: auto;
+          margin-top: 10%;
+          padding: 50px;
+          padding-top: 20px;
+          background: white;
+          border-radius: 16px;
+          font-size: 40px;
+        }
+
+        .myButton {
+          background: #007bff;
+          color: white;
+          width: 100%;
+          height: 100px;
+          font-size: 40px;
+          letter-spacing: 0.05rem;
+          padding-top: 50px;
+          border-radius: 8px;
+          border: 1px solid #0062E6;
+          cursor: pointer;
+        }
+
+        .button:hover {
+          background-color: #0062E6;
+        }
+
+        .bigdiv {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+    </style>
+
+
+    <div class="bigdiv">
+        <div class="wrap">
+            <p>No Internet access.</p>
+            <div class="myButton" onclick="refresh();">RELOAD</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
