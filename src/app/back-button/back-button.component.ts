@@ -8,13 +8,12 @@ import {Location} from '@angular/common';
 })
 export class BackButtonComponent implements OnInit {
 
-  constructor(private _location: Location) { }
+  constructor(private location: Location) { }
 
   ngOnInit(): void {
   }
 
-  goBack() {
-    this._location.back();
+  goBack() {    //Methode, welche bei oncklick auf den Zurück-Button getriggert wird
+    this.location.back();   //eine Seite zurückspringen
   }
-
 }

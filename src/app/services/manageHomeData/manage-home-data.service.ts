@@ -12,11 +12,11 @@ export class ManageHomeDataService {
   selectedNames: string[] = [];
   receivedListsObservable: Observable<any> | undefined;
   filteredOptions: Observable<string[]> | undefined;
-  isPopUpDisplayed: boolean = false;
+  isListShared: boolean = false;
   stopPolling = new Subject();
   lists: any[] = [];
   listIDs: any[] = [];
-  havePErmissionToDeleteList: boolean = false;
+  havePermissionToDeleteList: boolean = false;
   userNameAsJSON = {
     'username': sessionStorage.getItem('user')
   }

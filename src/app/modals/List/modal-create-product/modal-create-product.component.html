@@ -1,11 +1,11 @@
 <div class="modal fade" id="modal_createProduct" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
   <form id="formCreateProduct" #productForm="ngForm"
-        (ngSubmit)="list.createProduct(productForm.value.newProductName,productForm.value.newProductPrice,productForm.value.shouldBeAddedToList); list.clearForm(productForm)">
+        (ngSubmit)="list.createProduct(productForm.value.newProductName,productForm.value.newProductPrice,productForm.value.shouldBeAddedToList); list.clearCreateProductForm(productForm)">
     <div class="modal-dialog modal-dialog-centered" role="dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Create a Product!</h5>
-          <button (click)="list.resetModal(productForm)" type="button" class="close" data-bs-dismiss="modal"
+          <button (click)="list.clearCreateProductForm(productForm)" type="button" class="close" data-bs-dismiss="modal"
                   aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

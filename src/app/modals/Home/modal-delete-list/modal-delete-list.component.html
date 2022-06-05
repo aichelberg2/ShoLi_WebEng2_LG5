@@ -7,15 +7,15 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div *ngIf="manageHomeData.havePErmissionToDeleteList" class="modal-body">
+      <div *ngIf="manageHomeData.havePermissionToDeleteList" class="modal-body">
         All Data in the list are gone then! Continue?
       </div>
-      <div *ngIf="!manageHomeData.havePErmissionToDeleteList" class="modal-body">
+      <div *ngIf="!manageHomeData.havePermissionToDeleteList" class="modal-body">
         You don't have the permissions to do that!
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close!</button>
-        <button *ngIf="manageHomeData.havePErmissionToDeleteList"
+        <button *ngIf="manageHomeData.havePermissionToDeleteList"
                 (click)="home.deleteListByCreator(manageHomeData.temporaryListIDToDelete)" type="button"
                 class="btn btn-primary" data-dismiss="modal">Continue
         </button>

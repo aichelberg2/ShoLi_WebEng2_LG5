@@ -31,21 +31,20 @@ export class ManageUserDataService {
   constructor(private http: HttpClient) {
   }
 
+  //Post-call um User-Daten zu aktualisieren
   updateThisUser(data: any) {
     return this.http.post(this.urlUpdateThisUser, data);
   }
-
+  //Post-call um Daten eines Users zu bekommen
   getThisUser(data: any): Observable<any> {
-    console.log(data)
     return this.http.post(this.urlGetThisUser, data);
   }
-
+  //Get-call um alle User zu bekommen
   getAllUsers(): Observable<any> {
     return this.http.get(this.urlGetUser);
   }
-
+  //Post-call um User zu registrieren
   checkUserDataInput_Register(dataInput: any): Observable<any> {
-    console.log(dataInput);
     return this.http.post(this.urlCheckUserDataInput_Register, dataInput);
   }
 }

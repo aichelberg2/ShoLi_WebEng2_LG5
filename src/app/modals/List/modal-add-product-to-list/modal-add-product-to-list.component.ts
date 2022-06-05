@@ -14,15 +14,16 @@ export class ModalAddProductToListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  choosedCategorie(option: string) {
-    this.manageListData.choosedProductCategorie = option;
-    const gridList = document.getElementsByClassName('mat-grid-tile options rounded') as HTMLCollectionOf<HTMLElement>;
-    const element = document.getElementById(option);
+  choosedCategorie(option: string) {    //Methode, welche getriggert wird, wenn eine Kategorie im Kommunikationsfenster für Hinzufügen von Produkt ausgewählt wurde
+    this.manageListData.choosedProductCategorie = option;   //Kategorie zwischenspeichern
+    //hier werden Farben geändert, alle Elemente sind grau, wenn ausgewählt blau
+    const gridList = document.getElementsByClassName('mat-grid-tile options rounded') as HTMLCollectionOf<HTMLElement>; //Alle Elemente (Kategorien) bekommen
+    const element = document.getElementById(option);  //Ausgewähle Kategorie setzen
     for (let i = 0; i < gridList.length; i++) {
-      gridList[i].style.backgroundColor = '#6c757d';
+      gridList[i].style.backgroundColor = '#6c757d';  //alle Elemente grau
     }
     if (element != null)
-      element.style.backgroundColor = '#007bff';
+      element.style.backgroundColor = '#007bff';    //ausgewähltes Element blau
   }
 
 }

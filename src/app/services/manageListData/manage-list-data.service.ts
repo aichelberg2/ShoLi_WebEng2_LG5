@@ -51,19 +51,19 @@ export class ManageListDataService {
 
   constructor(private http: HttpClient) {
   }
-
+  //Post-call um eine Liste zu erstellen
   createList(data: any): Observable<any> {
     return this.http.post(this.urlCreateList, data);
   }
-
+  //Post-call um alle Listen zu holen
   getLists(data: any): Observable<any> {
     return this.http.post(this.urlGetLists, data);
   }
-
+  //Post-call um Ersteller einer Liste zu bekommen
   getIsCreator(data: any): Observable<any> {
     return this.http.post(this.urlGetIsCreator, data);
   }
-
+  //Post-call um Liste zu löschen
   deleteList(data: any): Observable<any> {
     return this.http.post(this.urlDeleteList, data);
   }

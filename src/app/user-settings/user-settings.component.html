@@ -5,7 +5,7 @@
       <div class="card border-0 shadow rounded-3 my-5">
         <i class="bi bi-gear-fill text-center" style="margin-top: 20px; font-size: 50px"></i>
         <div class="card-body p-4 p-sm-5" style="margin-top: -40px">
-          <form #updateForm="ngForm" (ngSubmit)="updateUser(updateForm)">
+          <form #updateForm="ngForm" (ngSubmit)="goForUpdateUser(updateForm); clearUserUpdateForm(updateForm)">
             <input type="text" readonly class="form-control-plaintext" value="Your Firstname: {{manageUserData.firstname}}">
             <div class="form-floating mb-3">
               <input autocomplete="off" type="text" class="form-control" name="firstname" id="firstname"
