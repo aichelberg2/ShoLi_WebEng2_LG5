@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
-INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(32,'familie',1,'chris'),(33,'jkgsdcuzwd',0,'lucario1234'),(35,'Test',0,'lucario1234');
+INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(33,'jkgsdcuzwd',0,'lucario1234'),(35,'Test',0,'lucario1234'),(38,'familie',1,'chris'),(39,'dddd',0,'lucario1234');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (16,26,0,1.34),(20,26,0,0.99),(34,26,0,0.78),(35,26,0,0.32);
+INSERT INTO `listproduct` VALUES (16,26,0,1.34),(20,26,0,0.99),(34,26,0,0.78),(35,26,0,0.32),(35,38,0,0.32),(34,38,0,0.78);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `product` (
   `price` decimal(10,2) NOT NULL,
   `Category` varchar(30) NOT NULL,
   PRIMARY KEY (`pr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (16,'Erbeeren',3.99,'Fruits & Vegetables'),(17,'Tiefkühlpizza Salami',2.69,'Deep freeze'),(18,'Joghurt',0.99,'Freshness and cooling'),(19,'Milch',1.29,'Freshness and cooling'),(20,'Salat',0.99,'Fruits & Vegetables'),(21,'Reis',1.29,'Food'),(22,'Chips',1.29,'Sweet & Salty'),(23,'Flips',0.99,'Sweet & Salty'),(24,'Kamillentee',2.99,'Coffee, Tea & Cocoa'),(25,'Cola',1.29,'Beverages'),(26,'Fanta',1.29,'Beverages'),(27,'Wodka',8.99,'Wine, spirits & luxury food'),(28,'Kaviar',11.99,'Wine, spirits & luxury food'),(29,'Deo',2.69,'Drugstore & Cosmetics'),(30,'Abdeckstift',0.99,'Drugstore & Cosmetics'),(31,'Babypuder',2.99,'Baby & Child'),(32,'Spülmittel',1.99,'Kitchen & Household'),(33,'Katzenfutter',0.39,'Pet Supplies'),(34,'Bananen',0.78,'Fruits & Vegetables'),(35,'Kiwi',0.32,'Fruits & Vegetables'),(36,'Blumenkohl',0.78,'Fruits & Vegetables'),(37,'Kokosnuss',1.29,'Fruits & Vegetables'),(38,'erdbeeren',4.30,'Fruits & Vegetables');
+INSERT INTO `product` VALUES (16,'Erdbeeren',3.99,'Fruits & Vegetables'),(17,'Tiefkühlpizza Salami',2.69,'Deep freeze'),(18,'Joghurt',0.99,'Freshness and cooling'),(19,'Milch',1.29,'Freshness and cooling'),(20,'Salat',0.99,'Fruits & Vegetables'),(21,'Reis',1.29,'Food'),(22,'Chips',1.29,'Sweet & Salty'),(23,'Flips',0.99,'Sweet & Salty'),(24,'Kamillentee',2.99,'Coffee, Tea & Cocoa'),(25,'Cola',1.29,'Beverages'),(26,'Fanta',1.29,'Beverages'),(27,'Wodka',8.99,'Wine, spirits & luxury food'),(28,'Kaviar',11.99,'Wine, spirits & luxury food'),(29,'Deo',2.69,'Drugstore & Cosmetics'),(30,'Abdeckstift',0.99,'Drugstore & Cosmetics'),(31,'Babypuder',2.99,'Baby & Child'),(32,'Spülmittel',1.99,'Kitchen & Household'),(33,'Katzenfutter',0.39,'Pet Supplies'),(34,'Bananen',0.78,'Fruits & Vegetables'),(35,'Kiwi',0.32,'Fruits & Vegetables'),(36,'Blumenkohl',0.78,'Fruits & Vegetables'),(37,'Kokosnuss',1.29,'Fruits & Vegetables');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
-INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('chris',32),('elli',32),('Jefi',32),('KindOfGod',32),('l3roit',32),('lucario1234',32),('tomisboy',32),('lucario1234',33),('lucario1234',35);
+INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('lucario1234',33),('lucario1234',35),('chris',38),('chris',38),('elli',38),('Jefi',38),('KindOfGod',38),('l3roit',38),('lucario',38),('lucario1234',38),('tomisboy',38),('lucario1234',39);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-04 15:00:01
+-- Dump completed on 2022-06-05 12:00:01
