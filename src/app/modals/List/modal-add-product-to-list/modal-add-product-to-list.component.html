@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal_addProduct" aria-labelledby="modal-title">
+<div class="modal fade" id="modal_addProduct">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,7 +20,7 @@
       </div>
       <div *ngIf="manageListData.isProductKategorieChoosed">
         <div class="modal-body">
-          <div id="selectDiv">
+          <div id="divProducts">
             <mat-form-field>
               <mat-label>Products</mat-label>
               <mat-select [formControl]="manageListData.myControl" [(value)]="manageListData.selectedProducts" multiple>
