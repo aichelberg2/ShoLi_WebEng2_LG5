@@ -1,3 +1,1 @@
-# ShoLi_WebEng2_LG5
-An assistant for your daily shopping life!
-
+People who become students at a university or similar institutions, often get a problem with time management. In such a situation, the last thing a person would want is to invest time into organizing shopping with their fellow roommates, friends or family. Through this and many other use cases emerged the motivation for this writing of developing an assistant for the shopping life of people. This assistant is meant to help people by providing the option to create shopping lists and share those lists with others. People can interact with the shopping assistant through a website, an app on a mobile advice and with an Alexa device. 
