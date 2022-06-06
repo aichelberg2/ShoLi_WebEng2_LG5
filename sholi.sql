@@ -30,7 +30,7 @@ CREATE TABLE `list` (
   PRIMARY KEY (`list_id`),
   KEY `creator` (`creator`),
   CONSTRAINT `list_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `list` (
 
 LOCK TABLES `list` WRITE;
 /*!40000 ALTER TABLE `list` DISABLE KEYS */;
-INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(33,'jkgsdcuzwd',0,'lucario1234'),(35,'Test',0,'lucario1234'),(38,'familie',1,'chris'),(39,'dddd',0,'lucario1234');
+INSERT INTO `list` VALUES (26,'Weihnachten',0,'chris'),(27,'Sommer',0,'chris'),(28,'Urlaub',0,'chris'),(33,'jkgsdcuzwd',0,'lucario1234'),(35,'Test',0,'lucario1234'),(38,'familie',1,'chris'),(39,'dddd',0,'lucario1234'),(40,'Testlol',1,'lucario1234');
 /*!40000 ALTER TABLE `list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `listproduct` (
 
 LOCK TABLES `listproduct` WRITE;
 /*!40000 ALTER TABLE `listproduct` DISABLE KEYS */;
-INSERT INTO `listproduct` VALUES (16,26,0,1.34),(20,26,0,0.99),(34,26,0,0.78),(35,26,0,0.32),(35,38,0,0.32),(34,38,0,0.78);
+INSERT INTO `listproduct` VALUES (16,26,0,1.34),(20,26,0,0.99),(34,26,0,0.78),(35,26,0,0.32),(35,38,0,0.32),(34,38,0,0.78),(20,40,1,0.99),(34,40,0,0.78);
 /*!40000 ALTER TABLE `listproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ CREATE TABLE `userlist` (
 
 LOCK TABLES `userlist` WRITE;
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
-INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('lucario1234',33),('lucario1234',35),('chris',38),('chris',38),('elli',38),('Jefi',38),('KindOfGod',38),('l3roit',38),('lucario',38),('lucario1234',38),('tomisboy',38),('lucario1234',39);
+INSERT INTO `userlist` VALUES ('chris',26),('chris',27),('chris',28),('lucario1234',33),('lucario1234',35),('chris',38),('chris',38),('elli',38),('Jefi',38),('KindOfGod',38),('l3roit',38),('lucario',38),('lucario1234',38),('tomisboy',38),('lucario1234',39),('lucario1234',40),('chris',40);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-05 12:00:01
+-- Dump completed on 2022-06-06  0:00:01
